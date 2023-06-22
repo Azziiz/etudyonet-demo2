@@ -1,0 +1,98 @@
+:root{
+    --orange: #FF8C00;
+    --grey: #333C41;
+}
+
+body{
+    background-color: #F1F1F1;
+    font-family: 'Dancing Script', cursive;
+    font-family: 'Poppins', sans-serif;
+}
+
+.home{
+    justify-content: center;
+    margin-top: 30px;
+    margin-left: 90px;
+    margin-right: 70px;
+    margin-bottom: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+input {
+    border: none;
+    background-color: white;
+    border-radius: none;
+    width: 360px;
+    padding: 17px 20px 17px 20px ;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+    outline: none;
+}
+
+button{
+    border: none;
+    width: 360px;
+    height: 55px;
+    background-color: var(--orange);
+    color: white;
+    font-weight: 500;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    transition: 0.2s;
+}
+
+button:hover{
+    transform: scale(1.02);
+    
+    
+}
+
+.link{
+    color: var(--orange);
+    text-decoration: none;
+}
+
+p{
+    color: var(--grey);
+}
+
+
+.banner{
+    margin-top: 70px;
+    width: 100%;
+    aspect-ratio: 3;
+    
+}
+
+textarea{
+    resize: none;
+    width: 360px;
+    height: 150px;
+    padding: 20px;
+    border-radius: 0;
+    border: none;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1); 
+    outline: none;
+    
+    
+}
+
+textarea:valid,
+textarea:focus{
+    border: 1px solid var(--orange);
+    color: var(--grey);
+    font-weight: 400;
+    font-family: Poppins;
+    font-size: 16px;
+}
+
+input:valid,
+input:focus{
+    border: 1px solid var(--orange);
+    color: var(--grey);
+    font-weight: 400;
+    font-family: Poppins;
+    font-size: 16px;
+}
