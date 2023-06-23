@@ -176,7 +176,7 @@ const renderOffers = offers?.map(offer =>
 
           </div>
           <div className='offer-box'>
-            <input type="text" onChange={(e) => {setOfferPrice(e.target.value)}} pattern='\[0-9]' maxLength={7} min='0'required/>
+            <input type="text" onChange={(e) => {setOfferPrice(e.target.value)}} pattern='[0-9]' maxLength={7} min='0'required/>
             <div className='offer-placeholder'>
               <img src={priceIcon} alt="" />
               <h3>The starting Price</h3>
