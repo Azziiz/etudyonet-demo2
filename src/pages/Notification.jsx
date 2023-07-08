@@ -128,8 +128,7 @@ function Notification() {
                     </div>
                     <div className="thumbs">
                         <i className="fa-sharp fa-regular fa-thumbs-up fa-2xl thumb" onClick={() => {acceptRequest(doc(db, 'requests', `${request.id}`), docId, deals)}}></i>
-                        <i className="fa-sharp fa-regular fa-thumbs-down fa-flip-horizontal fa-2xl
-                        74 onClick={() => {setIsRefused(true)}} id='thumb-down'></i>
+                        <i className="fa-sharp fa-regular fa-thumbs-down fa-flip-horizontal fa-2xl" onClick={() => {setIsRefused(true)}} id='thumb-down'></i>
                     </div>
                     {isRefused &&
                         <form>

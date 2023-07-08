@@ -72,7 +72,7 @@ function Home() {
       <div className='offer-top'>
         <img src={offer.data().photoURl ? offer.data().photoURl : avatar} alt="" />
         <div>
-          <h3>{offer?.data().name}</h3>
+          <h3>{offer.data().name}</h3>
           <div className='phoneNumber'>
             <h2>+216</h2>
             <h2>{offer.data().phoneNumber.substr(0, 2)}</h2>
