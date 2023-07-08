@@ -29,7 +29,7 @@ function User() {
   const cr = collection(db, 'users')
   const filtre = query(cr, where('id', '==',`${id}`))
   const filtre2 = query(collection(db, 'offers'), where('authorId', '==',`${id}`))
-  const myRequest = query(collection(db, 'requests'), where('resId', '==', `${id}`))
+  const myRequest = query(collection(db, 'requests'), (where('resId', '==', `${id}`), where('senderId', '==', `${auth?.currentUser?.uid}`)))
   const reviewFilter = query(collection(db, 'reviews'), (where('resId', '==',`${id}`), where('content', '!=', null)))
 
   const [isFirstReview, setIsFirstReview] = useState(true)
