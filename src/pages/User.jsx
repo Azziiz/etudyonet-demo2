@@ -30,7 +30,7 @@ function User() {
   const filtre = query(cr, where('id', '==',`${id}`))
   const filtre2 = query(collection(db, 'offers'), where('authorId', '==',`${id}`))
   const myRequest = query(collection(db, 'requests'), (where('resId', '==', `${id}`), where('senderId', '==', `${auth?.currentUser?.uid}`)))
-  const reviewFilter = query(collection(db, 'reviews'), (where('resId', '==',`${id}`), where('content', '!=', null)))
+  const reviewFilter = query(collection(db, 'reviews'), where('resId', '==',`${id}`), where('content', '!=', null))
 
   const [isFirstReview, setIsFirstReview] = useState(true)
   const [reviewId, setReviewId] = useState()
@@ -132,9 +132,9 @@ const renderOffers = offers?.map(offer =>
           <h3>{User?.name}</h3>
           <div className='phoneNumber'>
             <h2>+216</h2>
-            <h2>{User?.phoneNumber.substr(0, 2)}</h2>
-            <h2>{User?.phoneNumber.substr(2, 3)}</h2>
-            <h2>{User?.phoneNumber.substr(5, 5)}</h2>
+            <h2>{User?.phoneNumber?.substr(0, 2)}</h2>
+            <h2>{User?.phoneNumber?.substr(2, 3)}</h2>
+            <h2>{User?.phoneNumber?.substr(5, 5)}</h2>
           </div>
         </div>
       </div>
@@ -312,7 +312,7 @@ const renderReviews = reviews?.map(review =>
       </div>
       <div className="reviews">
         <div className='reviews-title'>
-        <span class="material-symbols-outlined">history_edu</span>
+        <span className="material-symbols-outlined">history_edu</span>
         <h2>Reviews: ({reviews?.length})</h2>
         </div>
         <div className="reviews-content">

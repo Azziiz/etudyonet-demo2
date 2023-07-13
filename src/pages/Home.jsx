@@ -10,7 +10,8 @@ import {
 } from 'firebase/firestore'
 import { useEffect } from 'react'
 import { UserAuth } from '../context/AuthContext'
-
+import banner from '../assets/banner.jpg'
+import { useNavigate} from 'react-router-dom'
 
 
 
@@ -20,6 +21,7 @@ function Home() {
   const {user} = UserAuth()
   const crOF = collection(db, 'offers')
   const [value, setValue] = useState()
+  const navigate = useNavigate()
 
   useEffect(() => {
     onSnapshot(crOF, (data) => {
@@ -53,16 +55,21 @@ function Home() {
 
 
   return (
-    
-    <div className='home'>
-      <Navbar/>
+    <div>
+      <div className='top'>
+      <img src={banner} alt="banner" className='banner'/>
       <div className='search-area'>
         <input type="text" onChange={(e) => {setValue(e.target.value)}} id='searchbar'/>
-        <div id='cancel'>
-          <span class="material-symbols-outlined"onClick={handleCancel} >close</span>
+        <div id='cancel' >
+          {value && <span className="material-symbols-outlined"onClick={handleCancel} >close</span>}
+          
         </div>
         <button onClick={handleSearch}>search</button>
       </div>
+      </div>
+    <div className='home'>
+      <Navbar/>
+      
   
 
 {
@@ -85,7 +92,7 @@ function Home() {
         <h3>{offer.data().content}</h3> 
       </div>
       <div className='offer-footer'>
-          <a href={`/users/${offer.data().authorId}`}><button>See profile</button></a> 
+          <button onClick={() => {navigate(`/users/${offer.data().authorId}`)}}>See profile</button>
           <h4>Starting at <span>{offer.data().price}Dt</span></h4>
       </div>
     </div> 
@@ -97,6 +104,8 @@ function Home() {
 }
   
     </div>
+    </div>
+    
   )
 }
 

@@ -25,7 +25,7 @@ function App() {
       
         <Routes>
           
-          <Route path='/' element={<ProtectedRoute><img src={banner} alt="banner" className='banner'/><Home/></ProtectedRoute>}/>
+          <Route path='/' element={<ProtectedRoute><Home/></ProtectedRoute>}/>
           <Route path='/profile' element={<ProtectedRoute><img src={banner} alt="banner" className='banner'/><Profile/></ProtectedRoute>}/>
           <Route path='/users/:id' element={<ProtectedRoute><img src={banner} alt="banner" className='banner'/><User/></ProtectedRoute>}/>
           <Route path='/notifications' element={<ProtectedRoute><Notification /></ProtectedRoute>}/>

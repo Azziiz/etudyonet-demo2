@@ -225,9 +225,6 @@
    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
    justify-content: space-around;
    align-items: center;
-   
-
-
 }
 
  .offer-top{
@@ -305,6 +302,7 @@
     font-size: 16px;
     font-weight: 400;
     color: var(--grey);
+    max-width: 100px;
  }
 
  .offer-footer button {
@@ -315,6 +313,7 @@
     background-color: var(--orange);
     font-size: 16px;
     font-weight: 400;
+    padding: 5px;
 }
 
 .offer-footer {
@@ -828,4 +827,248 @@ button:disabled{
 
 .profile-rate i{
    color: var(--orange);
+}
+
+@media only screen and (max-width: 1100px) {
+   .profile{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 115px;
+   }
+   .info-box{
+      width: auto;
+   }
+
+   .offers-display{
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+ }
+
+    .offers-section-title{
+      width: 360px;
+      align-self: baseline;
+ }
+
+ .offers-section{
+   align-self: center;
+   display: flex;
+   flex-direction: column;
+ }
+ 
+ .reviews{
+   margin-top: 0px;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   gap: 100px;
+}
+
+.reviews-title{
+   align-self: baseline;
+   width: 360px;
+}
+
+.reviews-content{
+   align-self: center;
+   display: flex;
+   flex-direction: column;
+}
+
+.review{
+   height: 280px;
+}
+
+.review .deals{
+   top: -60px;
+}
+
+.review .senderName{
+   top: -60px;
+}
+
+.review .review-content{
+   color: var(--grey);
+   font-weight: 400;
+   font-size: 16px;
+   position: relative;
+   top: -60px;
+   
+}
+
+.stars{
+   top: -60px;
+}
+
+}
+
+
+@media only screen and (max-width: 400px) {
+   #letter-counter{
+      width: auto;
+   }
+   .profile{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 115px;
+      padding: 20px;
+   }
+   .info-box{
+      width: auto;
+   }
+
+   .offers-display{
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+ }
+
+    .offers-section-title{
+      width: auto;
+      align-self: center;
+ }
+
+ .offers-section{
+   align-self: center;
+   display: flex;
+   flex-direction: column;
+ }
+ 
+ .reviews{
+   margin-top: 0px;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   gap: 100px;
+}
+
+.reviews-title{
+   align-self: center;
+   width: auto;
+}
+
+.reviews-content{
+   align-self: center;
+   display: flex;
+   flex-direction: column;
+}
+
+.review{
+   height: 280px;
+   width: 300px;
+}
+
+.review .deals{
+   top: -60px;
+}
+
+.review .senderName{
+   top: -60px;
+}
+
+.review .review-content{
+   color: var(--grey);
+   font-weight: 400;
+   font-size: 14px;
+   position: relative;
+   top: -60px;
+   
+}
+
+.stars{
+   top: -60px;
+}
+
+.fields {
+   width: 300px;
+}
+
+
+
+.bio{
+   width: 300px;
+}
+
+.offer-form{
+   width: 300px;
+   padding: 0;
+   
+}
+
+.offer-form * {
+   width: 300px;
+   font-size: 14px;
+}
+.offer-box button{
+   width: 300px;
+}
+
+.offer-box .offer-placeholder{
+   width: 300px;
+}
+
+.offer-box .offer-placeholder h3{
+   font-weight: 400;
+   font-size: 14px;
+
+}
+
+
+
+.offer-box input:focus ~ .offer-placeholder,
+.offer-box input:valid ~ .offer-placeholder
+{
+   padding: 0px 10px;
+   width: auto;
+   
+}
+
+.offer-box input:focus ~ .offer-placeholder > img,
+.offer-box input:valid ~ .offer-placeholder > img{
+   width: 15px;
+   height: 15px;
+
+}
+
+.offer-box input:focus ~ .offer-placeholder > h3,
+.offer-box input:valid ~ .offer-placeholder > h3{
+   width: auto;
+   color: var(--orange);
+}
+
+
+.state-section{
+   width: 300px;
+}
+
+.waiting{
+   width: 300px;
+
+}
+
+.waiting h2{
+   font-size: 14px;
+}
+
+.cancel-request{
+   width: 300px;
+}
+
+.refused-state-section{
+   width: 300px;
+}
+.refused{
+   width: 300px;
+}
+
+.message-title{
+   width: 300px;
+}
+
+.profile-button{
+   width: 300px;
+}
+
 }

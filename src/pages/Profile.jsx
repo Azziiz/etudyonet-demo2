@@ -145,7 +145,7 @@ const docRef = doc(db, 'users', `${docId}`)
 
 
 const renderOffers = offers?.map(offer => 
-        <div className='profile-offer'>
+        <div className='profile-offer' key={offer.id}>
             <div className='offer-top'>
               <div className='offer-user-info'>
                 <img src={photoURL} alt="" />
@@ -173,7 +173,7 @@ const renderOffers = offers?.map(offer =>
 
 
   const renderRequests = requests?.map(request => 
-        <div>
+        <div key={request.id}>
           <p>{request.data().content}</p>
           <button onClick={() => {acceptRequest(doc(db, 'requests', `${request.id}`), docId, deals)}}>yes</button>
           <button onClick={() => {setIsRefused(true)}}>no</button>
@@ -187,7 +187,7 @@ const renderOffers = offers?.map(offer =>
   )
 
   const renderReviews = reviews?.map(review => 
-    <div className="review">
+    <div className="review" key={review.id}>
       <img src={review.data().senderPhoto? review.data().senderPhoto : avatar} alt=""/>
       <div className="deals">
         <h3>{review.data().deals}x</h3>
@@ -224,7 +224,7 @@ const renderOffers = offers?.map(offer =>
       <div className="fields">
        <div className='photo-section'>
         <button className='photo-button'>
-          <span class="material-symbols-outlined">edit</span>
+          <span className="material-symbols-outlined">edit</span>
           <input type="file" onChange={handleChange} />
        </button>
        <div className="profile-deals">
@@ -232,7 +232,7 @@ const renderOffers = offers?.map(offer =>
         <h3>{user && deals? deals : "0"}</h3>
       </div>
       <div className="profile-rate">
-        <i class="fa-solid fa-star fa-xl"></i>
+        <i className="fa-solid fa-star fa-xl"></i>
         <h3>{user && (stars/deals)? (stars/deals).toFixed(1) : "0"}</h3>
       </div>
         <img src={photoURL}/>
@@ -241,7 +241,7 @@ const renderOffers = offers?.map(offer =>
        <button hidden={!image} onClick={() => {setLoading(false), window.location.reload(false)}}></button>
         {loading? 
           <button>
-           <i class="fa fa-spinner fa-spin"></i>
+           <i className="fa fa-spinner fa-spin"></i>
           </button> :
           <button disabled={loading || !image} hidden={!image} onClick={handleClick}>upload</button>
         }
@@ -272,7 +272,7 @@ const renderOffers = offers?.map(offer =>
               <img src={priceIcon} alt="" />
               <h3>The starting Price</h3>
             </div>
-            <button type='submit' >Add</button>
+            <button type='submit'>Add</button>
           </div>   
         </form>
         <div className="info-box">
@@ -304,7 +304,7 @@ const renderOffers = offers?.map(offer =>
       </div>
        <div className="reviews">
         <div className='reviews-title'>
-        <span class="material-symbols-outlined">history_edu</span>
+        <span className="material-symbols-outlined">history_edu</span>
         <h2>Reviews: ({reviews?.length})</h2>
         </div>
         <div className="reviews-content">
