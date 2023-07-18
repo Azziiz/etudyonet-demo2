@@ -10,7 +10,7 @@ function Signin() {
     const [error, setError] = useState('')
     const {signIn} = UserAuth()
     const navigate = useNavigate()
-
+    
     const handleSubmit = async(e) => {
         e.preventDefault();
         setError('')
@@ -20,13 +20,17 @@ function Signin() {
         }catch (e) {
             setError(e.message)
             console.log(e.message);
+            
         }
     }
+
+
   return (
     <div className='auth'>
       <form onSubmit={handleSubmit}>
+      {error && <p id='error'>tchu tchu motherfucker</p>}
         <div className='inputBox'>
-            <input onChange={(e) => {setEmail(e.target.value)}} type="email"  id='email' required/>
+            <input onChange={(e) => {setEmail(e.target.value)}}  id='email' pattern='/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g' required/>
             <span>email</span>      
         </div>
         <div className='inputBox'>

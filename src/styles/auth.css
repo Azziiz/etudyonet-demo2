@@ -14,6 +14,7 @@ width: 100dvw;
 display: flex;
 justify-content: center;
 align-items: center;
+flex-direction: column;
 
 }
 
@@ -33,6 +34,10 @@ form {
    width: 380px;
 }
 
+.box{
+   position: relative;
+   width: 380px;
+}
 
 
 .inputBox span {
@@ -46,17 +51,49 @@ form {
    transition: 0.5s;
 }
 
+.box span {
+   position: absolute;
+   left: 0;
+   padding: 15px;
+   pointer-events: none;
+   font-size: 1rem;
+   color: gray;
+   text-transform:  uppercase;
+   transition: 0.5s;
+}
 
-.inputBox input:focus ~ span,
-.inputBox input:valid ~ span
+
+
+.inputBox input:valid ~ span,
+.inputBox input:focus ~ span
 {
    color: orange;
    transform: translateX(10px) translateY(-7px);
    font-size: 0.65rem;
    padding: 0 10px;
    background-color: white;
-   
 }
+
+#error{
+   background-color: lightcoral;
+   width: 360px;
+   height: 50px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   border: 1px solid red;
+}
+
+ 
+.box input:focus ~ span
+{
+   color: orange;
+   transform: translateX(10px) translateY(-7px);
+   font-size: 0.65rem;
+   padding: 0 10px;
+   background-color: white;
+}
+
 
 
 

@@ -9,13 +9,13 @@ header{
     left: 0;
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     transition: 0.5s;
     height: 70px;
     background-color: white;
-    padding-left: 150px;
-    padding-right: 150px;
+
+    
 }
 
 header ul {
@@ -34,8 +34,12 @@ header ul li {
 header ul.middle-section li {
     position: relative; 
     list-style: none;
-    padding: 10px;
     transition: 0.2s;
+ }
+
+ .middle-section {
+    display: flex;
+    gap: 20px;
  }
 
  header ul.middle-section li:hover {
@@ -49,6 +53,8 @@ header ul li {
     text-decoration: none;
     color: var(--grey);  
     cursor: pointer;
+    display: flex;
+
 }
 
 header ul li img {
@@ -96,10 +102,76 @@ header ul li span {
 
 
 
-header ul li span:hover {
-    color: white;
-    background-color: var(--orange);
+header ul li:hover {
+    color: var(--orange);
+
 
 }
 
+.middle-section-icons{
+    display: none;
+}
 
+#home, #about, #contact{
+    color: var(--orange);
+    border-bottom: 1px solid var(--orange);
+    padding: 0;
+}
+
+.user-section{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 25vw;
+    max-width: 200px;
+}
+
+#hey{
+    border-radius: 50%;
+    background-color: var(--orange);
+    height: 15px;
+    width: 15px;
+    padding: 0px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+
+
+@media only screen and (max-width: 700px) {
+    .middle-section{
+        display: none;
+    }
+
+    .middle-section-icons{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        width: 40vw;
+        align-self: center;
+        padding-right: 5px;
+        padding-left: 5px;
+        height: 90%;
+    }
+
+
+
+    #logo h2{
+        display: none;
+    }
+
+    #logo{
+        width: 10vw;
+    }
+
+    .navbar img{
+        width: 35px;
+        height: 35px;
+        margin: 5px;
+    }
+}

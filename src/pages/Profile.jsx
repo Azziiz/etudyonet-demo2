@@ -44,11 +44,12 @@ import { useNavigate } from 'react-router-dom'
   const filtre = query(cr, where('email', '==',`${user.email}`))
   const offerFiltre = query(collection(db, 'offers'), where('authorId', '==',`${auth.currentUser?.uid}`))
   const requestFilter = query(collection(db, 'requests'), where('resId', '==', `${auth.currentUser?.uid}`), where('state', '==', 'waiting'))
-  const reviewFilter = query(collection(db, 'reviews'), where('resId', '==',`${auth.currentUser?.uid}`))
+  const reviewFilter = query(collection(db, 'reviews'), where('resId', '==',`${auth?.currentUser?.uid}`))
   const [isRefused, setIsRefused] = useState()
   const [message, setMessage] = useState()
   const [deals, setDeals] = useState()
   const [stars, setStars] = useState()
+  const [rNum, setRNum] = useState(0)
 
 
 
@@ -74,10 +75,17 @@ import { useNavigate } from 'react-router-dom'
 
 
 useEffect(() => {
-  onSnapshot((reviewFilter, query(collection(db, 'reviews'), where('content', '!=', null))), (data) => {
+  onSnapshot((reviewFilter), (data) => {
     setReviews(data.docs)
   })
 }, [user])
+
+useEffect(() => {
+  setRNum(0)
+  reviews?.forEach(review => {
+    review?.data().content != null && setRNum(num => num + 1)
+  })
+})
  
 useEffect(() => {
   onSnapshot(filtre, (data) => {
@@ -187,6 +195,8 @@ const renderOffers = offers?.map(offer =>
   )
 
   const renderReviews = reviews?.map(review => 
+    review.data().content != null && 
+    
     <div className="review" key={review.id}>
       <img src={review.data().senderPhoto? review.data().senderPhoto : avatar} alt=""/>
       <div className="deals">
@@ -209,11 +219,11 @@ const renderOffers = offers?.map(offer =>
             );
           })}
         </div>
-
+          
     </div>
   )
 
-  
+
 
 
   return (
@@ -305,7 +315,7 @@ const renderOffers = offers?.map(offer =>
        <div className="reviews">
         <div className='reviews-title'>
         <span className="material-symbols-outlined">history_edu</span>
-        <h2>Reviews: ({reviews?.length})</h2>
+        <h2>Reviews: ({rNum})</h2>
         </div>
         <div className="reviews-content">
           {renderReviews}

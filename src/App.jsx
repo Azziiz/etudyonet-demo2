@@ -18,6 +18,8 @@ import { useState } from 'react'
 
 function App() {
 
+  
+
   return (
     <div>
       
@@ -28,7 +30,7 @@ function App() {
           <Route path='/' element={<ProtectedRoute><Home/></ProtectedRoute>}/>
           <Route path='/profile' element={<ProtectedRoute><img src={banner} alt="banner" className='banner'/><Profile/></ProtectedRoute>}/>
           <Route path='/users/:id' element={<ProtectedRoute><img src={banner} alt="banner" className='banner'/><User/></ProtectedRoute>}/>
-          <Route path='/notifications' element={<ProtectedRoute><Notification /></ProtectedRoute>}/>
+          <Route path='/notifications' element={<ProtectedRoute><Notification/></ProtectedRoute>}/>
           <Route path='/signin' element={<UntiProtectedRoute><Signin/></UntiProtectedRoute>}/>
           <Route path='/signup' element={<UntiProtectedRoute><Signup/></UntiProtectedRoute>}/>
           <Route path="*" element={<NotFound/>} />

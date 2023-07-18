@@ -904,7 +904,7 @@ button:disabled{
 }
 
 
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 500px) {
    #letter-counter{
       width: auto;
    }
@@ -1070,5 +1070,34 @@ button:disabled{
 .profile-button{
    width: 300px;
 }
+
+.accept-state-section{
+   width: 300px;
+}
+
+.accept{
+   width: 300px;
+}
+
+.accept-state-section .see-more{
+   width: 300px;
+}
+
+
+
+.notification{
+   padding: 0%;
+    width: 100%;
+    height: 100dvh;
+    margin-top: 20px;
+    margin-bottom: 100px;
+
+}
+
+.profile-deals, .profile-rate{
+   left: 105%;
+   font-size: 14px;
+}
+
 
 }

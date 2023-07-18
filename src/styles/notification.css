@@ -39,6 +39,7 @@ body{
     flex-direction: column;
     align-items: center;
     width: 500px;
+    min-width: 300px;
 
 }
 
@@ -111,6 +112,7 @@ body{
     flex-direction: column;
     align-items: center;
     width: 500px;
+    min-width: 300px;
 }
 
 
@@ -188,4 +190,44 @@ body{
 
 #thumb-down:hover{
     transform: scale(1.05);
+}
+
+
+
+
+
+ 
+@media only screen and (max-width: 500px) {
+    .notification{
+        padding: 2%;
+         width: 100%;
+         height: 100dvh;
+         margin-top: 20px;
+         margin-bottom: 100px;
+         display: flex;
+         flex-direction: column;
+     }
+
+
+
+     .notification h5 {
+        width: 300px;
+     }
+
+     .noti-content{
+        width: 300px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0;
+        align-self: center;
+     }
+
+     .sent{
+        width: 300px;
+     }
+
+     .received{
+        width: 300px;
+     }
 }

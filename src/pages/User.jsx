@@ -29,8 +29,8 @@ function User() {
   const cr = collection(db, 'users')
   const filtre = query(cr, where('id', '==',`${id}`))
   const filtre2 = query(collection(db, 'offers'), where('authorId', '==',`${id}`))
-  const myRequest = query(collection(db, 'requests'), (where('resId', '==', `${id}`), where('senderId', '==', `${auth?.currentUser?.uid}`)))
-  const reviewFilter = query(collection(db, 'reviews'), where('resId', '==',`${id}`), where('content', '!=', null))
+  const myRequest = query(collection(db, 'requests'), where('resId', '==', `${id}`), where('senderId', '==', `${auth?.currentUser?.uid}`))
+  const reviewFilter = query(collection(db, 'reviews'), where('resId', '==',`${id}`))
 
   const [isFirstReview, setIsFirstReview] = useState(true)
   const [reviewId, setReviewId] = useState()
@@ -39,7 +39,7 @@ function User() {
   const [rri, setRri] = useState()
   const [reviewContent, setReviewContent] = useState()
   const [reviewRate, setReviewRate] = useState()
-  const [reviews, setReviews] = useState()
+  const [reviews, setReviews] = useState([])
   const [requestMessage, setRequestMessage] = useState()
   const [hover, setHover] = useState(null);
   const [stars, setStars] = useState()
@@ -54,11 +54,13 @@ function User() {
   },  [user])
 
   useEffect(() => {
-    onSnapshot(myRequest, (data) => {
+    onSnapshot(collection(db, 'requests'), (data) => {
       data.docs.forEach(doc => {
-        setRequestState(doc.data().state)
-        setRequestId(doc.id)
-        setRequestMessage(doc.data().message)
+        if(doc.data().resId == id && doc.data().senderId == auth?.currentUser?.uid) {
+          setRequestState(doc.data().state)
+          setRequestId(doc.id)
+          setRequestMessage(doc.data().message)
+        }
       }
           
         )
@@ -81,10 +83,11 @@ function User() {
   useEffect(() => {
     onSnapshot((reviewFilter), (data) => {
       setReviews(data.docs)
+      
     })
   },  [user])
-
-
+console.log(reviews)
+  
 useEffect(() => {
   if (auth.currentUser && id == auth.currentUser.uid) {
     window.location.href = '/profile'
@@ -149,30 +152,35 @@ const renderOffers = offers?.map(offer =>
 
 
 const renderReviews = reviews?.map(review => 
-    <div className="review">
-      <img src={review.data().senderPhoto? review.data().senderPhoto : avatar} alt=""/>
-      <div className="deals">
-        <h3>{review.data().deals}x</h3>
-        <i className="fa-regular fa-handshake fa-xl" ></i>
-      </div>
-      <h2 className="senderName">{review.data().senderName}</h2>
-      <h2 className="review-content">{review.data().content}</h2>
-      <div className='stars'>
-          {[...Array(5)].map((star, index) => {    
-            const currentRating = index + 1;
-            return(
-              <label>
-                <FaStar 
-                  className='star' 
-                  size={25} 
-                  color={currentRating <= review.data().rate ? "#ffc107" : "#e4e5e9"}
-                />
-              </label>
-            );
-          })}
+  review.data().content != null &&
+    
+      <div className="review">
+        <img src={review.data().senderPhoto? review.data().senderPhoto : avatar} alt=""/>
+        <div className="deals">
+          <h3>{review.data().deals}x</h3>
+          <i className="fa-regular fa-handshake fa-xl" ></i>
         </div>
+        <h2 className="senderName">{review.data().senderName}</h2>
+        <h2 className="review-content">{review.data().content}</h2>
+        <div className='stars'>
+            {[...Array(5)].map((star, index) => {    
+              const currentRating = index + 1;
+              return(
+                <label>
+                  <FaStar 
+                    className='star' 
+                    size={25} 
+                    color={currentRating <= review.data().rate ? "#ffc107" : "#e4e5e9"}
+                  />
+                </label>
+              );
+            })}
+          </div>
+  
+      </div>
 
-    </div>
+    
+  
   )
 
 
@@ -216,8 +224,9 @@ const renderReviews = reviews?.map(review =>
           <h2>Your Request Has Been Sent. Waiting For {firstName}’s Response</h2>
         </div>
         <div className='cancel-request' onClick={() => {
+          deleteRequest(doc(db, 'requests', `${requestId}`))
           window.location.reload(false)
-          deleteRequest(doc(db, 'requests', `${requestId}`))}}>
+          }}>
           <span class="material-symbols-outlined">speaker_notes_off</span>
           <h2>Cancel request</h2>
         </div>

@@ -23,35 +23,33 @@ function Notification() {
 
 
     useEffect(() => {
+
         onSnapshot((query(collection(db, 'requests'), where('senderId', '==', `${auth.currentUser?.uid}`))), (data) => {
             setRequestsS(data.docs)
-            
         })
-    }, [user])
 
-    useEffect(() => {
         onSnapshot((query(collection(db, 'requests'),where('state', '==', 'waiting'), where('resId', '==', `${auth.currentUser?.uid}`))), (data) => {
             setRequestsR(data.docs)
-            
         })
+
+        onSnapshot(query(collection(db, 'users'), where('id', '==', `${auth.currentUser?.uid}`)), (data) => {
+            data.docs.forEach((doc) => {
+              setDocId(doc.id)
+              setDeals(doc.data().deals)
+        
+          })})
+
+
     }, [user])
 
 
-    useEffect(() => {
-        onSnapshot(query(collection(db, 'users'), where('id', '==', `${auth.currentUser?.uid}`)), (data) => {
-          data.docs.forEach((doc) => {
-            setDocId(doc.id)
-            setDeals(doc.data().deals)
-      
-        })})
-        
-      }, [user])
+
+    
     
 
     const renderRequestsS = requestsS?.map(request => 
         
         { 
-
             if(request.data().state == 'waiting') {
                 return(
                     <div className='state-section' key={request.id}>
@@ -60,7 +58,6 @@ function Notification() {
                     <h2>Your Request Has Been Sent. Waiting For {request.data().resName?.split(' ')[0]}’s Response</h2>
                 </div>
                 <div className='cancel-request' onClick={() => {
-                    window.location.reload(false)
                     deleteRequest(doc(db, 'requests', `${request.id}`))}}>
                     <span className="material-symbols-outlined">speaker_notes_off</span>
                     <h2>Cancel request</h2>
@@ -114,6 +111,7 @@ function Notification() {
     const renderRequestR = requestsR?.map(request => 
         
         {
+           
             return(
                 <div className='requestR'>
                     <div className='request-content'>

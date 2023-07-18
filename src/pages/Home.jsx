@@ -32,10 +32,16 @@ function Home() {
  
 
   const handleSearch = () => {
-    onSnapshot(value? query(collection(db, 'offers'), where('name', '==', `${value}`)) : crOF, (data) => {
-      setOffers(data.docs)
-      value && scrollTo(0, 400)
-      
+    onSnapshot(crOF, (data) => {
+      setOffers(
+        data.docs.filter(doc => {
+          if(doc.data().name?.toLowerCase().includes(value?.toLowerCase()) || doc.data().content?.toLowerCase().includes(value?.toLowerCase()) ) {
+            return doc
+          }
+        })
+
+      )
+ 
   })
   }
 

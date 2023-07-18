@@ -45,7 +45,7 @@ function Signup() {
             <span>username</span>
         </div>
         <div className='inputBox'>
-            <input onChange={(e) => {setEmail(e.target.value)}} type="email"  required/>
+            <input onChange={(e) => {setEmail(e.target.value)}} pattern='/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g' required/>
             <span>Email</span>
         </div>
         <div className='inputBox'>
@@ -53,18 +53,18 @@ function Signup() {
             <span>Password</span>
         </div >
         <div className='inputBox'>
-            <input onChange={(e) => {setBio(e.target.value)}} type="text"  required/>
+            <input onChange={(e) => {setBio(e.target.value)}} type="text" required/>
             <span>Bio</span>
         </div>
-        <div className='inputBox'>
+        <div className='box'>
             <input onChange={(e) => {setMessanger(e.target.value)}} type="text" required/>
             <span>messanger</span>
         </div>
-        <div className='inputBox'>
+        <div className='box'>
             <input onChange={(e) => {setInstagram(e.target.value)}} type="text" required/>
             <span>instagram</span>
         </div>
-        <div className='inputBox'>
+        <div className='box'>
             <input onChange={(e) => {setPhoneNumber(e.target.value)}} type="tel" required/>
             <span>Phone number</span>
         </div>
