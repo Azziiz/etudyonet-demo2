@@ -292,20 +292,25 @@
     color: var(--grey);
  }
 
- .offer-footer span{
+ .home .offer-footer span{
     color: var(--orange);
     font-weight: 700;
     font-size: 16px;
+    width: 70px;
+    overflow: hidden;
  }
 
- .offer-footer h4{
-    font-size: 16px;
-    font-weight: 400;
-    color: var(--grey);
-    max-width: 100px;
+ .home .offer-footer h4{
+   display: flex;
+   font-size: 16px;
+   font-weight: 400;
+   color: var(--grey);
+   width: 160px;
+   gap: 2px;
+   flex-wrap: nowrap;
  }
 
- .offer-footer button {
+ .home .offer-footer button {
     text-decoration: none;
     color:white;
     width: 110px;
@@ -313,17 +318,49 @@
     background-color: var(--orange);
     font-size: 16px;
     font-weight: 400;
-    padding: 5px;
+
 }
 
-.offer-footer {
+.home .offer-footer {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     flex-wrap: nowrap;
-    max-width: 250px;
-    overflow: hidden;
+    justify-content: space-between;
+    padding: 5px;
+    align-self: flex-start;
     gap: 5px;
     
+}
+
+.offer-footer span{
+   color: var(--orange);
+   font-weight: 700;
+   font-size: 16px;
+   width: 70px;
+   overflow: hidden;
+}
+
+.offer-footer h4{
+  display: flex;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--grey);
+  width: 100%;
+  gap: 2px;
+  flex-wrap: nowrap;
+}
+
+
+
+.offer-footer {
+   display: flex;
+   align-items: flex-end;
+   flex-wrap: nowrap;
+   justify-content: space-between;
+   padding: 5px;
+   align-self: center;
+   gap: 5px;
+   
 }
 
 .info-box{

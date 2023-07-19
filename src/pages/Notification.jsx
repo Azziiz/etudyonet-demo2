@@ -10,6 +10,8 @@ import { useNavigate } from 'react-router-dom'
 import'../styles/notification.css'
 import priceIcon from '../assets/price.png'
 import offerIcon from '../assets/offer.png'
+import { PiThumbsUpThin} from "react-icons/pi"
+import { PiThumbsDownThin } from "react-icons/pi"
 
 function Notification() {
     const {user, deleteRequest, acceptRequest, refuseRequest} = UserAuth()
@@ -117,16 +119,16 @@ function Notification() {
                     <div className='request-content'>
                         <div className='the-content'>
                             <img src={offerIcon} alt="" />
-                            <p>{request.data().content}</p>
+                            <p><span>{request.data().senderName} Wants : </span>{request.data().content}</p>
                         </div>
                         <div className='the-content'>
                             <img src={priceIcon} alt="" />
-                            <p>{request.data().price}</p>
+                            <p>{request.data().price}<span id='dt'>Dt</span></p>
                         </div>
                     </div>
                     <div className="thumbs">
-                        <i className="fa-sharp fa-regular fa-thumbs-up fa-2xl thumb" onClick={() => {acceptRequest(doc(db, 'requests', `${request.id}`), docId, deals)}}></i>
-                        <i className="fa-sharp fa-regular fa-thumbs-down fa-flip-horizontal fa-2xl" onClick={() => {setIsRefused(true)}} id='thumb-down'></i>
+                        <PiThumbsUpThin onClick={() => {acceptRequest(doc(db, 'requests', `${request.id}`), docId, deals)}} size='30px' className='thumb'/>
+                        <PiThumbsDownThin onClick={() => {setIsRefused(true)}} id='thumb-down' size='30px' className='thumb'/>
                     </div>
                     {isRefused &&
                         <form>

@@ -67,12 +67,12 @@ useEffect(() => {
       </div>
       <ul className='middle-section'>
             <li id={window.location.pathname == '/' ? 'home' : 'undefined'} onClick={() => {navigate('/'), scrollTo(0, 0)}} >home</li>
-            <li id={window.location.pathname == '/about' ? 'about' : 'undefined'}>about</li>
-            <li id={window.location.pathname == '/contact' ? 'contact' : 'undefined'}>contact</li>
+            <li id={window.location.pathname == '/about' ? 'about' : 'undefined'} onClick={() => {navigate('/about'), scrollTo(0, 0)}}>about</li>
+            <li id={window.location.pathname == '/contact' ? 'contact' : 'undefined'} onClick={() => {navigate('/#'), scrollTo(0, 0)}}>contact</li>
       </ul>
       <ul className='middle-section-icons'>
             <li onClick={() => {navigate('/'), scrollTo(0, 0)}} title='home'><BiHomeAlt size='24px' color={window.location.pathname == '/' ? '#FF8C00' : '#333C41'}/></li>
-            <li onClick={() => {navigate('/#'), scrollTo(0, 0)}} title='about'><AiOutlineQuestion size='20px'/></li>
+            <li onClick={() => {navigate('/about'), scrollTo(0, 0)}} title='about'><AiOutlineQuestion size='20px' color={window.location.pathname == '/about' ? '#FF8C00' : '#333C41'}/></li>
             <li onClick={() => {navigate('/#'), scrollTo(0, 0)}} title='contact'><FiPhoneCall size='24px'/></li>
       </ul>
 

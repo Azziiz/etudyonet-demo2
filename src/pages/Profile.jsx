@@ -62,13 +62,9 @@ import { useNavigate } from 'react-router-dom'
 
  }, [user])
 
- useEffect(() => {
-   onSnapshot((requestFilter), (data) => {
-     setRequests(data.docs)
-    
- })
+
   
-}, [user])
+
 
 
 
@@ -180,19 +176,7 @@ const renderOffers = offers?.map(offer =>
 
 
 
-  const renderRequests = requests?.map(request => 
-        <div key={request.id}>
-          <p>{request.data().content}</p>
-          <button onClick={() => {acceptRequest(doc(db, 'requests', `${request.id}`), docId, deals)}}>yes</button>
-          <button onClick={() => {setIsRefused(true)}}>no</button>
-          {isRefused &&
-            <form>
-              <input type="text" onChange={(e) => {setMessage(e.target.value)}}/>
-              <button onClick={() => {refuseRequest(doc(db, 'requests', `${request.id}`), message, user.displayName)}}></button>
-            </form>
-          }
-        </div>
-  )
+
 
   const renderReviews = reviews?.map(review => 
     review.data().content != null && 
@@ -277,7 +261,7 @@ const renderOffers = offers?.map(offer =>
 
           </div>
           <div className='offer-box'>
-            <input type="number" onChange={(e) => {setOfferPrice(e.target.value)}} pattern="\d*" maxLength="4" min='0' required id='price'/>
+            <input type="text" onChange={(e) => {setOfferPrice(e.target.value)}} pattern="\d*" maxLength="5" min='0' required id='price'/>
             <div className='offer-placeholder'>
               <img src={priceIcon} alt="" />
               <h3>The starting Price</h3>
@@ -309,7 +293,6 @@ const renderOffers = offers?.map(offer =>
         </div>
         <div className='offers-section'>
           {renderOffers}
-          {renderRequests}
         </div>
       </div>
        <div className="reviews">

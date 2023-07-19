@@ -137,8 +137,9 @@ body{
     display: flex;
     flex-direction: column;
     border: 1px solid var(--grey);
-    padding: 60px;
+    padding: 30px;
     width: 400px;
+    margin: 20px;
  }
 
 
@@ -152,11 +153,12 @@ body{
 
 .requestR .thumb:hover{
     transform: scale(1.05);
+
 }
 
 .requestR .request-content{
     align-self: flex-start;
-    margin-right: 50px;
+    margin-right: 20px;
     display: flex;
     flex-direction: column;
     gap: 25px;
@@ -182,14 +184,28 @@ body{
     padding: 0;
 }
 
+.requestR .the-content p span{
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--grey);
+}
+
+.requestR .the-content p #dt{
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--grey);
+    padding-left: 2px;
+}
+
 
 #thumb-down{
     color: var(--grey);
     transition: 0.2s;
+    transform: rotateY(180deg);
 }
 
 #thumb-down:hover{
-    transform: scale(1.05);
+    transform: scale(1.05) rotateY(180deg);
 }
 
 

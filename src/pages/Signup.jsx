@@ -56,15 +56,15 @@ function Signup() {
             <input onChange={(e) => {setBio(e.target.value)}} type="text" required/>
             <span>Bio</span>
         </div>
-        <div className='box'>
+        <div className='inputBox'>
             <input onChange={(e) => {setMessanger(e.target.value)}} type="text" required/>
             <span>messanger</span>
         </div>
-        <div className='box'>
+        <div className='inputBox'>
             <input onChange={(e) => {setInstagram(e.target.value)}} type="text" required/>
             <span>instagram</span>
         </div>
-        <div className='box'>
+        <div className='inputBox'>
             <input onChange={(e) => {setPhoneNumber(e.target.value)}} type="tel" required/>
             <span>Phone number</span>
         </div>

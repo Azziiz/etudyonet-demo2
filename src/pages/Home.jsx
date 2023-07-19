@@ -35,6 +35,9 @@ function Home() {
     onSnapshot(crOF, (data) => {
       setOffers(
         data.docs.filter(doc => {
+          if(!value){
+            return doc
+          }
           if(doc.data().name?.toLowerCase().includes(value?.toLowerCase()) || doc.data().content?.toLowerCase().includes(value?.toLowerCase()) ) {
             return doc
           }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Navigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { doc, collection, query, where, onSnapshot} from 'firebase/firestore'
 import {auth, db} from '../firebase'
 import Navbar from '../components/Navbar'
@@ -44,6 +44,7 @@ function User() {
   const [hover, setHover] = useState(null);
   const [stars, setStars] = useState()
   const [docId, setDocId] = useState()
+  const navigate = useNavigate()
   
   
   useEffect(() => {
@@ -90,7 +91,7 @@ console.log(reviews)
   
 useEffect(() => {
   if (auth.currentUser && id == auth.currentUser.uid) {
-    window.location.href = '/profile'
+    navigate('/profile')
   }
 
 }, [user])
