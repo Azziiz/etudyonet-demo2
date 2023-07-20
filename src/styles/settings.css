@@ -1,0 +1,45 @@
+:root{
+    --orange: #FF8C00;
+    --grey: #333C41;
+ }
+ 
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+ }
+ .settings{
+ height: 100dvh;
+ width: 100dvw;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ flex-direction: column;
+ }
+
+ @media only screen and (max-width: 500px) {
+    .settings{
+        height: 100dvh;
+        width: 90dvw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        }
+
+        .settings .inputBox{
+            width: 280px;
+        }
+
+        .settings .inputBox input{
+            width: 280px;
+        }
+
+        .settings button{
+            width: 280px;
+        }
+
+        .settings form{
+            width: 280px;
+        }
+ }

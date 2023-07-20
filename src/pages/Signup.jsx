@@ -26,7 +26,7 @@ function Signup() {
         try{
              await CreateUser(email, password)
              await setUserName(displayName)
-             await createUserData(displayName, email, bio, messanger, instagram, phoneNumber, avatar)
+             await createUserData(displayName, email, bio, messanger, instagram, phoneNumber, avatar, password)
              navigate('/profile')
 
 

@@ -1138,3 +1138,15 @@ button:disabled{
 
 
 }
+
+.setting{
+   position:absolute;
+   right: 5%;
+   transition: 0.2s;
+   color: var(--grey);
+}
+
+.setting:hover{
+   transform:  scale(1.02);
+   color: var(--orange);
+}

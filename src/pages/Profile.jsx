@@ -20,6 +20,7 @@ import messangerIcon from '../assets/messanger.png'
 import instagramIcon from '../assets/instagram.png'
 import { FaStar } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
+import { MdSettings } from 'react-icons/md'
 
 
 
@@ -50,6 +51,7 @@ import { useNavigate } from 'react-router-dom'
   const [deals, setDeals] = useState()
   const [stars, setStars] = useState()
   const [rNum, setRNum] = useState(0)
+  const navigate = useNavigate()
 
 
 
@@ -214,34 +216,32 @@ const renderOffers = offers?.map(offer =>
     
     <div className='profile'>
       <Navbar/>
-
+      <MdSettings className="setting" size='30px'  onClick={() => {navigate('/settings')}}/>
       <div className="fields">
-       <div className='photo-section'>
-        <button className='photo-button'>
-          <span className="material-symbols-outlined">edit</span>
-          <input type="file" onChange={handleChange} />
-       </button>
-       <div className="profile-deals">
-        <i className="fa-regular fa-handshake fa-xl" ></i>
-        <h3>{user && deals? deals : "0"}</h3>
-      </div>
-      <div className="profile-rate">
-        <i className="fa-solid fa-star fa-xl"></i>
-        <h3>{user && (stars/deals)? (stars/deals).toFixed(1) : "0"}</h3>
-      </div>
-        <img src={photoURL}/>
+        <div className='photo-section'>
+          <button className='photo-button'>
+            <span className="material-symbols-outlined">edit</span>
+            <input type="file" onChange={handleChange} />
+          </button>
+          <div className="profile-deals">
+            <i className="fa-regular fa-handshake fa-xl" ></i>
+            <h3>{user && deals? deals : "0"}</h3>
+          </div>
+          <div className="profile-rate">
+            <i className="fa-solid fa-star fa-xl"></i>
+            <h3>{user && (stars/deals)? (stars/deals).toFixed(1) : "0"}</h3>
+          </div>
+          <img src={photoURL}/>
        </div>
        <div className='photo-buttons'>
-       <button hidden={!image} onClick={() => {setLoading(false), window.location.reload(false)}}></button>
-        {loading? 
-          <button>
-           <i className="fa fa-spinner fa-spin"></i>
-          </button> :
-          <button disabled={loading || !image} hidden={!image} onClick={handleClick}>upload</button>
-        }
+          <button hidden={!image} onClick={() => {setLoading(false), window.location.reload(false)}}></button>
+          {loading? 
+            <button>
+              <i className="fa fa-spinner fa-spin"></i>
+            </button> :
+            <button disabled={loading || !image} hidden={!image} onClick={handleClick}>upload</button>
+          }
        </div>
-
-       
         <h5 className='name'>{user && user.displayName}</h5>
         <div className='phoneNumber'>
           <h2>+216</h2>
@@ -283,8 +283,9 @@ const renderOffers = offers?.map(offer =>
             <h3>{user && instagram}</h3>
           </div>   
         </div>
-        
       </div>
+
+
 
       <div className='offers-display'>
         <div className='offers-section-title'>

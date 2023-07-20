@@ -12,6 +12,7 @@ import banner from './assets/banner.jpg'
 import NotFound from './pages/NotFound'
 import Notification from './pages/Notification'
 import About from './pages/About'
+import Settings from './pages/Settings'
 
 
 import './styles/main.css'
@@ -30,6 +31,7 @@ function App() {
           
           <Route path='/' element={<ProtectedRoute><Home/></ProtectedRoute>}/>
           <Route path='/about' element={<ProtectedRoute><About/></ProtectedRoute>}/>
+          <Route path='/settings' element={<ProtectedRoute><Settings/></ProtectedRoute>}/>
           <Route path='/profile' element={<ProtectedRoute><img src={banner} alt="banner" className='banner'/><Profile/></ProtectedRoute>}/>
           <Route path='/users/:id' element={<ProtectedRoute><img src={banner} alt="banner" className='banner'/><User/></ProtectedRoute>}/>
           <Route path='/notifications' element={<ProtectedRoute><Notification/></ProtectedRoute>}/>

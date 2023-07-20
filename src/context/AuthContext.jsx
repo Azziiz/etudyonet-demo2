@@ -7,6 +7,12 @@ import {
         signOut,
        onAuthStateChanged,
        updateProfile,
+       updateCurrentUser,
+       updateEmail,
+       reauthenticateWithCredential,
+       AuthCredential,
+       EmailAuthProvider,
+       signInWithCredential,
     } from 'firebase/auth'
 import { 
         collection,
@@ -23,6 +29,7 @@ import {
     ref, uploadBytes
 } from "firebase/storage"
 import { useNavigate } from "react-router-dom";
+import { async } from "@firebase/util";
 
 const UserContext = createContext();
 
@@ -33,7 +40,7 @@ export const AuthContextProvider = ({children}) => {
     const crOF = collection(db, 'offers')
     const crR = collection(db, 'requests')
     const Filtre = query(collection(db, 'offers'), where('authorId', '==',`${auth.currentUser?.uid}`))
-
+    const [password, setPassword] = useState()
     
 
     const CreateUser = (email, passowrd) => {
@@ -57,7 +64,7 @@ export const AuthContextProvider = ({children}) => {
     }
 
 
-    const createUserData =(displayName, email, bio, messanger, instagram, phoneNumber, photoURL) => {
+    const createUserData =(displayName, email, bio, messanger, instagram, phoneNumber, photoURL, password) => {
         return addDoc(cr, {
             id: auth.currentUser.uid,
             name : displayName,
@@ -68,7 +75,8 @@ export const AuthContextProvider = ({children}) => {
             phoneNumber : phoneNumber,
             deals: 0,
             stars: 0,
-            photoURL: photoURL
+            photoURL: photoURL,
+            password: password,
  
         })
         
@@ -131,15 +139,45 @@ const deleteRequest = (docRef) => {
 
     return deleteDoc(docRef)
 }
-    /*const updateProfile = (email, name, bio, messanger, instargram, phoneNumber) =>  {
-        if(auth.currentUser) {
-            return updateProfile(auth.currentUser, {
-                displayName: name,
-                email : email,
-              })
-        }
 
-    }*/
+useEffect(() => {
+    const unsub = onAuthStateChanged(auth, (currentUser) => {
+        setUser(currentUser)
+    })
+    return unsub
+    
+}, [])
+
+useEffect(() => {
+    onSnapshot(query(collection(db, 'users'), where('id', '==', `${auth?.currentUser?.uid}`)), (data) => {
+        data.docs.forEach(doc => {
+            setPassword(doc.data().password)
+        })
+    })
+}, [user])
+
+
+
+const updateUser = async(email, pEmail, docId, bio, pBio, messenger, pMessenger, instagram, pInstagram, phone, pPhone, name, pName) => {
+    const credentials = EmailAuthProvider.credential(
+        auth?.currentUser.email,
+        password && password
+    )
+    await reauthenticateWithCredential(auth.currentUser, credentials)
+    await updateEmail(auth?.currentUser, email)
+    await updateProfile(auth.currentUser, {displayName: name? name : pName})
+    await updateDoc(doc(db, 'users', `${docId}`), {
+        name: name? name : pName,
+        email: email? email : pEmail,
+        bio: bio? bio : pBio,
+        messanger: messenger? messenger : pMessenger,
+        instagram: instagram? instagram : pInstagram,
+        phoneNumber: phone? phone : pPhone,
+    })
+    navigate('/profile')
+    
+    
+}
 
 
 const createReview = (senderId, senderPhoto,senderName, resId, resName, content, rate, docId, isFirstReview, deals, rri, rci, stars, udid) => {
@@ -169,13 +207,7 @@ const createReview = (senderId, senderPhoto,senderName, resId, resName, content,
         }
     
 }
-    useEffect(() => {
-        const unsub = onAuthStateChanged(auth, (currentUser) => {
-            setUser(currentUser)
-        })
-        return unsub
-        
-    }, [])
+
 
 
 const upload = async(file, currentUser, setLoading, docRef) => {
@@ -212,7 +244,7 @@ const upload = async(file, currentUser, setLoading, docRef) => {
 
 
     return(
-        <UserContext.Provider value={{CreateUser, user, logout, signIn, setUserName, createUserData, upload, createOffer, deleteOffer, createRequest, refuseRequest, acceptRequest, deleteRequest, createReview}}>
+        <UserContext.Provider value={{CreateUser, user, logout, signIn, setUserName, createUserData, upload, createOffer, deleteOffer, createRequest, refuseRequest, acceptRequest, deleteRequest, createReview, updateUser}}>
             {children}
         </UserContext.Provider>
     )
