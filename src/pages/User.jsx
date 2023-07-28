@@ -16,6 +16,7 @@ import Cancel from '../assets/cancel.png'
 import { UserAuth } from '../context/AuthContext';
 import { FaStar } from 'react-icons/fa'
 import avatar from '../assets/avatar.png'
+import Search from '../components/Search'
 
 function User() {
   const {createRequest, deleteRequest, createReview, user} = UserAuth()
@@ -55,6 +56,11 @@ function User() {
   },  [user])
 
   useEffect(() => {
+
+    if (auth.currentUser && id == auth.currentUser.uid) {
+      navigate('/profile')
+    }
+  
     onSnapshot(collection(db, 'requests'), (data) => {
       data.docs.forEach(doc => {
         if(doc.data().resId == id && doc.data().senderId == auth?.currentUser?.uid) {
@@ -66,45 +72,20 @@ function User() {
           
         )
     })
-  },  [user])
 
-
-  
-  
-  useEffect(() => {
     onSnapshot(filtre, (data) => {
       data.docs.forEach((doc) => {
         setUser(doc.data())
         setStars(doc.data().stars)
         setDocId(doc.id)
     })})
-  }, [user])
 
-  
-  useEffect(() => {
     onSnapshot((reviewFilter), (data) => {
       setReviews(data.docs)
       
     })
-  },  [user])
-console.log(reviews)
-  
-useEffect(() => {
-  if (auth.currentUser && id == auth.currentUser.uid) {
-    navigate('/profile')
-  }
 
-}, [user])
-
-
-
-const handleRequest = (e) => {
-  e.preventDefault()
-  createRequest(auth.currentUser?.uid, auth.currentUser?.displayName, id, User?.name, requestContent, requestPrice)
-}
-
-useEffect(() => {
-  onSnapshot((query(collection(db, 'reviews'), where('senderId', '==',`${auth.currentUser?.uid}`))), (data) => {
+    onSnapshot((query(collection(db, 'reviews'), where('senderId', '==',`${auth.currentUser?.uid}`))), (data) => {
       data.docs.forEach(doc => {
         setIsFirstReview(false)
           setReviewId(doc.id)
@@ -113,7 +94,24 @@ useEffect(() => {
           setRri(doc.data().rate)
       })
   })
-}, [auth.currentUser])
+
+  },  [user])
+
+
+  
+  
+
+  
+
+
+const handleRequest = (e) => {
+  e.preventDefault()
+  user?
+  createRequest(auth.currentUser?.uid, auth.currentUser?.displayName, id, User?.name, requestContent, requestPrice):
+  navigate('/signin')
+}
+
+
 
 
 
@@ -135,10 +133,15 @@ const renderOffers = offers?.map(offer =>
         <div>
           <h3>{User?.name}</h3>
           <div className='phoneNumber'>
-            <h2>+216</h2>
-            <h2>{User?.phoneNumber?.substr(0, 2)}</h2>
-            <h2>{User?.phoneNumber?.substr(2, 3)}</h2>
-            <h2>{User?.phoneNumber?.substr(5, 5)}</h2>
+            {User?.phoneNumber == 'Not available'?
+              <h2>Not available</h2>:
+              <>
+                <h2>+216</h2>
+                <h2>{User?.phoneNumber?.substr(0, 2)}</h2>
+                <h2>{User?.phoneNumber?.substr(2, 3)}</h2>
+                <h2>{User?.phoneNumber?.substr(5, 5)}</h2>
+              </>
+            }
           </div>
         </div>
       </div>
@@ -186,17 +189,24 @@ const renderReviews = reviews?.map(review =>
 
 
   return (
-    
+    <div>
+      <Search />
     <div className='profile'>
       <Navbar/>
       <div className="fields">
         <img src={User?.photoURL}/>
         <h5 className='name'>{User && User.name}</h5>
         <div className='phoneNumber'>
-          <h2>+216</h2>
-          <h2>{User?.phoneNumber?.substr(0, 2)}</h2>
-          <h2>{User?.phoneNumber?.substr(2, 3)}</h2>
-          <h2>{User?.phoneNumber?.substr(5, 5)}</h2>
+          {User?.phoneNumber == 'Not available' ?
+            <h2>not available</h2>
+            :
+            <>
+              <h2>+216</h2>
+              <h2>{User?.phoneNumber?.substr(0, 2)}</h2>
+              <h2>{User?.phoneNumber?.substr(2, 3)}</h2>
+              <h2>{User?.phoneNumber?.substr(5, 5)}</h2>
+            </>
+          }
         </div>
         <div className='bio'>{User && User.bio}</div>
         
@@ -301,12 +311,22 @@ const renderReviews = reviews?.map(review =>
             <h3>{User && User.email}</h3>
           </div>
           <div className='info'>
-            <img src={messangerIcon} alt="" />
-            <h3>{User && User.messanger}</h3>
+          <a href={User && User.messanger} target='_blank'>
+              <img src={messangerIcon} alt="" />
+              <div>
+                <h3>{User && User.messanger}</h3>
+                <h3>...</h3>
+              </div>
+            </a>
           </div>
           <div className='info'>
-            <img src={instagramIcon} alt="" />
-            <h3>{User && User.instagram}</h3>
+          <a href={User && User.instagram} target='_blank'>
+              <img src={instagramIcon} alt="" />
+              <div>
+                <h3>{User && User.instagram}</h3>
+                <h3>...</h3>
+              </div>
+            </a>
           </div>   
         </div>
       </div>
@@ -330,6 +350,7 @@ const renderReviews = reviews?.map(review =>
         </div>
        </div>
       
+    </div>
     </div>
   )
 }

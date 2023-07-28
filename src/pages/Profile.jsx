@@ -12,6 +12,7 @@ import {
 import'../styles/profile.css'
 import avatar from '../assets/avatar.png'
 import Navbar from '../components/Navbar'
+import Search from '../components/Search'
 import priceIcon from '../assets/price.png'
 import offerIcon from '../assets/offer.png'
 import tiket from '../assets/tiket.png'
@@ -27,7 +28,7 @@ import { MdSettings } from 'react-icons/md'
 
 
  function Profile() {
-  const {user, logout, upload, createOffer, deleteOffer, acceptRequest, refuseRequest} = UserAuth()
+  const {user, upload, createOffer, deleteOffer} = UserAuth()
   const [bio, setBio ] = useState('')
   const [messanger, setMessanger] = useState('')
   const [instagram, setInstagram] = useState('')
@@ -39,28 +40,47 @@ import { MdSettings } from 'react-icons/md'
   const [offerContent, setOfferContent] = useState('')
   const [offerPrice, setOfferPrice] = useState('')
   const [offers, setOffers] = useState()
-  const [requests, setRequests] = useState()
   const [reviews, setReviews] = useState()
   const cr = collection(db, 'users')
-  const filtre = query(cr, where('email', '==',`${user.email}`))
+  const filtre = query(cr, where('email', '==',`${user?.email}`))
   const offerFiltre = query(collection(db, 'offers'), where('authorId', '==',`${auth.currentUser?.uid}`))
-  const requestFilter = query(collection(db, 'requests'), where('resId', '==', `${auth.currentUser?.uid}`), where('state', '==', 'waiting'))
   const reviewFilter = query(collection(db, 'reviews'), where('resId', '==',`${auth?.currentUser?.uid}`))
-  const [isRefused, setIsRefused] = useState()
-  const [message, setMessage] = useState()
   const [deals, setDeals] = useState()
   const [stars, setStars] = useState()
   const [rNum, setRNum] = useState(0)
   const navigate = useNavigate()
+  const docRef = doc(db, 'users', `${docId}`)
+  const firstName = user?.displayName?.split(' ')[0]
 
 
 
 
 
- useEffect(() => {
-   onSnapshot((offerFiltre), (data) => {
-     setOffers(data.docs)
- })
+  useEffect(() => {
+
+    onSnapshot((offerFiltre), (data) => {
+      setOffers(data.docs)
+    })
+
+    onSnapshot((reviewFilter), (data) => {
+      setReviews(data.docs)
+    })
+
+    onSnapshot(filtre, (data) => {
+      data.docs.forEach((doc) => {
+        setBio(doc.data().bio) 
+        setMessanger(doc.data().messanger)
+        setInstagram(doc.data().instagram)
+        setDocId(doc.id)
+        setPhoneNumber(doc.data().phoneNumber)
+        setDeals(doc.data().deals)
+        setStars(doc.data().stars)
+  
+    })})
+
+    if(user?.photoURL) {
+      setPhotoURL(user.photoURL)
+    }
 
  }, [user])
 
@@ -72,11 +92,6 @@ import { MdSettings } from 'react-icons/md'
 
 
 
-useEffect(() => {
-  onSnapshot((reviewFilter), (data) => {
-    setReviews(data.docs)
-  })
-}, [user])
 
 useEffect(() => {
   setRNum(0)
@@ -85,25 +100,11 @@ useEffect(() => {
   })
 })
  
-useEffect(() => {
-  onSnapshot(filtre, (data) => {
-    data.docs.forEach((doc) => {
-      setBio(doc.data().bio) 
-      setMessanger(doc.data().messanger)
-      setInstagram(doc.data().instagram)
-      setDocId(doc.id)
-      setPhoneNumber(doc.data().phoneNumber)
-      setDeals(doc.data().deals)
-      setStars(doc.data().stars)
-
-  })})
-  
-}, [user])
 
 
   
   
-const docRef = doc(db, 'users', `${docId}`)
+
 
   const handleChange = (e) => {
     if(e.target.files[0]) {
@@ -112,22 +113,6 @@ const docRef = doc(db, 'users', `${docId}`)
     
   }
 
-
-  useEffect(() => {
-    if(user?.photoURL) {
-      setPhotoURL(user.photoURL)
-    }
-
-  
-  }, [user])
-
-
-
-  
-
-  const firstName = user.displayName?.split(' ')[0]
-
-  
 
 
   const handleOffer = (e) => {
@@ -139,9 +124,10 @@ const docRef = doc(db, 'users', `${docId}`)
 
   }
 
+
+
   const handleClick = () => {
     upload(image, user, setLoading, docRef)
-
   }
 
 
@@ -158,10 +144,15 @@ const renderOffers = offers?.map(offer =>
                 <div>
                   <h3>{user?.displayName}</h3>
                   <div className='phoneNumber'>
-                    <h2>+216</h2>
-                    <h2>{phoneNumber.substr(0, 2)}</h2>
-                    <h2>{phoneNumber.substr(2, 3)}</h2>
-                    <h2>{phoneNumber.substr(5, 5)}</h2>
+                    {phoneNumber == 'Not available'?
+                      <h2>Not available</h2>:
+                      <>
+                        <h2>+216</h2>
+                        <h2>{phoneNumber.substr(0, 2)}</h2>
+                        <h2>{phoneNumber.substr(2, 3)}</h2>
+                        <h2>{phoneNumber.substr(5, 5)}</h2>
+                      </>
+                    }
                   </div>
                 </div>
               </div>
@@ -213,7 +204,8 @@ const renderOffers = offers?.map(offer =>
 
 
   return (
-    
+    <div>
+      <Search />
     <div className='profile'>
       <Navbar/>
       <MdSettings className="setting" size='30px'  onClick={() => {navigate('/settings')}}/>
@@ -233,6 +225,7 @@ const renderOffers = offers?.map(offer =>
           </div>
           <img src={photoURL}/>
        </div>
+       {image && 
        <div className='photo-buttons'>
           <button hidden={!image} onClick={() => {setLoading(false), window.location.reload(false)}}></button>
           {loading? 
@@ -242,12 +235,18 @@ const renderOffers = offers?.map(offer =>
             <button disabled={loading || !image} hidden={!image} onClick={handleClick}>upload</button>
           }
        </div>
+       }
         <h5 className='name'>{user && user.displayName}</h5>
         <div className='phoneNumber'>
-          <h2>+216</h2>
-          <h2>{phoneNumber.substr(0, 2)}</h2>
-          <h2>{phoneNumber.substr(2, 3)}</h2>
-          <h2>{phoneNumber.substr(5, 5)}</h2>
+        {phoneNumber == 'Not available'?
+          <h2>Not available</h2>:
+          <>
+            <h2>+216</h2>
+            <h2>{phoneNumber.substr(0, 2)}</h2>
+            <h2>{phoneNumber.substr(2, 3)}</h2>
+            <h2>{phoneNumber.substr(5, 5)}</h2>
+          </>
+          }
         </div>
         <div className='bio'>{user && bio}</div>
         <form className='offer-form' onSubmit={handleOffer}>
@@ -271,16 +270,26 @@ const renderOffers = offers?.map(offer =>
         </form>
         <div className="info-box">
           <div className='info'>
-            <img src={emailIcon} alt="" />
+            <img src={emailIcon} alt="" href={user && user.email}/>
             <h3>{user && user.email}</h3>
           </div>
           <div className='info'>
-            <img src={messangerIcon} alt="" />
-            <h3>{user && messanger}</h3>
+            <a href={user && messanger} target='_blank'>
+              <img src={messangerIcon} alt="" />
+              <div>
+                <h3>{user && messanger}</h3>
+                <h3>...</h3>
+              </div>
+            </a>
           </div>
           <div className='info'>
-            <img src={instagramIcon} alt="" />
-            <h3>{user && instagram}</h3>
+          <a href={user && instagram} target='_blank'>
+              <img src={instagramIcon} alt="" />
+              <div>
+                <h3>{user && instagram}</h3>
+                <h3>...</h3>
+              </div>
+            </a>
           </div>   
         </div>
       </div>
@@ -306,6 +315,8 @@ const renderOffers = offers?.map(offer =>
         </div>
        </div>
     </div>
+    </div>
+    
   )
 }
 

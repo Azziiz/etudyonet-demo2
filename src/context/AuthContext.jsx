@@ -41,7 +41,32 @@ export const AuthContextProvider = ({children}) => {
     const crR = collection(db, 'requests')
     const Filtre = query(collection(db, 'offers'), where('authorId', '==',`${auth.currentUser?.uid}`))
     const [password, setPassword] = useState()
+    const [offers, setOffers] = useState()
+    const [value, setValue] = useState('')
+
+    useEffect(() => {
+        const unsub = onAuthStateChanged(auth, (currentUser) => {
+            setUser(currentUser)
+        })
+        return unsub 
+    }, [])
     
+
+    useEffect(() => {
+        if(!value){
+            onSnapshot(crOF, (data) => {
+                setOffers(data.docs)  
+            })
+        }
+
+        onSnapshot(query(collection(db, 'users'), where('id', '==', `${auth?.currentUser?.uid}`)), (data) => {
+            data.docs.forEach(doc => {
+                setPassword(doc.data().password)
+            })
+        })
+
+
+    }, [user])
 
     const CreateUser = (email, passowrd) => {
         return createUserWithEmailAndPassword(auth, email, passowrd)
@@ -115,7 +140,6 @@ const refuseRequest = (docRef, message, sender) => {
 
 
 const acceptRequest = (docRef, user, deal) => {
-
         updateDoc(docRef, {state: 'accept'})
         updateDoc(doc(db, 'users', `${user}`), {deals: deal + 1})
         
@@ -132,29 +156,43 @@ const deleteOffer = (offerId) => {
 
 
 
+const search = () => {
+    onSnapshot(crOF, (data) => {
+        if(value){
+            setOffers(
+              data.docs.filter(doc => {
+                if(doc.data().name?.toLowerCase().includes(value?.toLowerCase()) || doc.data().content?.toLowerCase().includes(value?.toLowerCase()) ) {
+                  return doc
+                }
+              })
+            )
+        }
+        else{
+                setOffers(data.docs)
+            }
+            scrollTo(0, 400)
+            navigate('/')
+
+   
+    })
+}
+
+const cancelSearch = () => {
+    onSnapshot(crOF, (data) => {
+        setOffers(data.docs)
+    })
+  
+}
+
 
 
 
 const deleteRequest = (docRef) => {
-
     return deleteDoc(docRef)
 }
 
-useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (currentUser) => {
-        setUser(currentUser)
-    })
-    return unsub
-    
-}, [])
 
-useEffect(() => {
-    onSnapshot(query(collection(db, 'users'), where('id', '==', `${auth?.currentUser?.uid}`)), (data) => {
-        data.docs.forEach(doc => {
-            setPassword(doc.data().password)
-        })
-    })
-}, [user])
+
 
 
 
@@ -172,7 +210,7 @@ const updateUser = async(email, pEmail, docId, bio, pBio, messenger, pMessenger,
         bio: bio? bio : pBio,
         messanger: messenger? messenger : pMessenger,
         instagram: instagram? instagram : pInstagram,
-        phoneNumber: phone? phone : pPhone,
+        phoneNumber: phone? phone : pPhone == '00000000'? 'Not available' : pPhone,
     })
     navigate('/profile')
     
@@ -182,7 +220,7 @@ const updateUser = async(email, pEmail, docId, bio, pBio, messenger, pMessenger,
 
 const createReview = (senderId, senderPhoto,senderName, resId, resName, content, rate, docId, isFirstReview, deals, rri, rci, stars, udid) => {
         
-        
+    
         if(isFirstReview){
                 updateDoc(doc(db, 'users', `${udid}`), {stars: (stars + rate)})
              addDoc(collection(db, 'reviews'), {
@@ -244,7 +282,7 @@ const upload = async(file, currentUser, setLoading, docRef) => {
 
 
     return(
-        <UserContext.Provider value={{CreateUser, user, logout, signIn, setUserName, createUserData, upload, createOffer, deleteOffer, createRequest, refuseRequest, acceptRequest, deleteRequest, createReview, updateUser}}>
+        <UserContext.Provider value={{CreateUser, user, logout, signIn, setUserName, createUserData, upload, createOffer, deleteOffer, createRequest, refuseRequest, acceptRequest, deleteRequest, createReview, updateUser, offers, search, cancelSearch, value, setValue}}>
             {children}
         </UserContext.Provider>
     )

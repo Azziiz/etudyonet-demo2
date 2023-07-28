@@ -29,11 +29,11 @@ function App() {
       
         <Routes>
           
-          <Route path='/' element={<ProtectedRoute><Home/></ProtectedRoute>}/>
-          <Route path='/about' element={<ProtectedRoute><About/></ProtectedRoute>}/>
+          <Route path='/' element={<Home />}/>
+          <Route path='/about' element={<About/>}/>
           <Route path='/settings' element={<ProtectedRoute><Settings/></ProtectedRoute>}/>
-          <Route path='/profile' element={<ProtectedRoute><img src={banner} alt="banner" className='banner'/><Profile/></ProtectedRoute>}/>
-          <Route path='/users/:id' element={<ProtectedRoute><img src={banner} alt="banner" className='banner'/><User/></ProtectedRoute>}/>
+          <Route path='/profile' element={<ProtectedRoute><Profile/></ProtectedRoute>}/>
+          <Route path='/users/:id' element={<div><User/></div>}/>
           <Route path='/notifications' element={<ProtectedRoute><Notification/></ProtectedRoute>}/>
           <Route path='/signin' element={<UntiProtectedRoute><Signin/></UntiProtectedRoute>}/>
           <Route path='/signup' element={<UntiProtectedRoute><Signup/></UntiProtectedRoute>}/>

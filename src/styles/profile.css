@@ -30,11 +30,15 @@
     font-weight: 500;
     color: var(--orange);
     font-size: 20px;
+    margin-top: 10px;
+    align-self: center;
 }
 
 .phoneNumber{
     display: flex;
-    gap: 5%;
+    align-self: center;
+    gap: 5px;
+    margin-bottom: 10px;
 }
 
 .phoneNumber h2 {
@@ -374,6 +378,34 @@
    display: flex;
    gap: 5px;
 }
+
+.info a{
+   display: flex;
+   gap: 5px;
+   text-decoration-line:underline;
+   text-decoration-color: var(--grey);
+}
+
+.info a:hover{
+
+   text-decoration-color: var(--orange);
+}
+
+.info a div{
+   display: flex;
+
+} 
+
+.info h3{
+   max-width: 300px;
+   overflow: hidden;
+}
+
+
+.info a div h3:hover{
+   color: var(--orange);
+}
+
 
 .fields .info img{
    border-radius: 0;
@@ -1141,7 +1173,8 @@ button:disabled{
 
 .setting{
    position:absolute;
-   right: 5%;
+   right: 3%;
+   top: 74%;
    transition: 0.2s;
    color: var(--grey);
 }

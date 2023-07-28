@@ -142,6 +142,25 @@ header ul li:hover {
     left: 50%;
 }
 
+#signin{
+   width: 150px;
+   color: white;
+   box-shadow: none;
+
+}
+
+#signin-icon{
+    display: none;
+}
+
+#logout{
+    rotate: 180deg;
+}
+
+#sginin-section{
+    width: 25vw;
+    max-width: 200px;
+}
 
 @media only screen and (max-width: 700px) {
     .middle-section{
@@ -173,5 +192,26 @@ header ul li:hover {
         width: 35px;
         height: 35px;
         margin: 5px;
+    }
+
+
+    #sginin-section{
+        width: 40vw;
+        max-width: 40px;
+    }
+
+    #signin{
+        display: none;
+    }
+
+    #signin-icon{
+        display: block;
+        color: var(--grey);
+        transition: 0.2s;
+    }
+
+    
+    #signin-icon:hover{
+        color: var(--orange);
     }
 }

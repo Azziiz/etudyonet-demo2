@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import {UserAuth} from '../context/AuthContext'
 import '../styles/auth.css'
 import avatar from '../assets/avatar.png'
+import Navbar from '../components/Navbar'
 
 
 function Signup() {
@@ -26,7 +27,7 @@ function Signup() {
         try{
              await CreateUser(email, password)
              await setUserName(displayName)
-             await createUserData(displayName, email, bio, messanger, instagram, phoneNumber, avatar, password)
+             await createUserData(displayName, email, bio, messanger? messanger : 'Not available', instagram? instagram : 'Not available', phoneNumber? phoneNumber : 'Not available' , avatar, password)
              navigate('/profile')
 
 
@@ -38,35 +39,35 @@ function Signup() {
     }
   return (
     <div className='auth'>
-      
+      <Navbar />
       <form onSubmit={handleSubmit}>
       <div className='inputBox'>
-            <input onChange={(e) => {setDisplayName(e.target.value)}} type="text"  required/>
-            <span>username</span>
+            <input onChange={(e) => {setDisplayName(e.target.value)}} type="text" placeholder=' ' required/>
+            <span>Username*</span>
         </div>
         <div className='inputBox'>
-            <input onChange={(e) => {setEmail(e.target.value)}} pattern='/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g' required/>
-            <span>Email</span>
+            <input onChange={(e) => {setEmail(e.target.value)}} pattern='/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g' placeholder=' ' required/>
+            <span>Email*</span>
         </div>
         <div className='inputBox'>
-            <input onChange={(e) => {setPassword(e.target.value)}} type="passowrd"  required/>
-            <span>Password</span>
+            <input onChange={(e) => {setPassword(e.target.value)}} type="passowrd" placeholder=' ' required/>
+            <span>Password*</span>
         </div >
         <div className='inputBox'>
-            <input onChange={(e) => {setBio(e.target.value)}} type="text" required/>
-            <span>Bio</span>
+            <input onChange={(e) => {setBio(e.target.value)}} type="text" placeholder=' ' required/>
+            <span>Bio*</span>
         </div>
         <div className='inputBox'>
-            <input onChange={(e) => {setMessanger(e.target.value)}} type="text" required/>
-            <span>messanger</span>
+            <input onChange={(e) => {setPhoneNumber(e.target.value)}} type="tel" placeholder=' '/>
+            <span>Phone Number (optional)</span>
         </div>
         <div className='inputBox'>
-            <input onChange={(e) => {setInstagram(e.target.value)}} type="text" required/>
-            <span>instagram</span>
+            <input type='url' onChange={(e) => {setMessanger(e.target.value)}}  placeholder=' ' />
+            <span>Facebook profile link (optional)</span>
         </div>
         <div className='inputBox'>
-            <input onChange={(e) => {setPhoneNumber(e.target.value)}} type="tel" required/>
-            <span>Phone number</span>
+            <input type='url' onChange={(e) => {setInstagram(e.target.value)}}  placeholder=' '/>
+            <span>Instagram profile link (optional)</span>
         </div>
         <p>Already have an account? <Link to='/signin' className='link'>Sign In</Link></p>
         <button>Sign Up</button>

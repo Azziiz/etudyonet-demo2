@@ -15,7 +15,7 @@ body{
     margin-top: 30px;
     margin-left: 90px;
     margin-right: 70px;
-    margin-bottom: 30px;
+    margin-bottom: 150px;
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
@@ -184,6 +184,88 @@ input:focus{
 
 
 
+   .person{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 400px;
+    height: 600px;
+    margin-top: 50px;
+   }
+
+   #head{
+    width: 150px;
+    height: 150px;
+    background-color: white;
+    border-radius: 50%;
+    box-shadow: -4.5px 1px 0px 1px var(--orange);
+   }
+
+   #body{
+    width: 250px;
+    height: 200px;
+    background-color: white;
+    border-radius: 100px 100px 150px 150px;
+    box-shadow: -4px 1px 0px 1px var(--orange);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   }
+
+   #body2{
+    width: 300px;
+    height: 600px;
+    background-color: var(--orange);
+    position: absolute;
+    filter: blur(200px);
+    border-radius: 50%;
+    z-index: -1000;
+   }
+
+   #circle{
+    position: relative;
+    top: -15%;
+    width: 400px;
+    height: 150px;
+    border: 2px solid var(--orange);
+    border-radius: 50%;
+    z-index: -100;
+   }
+
+   .person h3{
+    position: relative;
+    top: -15%;
+    width: 350px;
+    height: 70px;
+    color: #333C41;
+   }
+
+   .qmarks{
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    font-size: 35px;
+   }
+
+   .qmarks .q1{
+    position: relative;
+    left: 35%;
+    top: -20%;
+   }
+
+   .qmarks .q2{
+    position: relative;
+    left: 10%;
+    top: -20%;
+   }
+
+   .qmarks .q3{
+    position: relative;
+    left: 90%;
+    top: -20%;
+   }
+
 
 
    @media only screen and (max-width: 500px) {
@@ -205,7 +287,84 @@ input:focus{
     .home{
         margin: 20px;
     }
+
+    .person{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        width: 200px;
+        height: 600px;
+        margin-top: 50px;
+       }
+    
+       #head{
+        width: 75px;
+        height: 75px;
+        background-color: white;
+        border-radius: 50%;
+        box-shadow: -2px 0.5px 0px 1px var(--orange);
+       }
+    
+       #body{
+        width: 125px;
+        height: 125px;
+        background-color: white;
+        border-radius: 50px 50px 75px 75px;
+        box-shadow: -2px 0.5px 0px 1px var(--orange);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+       }
+    
+       #body2{
+        width: 150px;
+        height: 600px;
+        background-color: var(--orange);
+        position: absolute;
+        filter: blur(100px);
+        border-radius: 50%;
+        z-index: -1000;
+       }
+    
+       #circle{
+        position: relative;
+        top: -15%;
+        width: 200px;
+        height: 75px;
+        border: 1px solid var(--orange);
+        border-radius: 50%;
+        z-index: -100;
+       }
+    
+       .person h3{
+        position: relative;
+        top: -15%;
+        width: 175px;
+        height: 70px;
+        color: #333C41;
+       }
+    
+       .qmarks{
+        position: absolute;
+        width: 150px;
+        height: 300px;
+        font-size: 35px;
+       }
+
+       .qmarks h3{
+        width: 0;
+        font-size: 24px;
+       }
+
+
+    
    }
+
+   
+
+
+
 
    @media only screen and (max-width: 300px) {
     .search-area button{

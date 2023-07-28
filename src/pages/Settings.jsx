@@ -2,8 +2,8 @@ import { collection, onSnapshot, query, where } from 'firebase/firestore'
 import { useEffect, useState } from 'react'
 import { UserAuth } from '../context/AuthContext'
 import { auth, db } from '../firebase'
-import { useNavigate } from 'react-router-dom'
 import '../styles/settings.css'
+import Navbar from '../components/Navbar'
 
 
 
@@ -14,7 +14,6 @@ const [password, setPassword] = useState()
 const [docId, setDocId] = useState()
 const {user, updateUser} = UserAuth()
 const [loading, setLoading] = useState(false)
-const navigate = useNavigate()
 
     const [pEmail, setPEmail] = useState()
     const [email, setEmail] = useState()
@@ -69,6 +68,7 @@ const handleSubmit = async(e) => {
 
   return (
     <div className='settings'>
+        <Navbar />
       <form onSubmit={handleSubmit}>
       {error && <p id='error'>tchu tchu motherfucker</p>}
         <div className='inputBox'>
@@ -87,7 +87,7 @@ const handleSubmit = async(e) => {
             <input onChange={(e) => {setInstagram(e.target.value)}} defaultValue={pInstagram} required/>
         </div>
         <div className='inputBox'>
-            <input onChange={(e) => {setPhone(e.target.value)}} defaultValue={pPhone} required/>
+            <input type='text' onChange={(e) => {setPhone(e.target.value)}} defaultValue={pPhone == 'Not available'? '00000000' : pPhone} pattern='\d+' minLength={8} maxLength='8' required/>
         </div>
         {loading?
         <button><i className="fa fa-spinner fa-spin"></i></button> :

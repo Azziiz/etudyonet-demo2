@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import {Link, useNavigate} from 'react-router-dom'
 import {UserAuth} from '../context/AuthContext'
 import '../styles/auth.css'
-import banner from "../assets/banner.jpg"
+import Navbar from '../components/Navbar'
 
 function Signin() {
     const [email, setEmail] = useState('')
@@ -27,15 +27,16 @@ function Signin() {
 
   return (
     <div className='auth'>
+      <Navbar />
       <form onSubmit={handleSubmit}>
-      {error && <p id='error'>tchu tchu motherfucker</p>}
+      {error && <p id='error'>Invalid Email or password.</p>}
         <div className='inputBox'>
-            <input onChange={(e) => {setEmail(e.target.value)}}  id='email' pattern='/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g' required/>
-            <span>email</span>      
+            <input onChange={(e) => {setEmail(e.target.value)}}  id='email' pattern='/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g' placeholder=' ' required/>
+            <span>Email</span>      
         </div>
         <div className='inputBox'>
-            <input onChange={(e) => {setPassword(e.target.value)}} type="passowrd"  id='password' required/>
-            <span>password</span>
+            <input onChange={(e) => {setPassword(e.target.value)}} type="passowrd"  id='password' placeholder=' ' required/>
+            <span>Password</span>
         </div>
         <button>Sign In</button>
         <p>Don't have an account? <Link to='/signup' className='link'>Sign Up</Link></p>

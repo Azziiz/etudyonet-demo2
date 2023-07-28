@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import '../styles/navbar.css'
-import {auth, db} from '../firebase'
-import { collection, onSnapshot, query, where} from 'firebase/firestore'
+import {db} from '../firebase'
+import { collection, onSnapshot} from 'firebase/firestore'
 import { UserAuth } from '../context/AuthContext'
 import avatar from '../assets/avatar.png'
 import logo from '../assets/logo.png'
 import { useNavigate} from 'react-router-dom'
 import { AiOutlineQuestion } from 'react-icons/ai'
 import { BiHomeAlt} from "react-icons/bi";
-import { BsQuestionSquare } from "react-icons/bs";
 import { MdOutlineNotifications } from "react-icons/md";
 import { CgLogOut } from "react-icons/cg";
 import { FiPhoneCall } from "react-icons/fi";
+import {VscSignIn } from 'react-icons/vsc'
 
 
 
@@ -19,20 +19,16 @@ import { FiPhoneCall } from "react-icons/fi";
 
 
 
-function navbar(props) {
+function navbar() {
 
   const [photo, setPhoto] = useState('')
   const {user, logout} = UserAuth()
   const navigate = useNavigate()
   const [noti1, setNoti1] = useState(0)
   const [noti2, setNoti2] = useState(0)
-  const filter1 = query(collection(db, 'requests'), where('state', '!=', 'waiting'))
-  const filter2 = query(collection(db, 'requests'),where('senderId', '==', `${user?.uid}`))
-  const filter3 = query(collection(db, 'requests'),where('state', '==', 'waiting'))
-  const filter4 = query(collection(db, 'requests'),where('resId', '==', `${user.uid}`))
 
 useEffect(() => {
-  setPhoto(user.photoURL)
+  user && setPhoto(user.photoURL)
   
   onSnapshot(collection(db, 'requests'), (data) => {
     setNoti1(0)
@@ -67,26 +63,34 @@ useEffect(() => {
       </div>
       <ul className='middle-section'>
             <li id={window.location.pathname == '/' ? 'home' : 'undefined'} onClick={() => {navigate('/'), scrollTo(0, 0)}} >home</li>
-            <li id={window.location.pathname == '/about' ? 'about' : 'undefined'} onClick={() => {navigate('/about'), scrollTo(0, 0)}}>about</li>
-            <li id={window.location.pathname == '/contact' ? 'contact' : 'undefined'} onClick={() => {navigate('/#'), scrollTo(0, 0)}}>contact</li>
+            <li id={window.location.pathname == '/about' ? 'about' : 'undefined'} onClick={() => {navigate('/about')}}>about</li>
+            <li id={window.location.pathname == '/contact' ? 'contact' : 'undefined'} onClick={() => {navigate('/#')}}>contact</li>
       </ul>
       <ul className='middle-section-icons'>
             <li onClick={() => {navigate('/'), scrollTo(0, 0)}} title='home'><BiHomeAlt size='24px' color={window.location.pathname == '/' ? '#FF8C00' : '#333C41'}/></li>
-            <li onClick={() => {navigate('/about'), scrollTo(0, 0)}} title='about'><AiOutlineQuestion size='20px' color={window.location.pathname == '/about' ? '#FF8C00' : '#333C41'}/></li>
-            <li onClick={() => {navigate('/#'), scrollTo(0, 0)}} title='contact'><FiPhoneCall size='24px'/></li>
+            <li onClick={() => {navigate('/about')}} title='about'><AiOutlineQuestion size='20px' color={window.location.pathname == '/about' ? '#FF8C00' : '#333C41'}/></li>
+            <li onClick={() => {navigate('/#')}} title='contact'><FiPhoneCall size='24px'/></li>
       </ul>
 
     
-
+    {user?
       <ul className='user-section'>
-          <li onClick={() => {navigate('/notifications'), scrollTo(0, 0)}} title='notifications'>
-            {(noti2 + noti1) !== 0 && <div id='hey'>{noti1 + noti2}</div>}
+          <li onClick={() => {navigate('/notifications')}} title='notifications'>
+            {
+                (noti2 + noti1) != '0' && <div id='hey'>{noti1 + noti2}</div>
+                
+            }
             
             <MdOutlineNotifications size='24px' color={window.location.pathname == '/notifications' ? '#FF8C00' : '#333C41'}/>
             </li>
           <li onClick={() => {navigate('/profile'), scrollTo(0, 0)}} title='profile'>{photo ? <img src={photo} /> : <img src={avatar}/>}</li>
-          <li onClick={logout}><CgLogOut size='24px' /></li>
-      </ul>
+          <li onClick={logout}><CgLogOut size='24px' id='logout'/></li>
+      </ul> : 
+      <div id='sginin-section'>
+        <button id='signin' onClick={() => {navigate('/signin')}}>Sign in</button>
+        <VscSignIn size='30px' title='sign in' id='signin-icon' onClick={() => {navigate('/signin')}}/>
+      </div>
+    }
     </header>
 
   )
