@@ -21,7 +21,7 @@ body{
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    width: 100%;
+    width: 95%;
 }
 
 .navbar{
@@ -319,7 +319,14 @@ input:focus{
 
 
     .home{
-        margin: 20px;
+        
+            margin-top: 30px;
+            margin-bottom: 150px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            width: 100dvw;
+        
     }
 
     .person{

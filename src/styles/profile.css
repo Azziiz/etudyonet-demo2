@@ -837,11 +837,14 @@ input[type=radio]{
    margin-top: 20px;
    display: flex;
    gap: 20px;
+   align-items: center;
+   justify-content: center;
 }
 
 .photo-buttons button{
-   width: 50px;
+   width: 75px;
    height: 50px;
+   box-shadow: none;
 }
 
 button:disabled{

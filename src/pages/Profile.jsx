@@ -239,7 +239,7 @@ const renderOffers = offers?.map(offer =>
         <div className='photo-section'>
           <button className='photo-button' >
             {choose?
-            <h1 onClick={() => {setChoose(false)}}>X</h1>
+            <span class="material-symbols-outlined" onClick={() => {setChoose(false), setImage(false), setPre(false)}}>close</span>
             :
 
             <span className="material-symbols-outlined" onClick={() => {setChoose(true)}} >edit</span>
@@ -262,12 +262,13 @@ const renderOffers = offers?.map(offer =>
         }
           {image && pre &&
             <div className='photo-buttons'>
-                <button hidden={!image} onClick={() => {setLoading(false), window.location.reload(false)}}></button>
                 {loading? 
                   <button>
                     <i className="fa fa-spinner fa-spin"></i>
                   </button> :
-                  <button disabled={loading || !image} hidden={!image} onClick={handleClick}>upload</button>
+                  <button disabled={loading || !image} hidden={!image} onClick={handleClick}><span class="material-symbols-outlined">
+                  check
+                  </span></button>
                 }
             </div>
           }
