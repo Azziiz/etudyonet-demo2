@@ -10,15 +10,18 @@ body{
     overflow-x: hidden;
 }
 
+*{
+    outline: transparent;
+}
+
 .home{
-    justify-content: center;
     margin-top: 30px;
-    margin-left: 90px;
-    margin-right: 70px;
     margin-bottom: 150px;
+    margin-left: 5%;
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
-    gap: 20px;
+    width: 100%;
 }
 
 .navbar{
@@ -35,6 +38,13 @@ input {
     outline: none;
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 30px 30px 30px 30px white inset;
+}
+
 button{
     border: none;
     width: 360px;
@@ -48,11 +58,16 @@ button{
     transition: 0.2s;
 }
 
-button:hover{
-    transform: scale(1.02);
-    
-    
-}
+
+ 
+ button:hover{
+     color: var(--orange);
+     border: 1px solid var(--orange);
+     background-color: white;
+     transform: scale(1.02);
+ }
+
+
 
 .link{
     color: var(--orange);
@@ -86,6 +101,7 @@ textarea:focus{
     font-weight: 400;
     font-family: Poppins;
     font-size: 16px;
+    background-color: white;
 }
 
 input:valid,
@@ -101,6 +117,7 @@ input:focus{
     position: relative;
     width: 100vw;
     height: 70vh;
+    max-height: 400px;
 
 }
 
@@ -116,8 +133,8 @@ input:focus{
     object-fit: cover;
     width: 100vw;
     height: 95vh;
-}
 
+}
 
 .search-area{
     position: relative;
@@ -127,12 +144,14 @@ input:focus{
     height: 15%;
     font-size: 1.5fr;
     display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
     gap: 0%;
     margin: 0%;
     padding: 0;
     margin-bottom: 100%;
+
 }
 
 #searchbar{
@@ -271,11 +290,26 @@ input:focus{
    @media only screen and (max-width: 500px) {
     .search-area{
         font-size: 10px;
-        height: 10%;
+        height: 20%;
         max-height: 50px;
+        width: 100%;
         padding: 0;
+        min-width: 300px;
+        max-width: 480px;
         margin: 0;
 
+    }
+
+    .search-area button{
+        width: 20%;
+        height: 100%;
+        padding: 5px;
+        font-size: 14px;
+        min-height: 34px;
+    }
+
+    #searchbar{
+        font-size: 14px;
     }
 
     .cancel{

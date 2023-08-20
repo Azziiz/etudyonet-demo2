@@ -1,46 +1,53 @@
 import { useEffect } from 'react'
 import banner from '../assets/banner.jpg'
 import { UserAuth } from '../context/AuthContext'
+import { MdSettings } from 'react-icons/md'
+import {useNavigate} from 'react-router-dom'
 
 function Search() {
 
     const {search, cancelSearch, value, setValue, user} = UserAuth()
+    const navigate = useNavigate()
 
-
-    const handleSearch = () => {
-        search()
+    const handleSearch = (e) => {
+      e?.preventDefault()
+      if(window.location.pathname != '/'){
+           scrollTo(0, 300)
+            navigate('/')
+            search()
       }
+    }
     
-    const handleCancel= () => {
+    const handleCancel= (e) => {
+        e?.preventDefault()
         cancelSearch()
         document.getElementById('searchbar').value = ''
         setValue(undefined)
       }
 
-      useEffect(() => {     
-          document.addEventListener('keypress', (event)=>{
-    
-            let keyCode = event.keyCode ? event.keyCode : event.which;
-       
-    
-            if(keyCode === 13) {
-                handleSearch()
-            }
-          })
-      }, [user])
+      useEffect(() => {
+        if(!user){
+          handleCancel()
+        }
+      }, [!user])
 
 
 
   return (
     <div className='top'>
         <img src={banner} alt="banner" className='banner'/>
-        <div className='search-area'>
-            <input type="text" onChange={(e) => {setValue(e.target.value)}} id='searchbar' placeholder='Search for any offer'/>
+          <form onSubmit={handleSearch} className='search-area'>
+          
+            <input type="text" onChange={(e) => {setValue(e.target.value)}} id='searchbar' placeholder='Search for any offer' defaultValue={value} required/>
             <div id='cancel' >
                 {value && <span className="material-symbols-outlined"onClick={handleCancel} >close</span>}    
             </div>
-            <button onClick={handleSearch} >search</button>
-        </div>
+            <button>search</button>
+        
+          </form>
+        {window.location.pathname == '/profile' && 
+          <MdSettings className="setting" size='30px'  onClick={() => {navigate('/settings'), scrollTo(0, -50)}}/>
+        }
     </div>
   )
 }

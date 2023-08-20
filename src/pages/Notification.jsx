@@ -8,10 +8,10 @@ import { UserAuth } from '../context/AuthContext'
 import { auth, db } from '../firebase'
 import { useNavigate } from 'react-router-dom'
 import'../styles/notification.css'
-import priceIcon from '../assets/price.png'
-import offerIcon from '../assets/offer.png'
-import { PiThumbsUpThin} from "react-icons/pi"
-import { PiThumbsDownThin } from "react-icons/pi"
+import priceIcon from '../assets/price.webp'
+import offerIcon from '../assets/offer.webp'
+import { FiThumbsUp} from "react-icons/fi"
+import { FiThumbsDown } from "react-icons/fi"
 
 function Notification() {
     const {user, deleteRequest, acceptRequest, refuseRequest} = UserAuth()
@@ -22,7 +22,9 @@ function Notification() {
     const [docId, setDocId] = useState()
     const [deals, setDeals] = useState()
     const navigate = useNavigate()
-
+    const [requestAccept, setRequestAccept] = useState(false)
+    const [requestRefuse, setRequestRefuse] = useState(false)
+    const [requestCancel, setRequestCancel] = useState(false)
 
     useEffect(() => {
 
@@ -60,7 +62,10 @@ function Notification() {
                     <h2>Your Request Has Been Sent. Waiting For {request.data().resName?.split(' ')[0]}’s Response</h2>
                 </div>
                 <div className='cancel-request' onClick={() => {
-                    deleteRequest(doc(db, 'requests', `${request.id}`))}}>
+                    deleteRequest(doc(db, 'requests', `${request.id}`)),
+                    setRequestCancel(true),
+                    setTimeout(() => {setRequestCancel(false)}, 1500)                    
+                    }}>
                     <span className="material-symbols-outlined">speaker_notes_off</span>
                     <h2>Cancel request</h2>
                 </div>
@@ -127,13 +132,25 @@ function Notification() {
                         </div>
                     </div>
                     <div className="thumbs">
-                        <PiThumbsUpThin onClick={() => {acceptRequest(doc(db, 'requests', `${request.id}`), docId, deals)}} size='30px' className='thumb'/>
-                        <PiThumbsDownThin onClick={() => {setIsRefused(true)}} id='thumb-down' size='30px' className='thumb'/>
+                        <FiThumbsUp onClick={() => {
+                            acceptRequest(doc(db, 'requests', `${request.id}`), docId, deals),
+                            setRequestAccept(true),
+                            setTimeout(() => {setRequestAccept(false)}, 1500)
+                            }} size='30px' className='thumb'/>
+                        <FiThumbsDown onClick={() => {setIsRefused(true)}} id='thumb-down' size='30px' className='thumb'/>
                     </div>
                     {isRefused &&
-                        <form>
-                            <input type="text" onChange={(e) => {setMessage(e.target.value)}}/>
-                            <button onClick={(e) => {refuseRequest(doc(db, 'requests', `${request.id}`), message, user.displayName)}}></button>
+                        <form className='justify'>
+                            <div className='inputBox'>
+                                <input type="text" onChange={(e) => {setMessage(e.target.value)}}/>
+                                <span>Why you refused the offer?(optional)</span>
+                            </div>
+                            <button onClick={(e) => {
+                                e?.preventDefault(),
+                                refuseRequest(doc(db, 'requests', `${request.id}`), message, user.displayName),
+                                setRequestRefuse(true),
+                                setTimeout(() => {setRequestRefuse(false)}, 1500)
+                        }}>Send</button>
                         </form>
                     }
                 </div>
@@ -143,23 +160,43 @@ function Notification() {
 
 
   return (
-    <div className='notification'>
-      <Navbar />
-      <div className='noti-content'>
-            <div className="received">
-                <h5>Requests received</h5>
-                <div className="received-content">
-                    {renderRequestR}
+    <div>
+        <div className='popups'>
+            {requestAccept &&
+                <div className='pop'>
+                    <h3>you accpeted something</h3>
                 </div>
-            </div>
-            <div className='sent'>
-                <h5>Requests sent</h5>
-                <div className='sent-content'>
-                    {renderRequestsS}
+            }
+            {requestRefuse &&
+                <div className='pop'>
+                    <h3>you refused something</h3>
                 </div>
+            }  
+            {requestCancel &&
+                <div className='pop'>
+                    <h3>you canceled something</h3>
+                </div>
+            }          
+        </div>
+        <div className='notification'>
+        
+        <div className='noti-content'>
+                <div className="received">
+                    <h5>Requests received</h5>
+                    <div className="received-content">
+                        {renderRequestR}
+                    </div>
+                </div>
+                <div className='sent'>
+                    <h5>Requests sent</h5>
+                    <div className='sent-content'>
+                        {renderRequestsS}
+                    </div>
 
-            </div>
-      </div>
+                </div>
+        </div>
+        </div>
+
     </div>
   )
 }

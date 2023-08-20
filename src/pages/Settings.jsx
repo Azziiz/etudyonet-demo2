@@ -68,26 +68,32 @@ const handleSubmit = async(e) => {
 
   return (
     <div className='settings'>
-        <Navbar />
       <form onSubmit={handleSubmit}>
       {error && <p id='error'>tchu tchu motherfucker</p>}
         <div className='inputBox'>
             <input onChange={(e) => {setName(e.target.value)}} defaultValue={pName} required/>
+            <span>Username</span>
         </div>
         <div className='inputBox'>
             <input onChange={(e) => {setEmail(e.target.value)}} defaultValue={pEmail} required/>
+            <span>Email</span>
         </div>
         <div className='inputBox'>
-            <input onChange={(e) => {setBio(e.target.value)}} defaultValue={pBio} required/>
+            <textarea  onChange={(e) => {setBio(e.target.value)}} defaultValue={pBio}  required maxLength={600}/>
+            <p className='letter-counter'>{bio? bio.length : pBio?.length}/600</p>
+            <span>Bio</span>
         </div>
         <div className='inputBox'>
             <input onChange={(e) => {setMessenger(e.target.value)}} defaultValue={pMessenger} required/>
+            <span>Messenger link</span>
         </div>
         <div className='inputBox'>
             <input onChange={(e) => {setInstagram(e.target.value)}} defaultValue={pInstagram} required/>
+            <span>Instagram link</span>
         </div>
         <div className='inputBox'>
             <input type='text' onChange={(e) => {setPhone(e.target.value)}} defaultValue={pPhone == 'Not available'? '00000000' : pPhone} pattern='\d+' minLength={8} maxLength='8' required/>
+            <span>Phone number</span>
         </div>
         {loading?
         <button><i className="fa fa-spinner fa-spin"></i></button> :

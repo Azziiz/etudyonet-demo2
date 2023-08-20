@@ -19,13 +19,33 @@ margin-top: 70px;
 }
 
 
-form {
+.form {
    display: flex;
    flex-direction: column;
    gap: 1rem;
-   width: 420px;
+   width: 100%;
+   max-width: 420px;
+   min-width: 300px;
+
    padding: 1.25rem;
 
+}
+.form button{
+   position: relative;
+   width: 100%;
+   padding-left: 0%;
+   padding-right: 0%;
+
+}
+.form .inputBox{
+   position: relative;
+   width: 100%;
+
+}
+
+.inputBox input{
+   position: relative;
+   width: 100%;
 }
 
 
@@ -52,10 +72,26 @@ form {
    border: none;
    background-color: white;
    border-radius: none;
-   width: 360px;
+   width: 100%;
    padding: 17px 20px 17px 20px ;
    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
    outline: none;
+
+}
+
+
+
+.inputBox input:focus,
+.inputBox input:not(:placeholder-shown){
+   border: none;
+   background-color: white;
+   border-radius: none;
+   width: 100%;
+   padding: 17px 20px 17px 20px ;
+   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+   outline: none;
+   border: 1px solid var(--orange);
+   -webkit-box-shadow: 30px 30px 30px 30px white inset;
 }
 
 
@@ -69,15 +105,40 @@ form {
    background-color: white;
 }
 
+
+.inputBox textarea:placeholder-shown{
+   border: none;
+   background-color: white;
+   border-radius: none;
+   width: 360px;
+   padding: 17px 20px 17px 20px ;
+   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+   outline: none;
+}
+
+
+.inputBox textarea:focus ~ span,
+.inputBox textarea:not(:placeholder-shown) ~ span
+{
+   color: orange;
+   transform: translateX(10px) translateY(-7px);
+   font-size: 0.65rem;
+   padding: 0 10px;
+   background-color: white;
+}
+
+
 #error{
    background-color: lightcoral;
-   width: 360px;
-   height: 50px;
+   width: 100%;
+   height: 60px;
    display: flex;
    align-items: center;
    justify-content: center;
    border: 1px solid red;
 }
+
+ 
 
  
 

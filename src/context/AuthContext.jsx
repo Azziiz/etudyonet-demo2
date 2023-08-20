@@ -26,7 +26,7 @@ import {
     } from "firebase/firestore"; 
 import {
     getDownloadURL,
-    ref, uploadBytes
+    ref, uploadBytes, uploadString
 } from "firebase/storage"
 import { useNavigate } from "react-router-dom";
 import { async } from "@firebase/util";
@@ -44,6 +44,7 @@ export const AuthContextProvider = ({children}) => {
     const [offers, setOffers] = useState()
     const [value, setValue] = useState('')
 
+
     useEffect(() => {
         const unsub = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser)
@@ -52,21 +53,6 @@ export const AuthContextProvider = ({children}) => {
     }, [])
     
 
-    useEffect(() => {
-        if(!value){
-            onSnapshot(crOF, (data) => {
-                setOffers(data.docs)  
-            })
-        }
-
-        onSnapshot(query(collection(db, 'users'), where('id', '==', `${auth?.currentUser?.uid}`)), (data) => {
-            data.docs.forEach(doc => {
-                setPassword(doc.data().password)
-            })
-        })
-
-
-    }, [user])
 
     const CreateUser = (email, passowrd) => {
         return createUserWithEmailAndPassword(auth, email, passowrd)
@@ -107,8 +93,8 @@ export const AuthContextProvider = ({children}) => {
         
     }
 
-    const createOffer = async(name, phoneNumber, content, price, photoURL) => {
-        return await addDoc(crOF, {
+    const createOffer = async(name, phoneNumber, content, price, photoURL) => {        
+        await addDoc(crOF, {
             authorId: auth.currentUser.uid,
             name: name,
             phoneNumber: phoneNumber,
@@ -136,6 +122,23 @@ export const AuthContextProvider = ({children}) => {
 const refuseRequest = (docRef, message, sender) => {
     return updateDoc(docRef, {state: 'refuse', message: message? message : `${sender} has nothing to say`})
 }
+
+
+useEffect(() => {
+    if(!value){
+        onSnapshot(crOF, (data) => {
+            setOffers(data.docs)  
+        })
+    }
+
+    onSnapshot(query(collection(db, 'users'), where('id', '==', `${auth?.currentUser?.uid}`)), (data) => {
+        data.docs.forEach(doc => {
+            setPassword(doc.data().password)
+        })
+    })
+
+
+}, [user])
 
 
 
@@ -170,8 +173,7 @@ const search = () => {
         else{
                 setOffers(data.docs)
             }
-            scrollTo(0, 400)
-            navigate('/')
+
 
    
     })
@@ -253,14 +255,14 @@ const upload = async(file, currentUser, setLoading, docRef) => {
 
     setLoading(true)
     
-    const snapshot = await uploadBytes(fileRef, file);
+    const snapshot = await uploadString(fileRef, file, 'data_url');
     const photoURl = await getDownloadURL(fileRef);
     await updateProfile(auth.currentUser, {photoURL: photoURl})
     await updateDoc(docRef, {photoURL: photoURl})
     console.log('wait...')
     onSnapshot(Filtre, (data) => {
         data.docs.forEach(offer => {
-            updateDoc(doc(db, 'offers', `${offer.id}`), {photoURl})
+            updateDoc(doc(db, 'offers', `${offer.Id}`), {photoURl})
         }
             )
 

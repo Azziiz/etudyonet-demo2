@@ -6,7 +6,6 @@ import '../styles/about.css'
 function About() {
   return (
     <div>
-      <Navbar />
       <div className="about">
         <div className='square'></div>
         <div className="text">

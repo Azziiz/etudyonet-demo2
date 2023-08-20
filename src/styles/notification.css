@@ -133,12 +133,11 @@ body{
 }
 
  .requestR{
-    width: 315px;
+    width: 400px;
     display: flex;
     flex-direction: column;
     border: 1px solid var(--grey);
     padding: 30px;
-    width: 400px;
     margin: 20px;
  }
 
@@ -209,7 +208,18 @@ body{
 }
 
 
+.justify{
+    align-self: flex-start;
+    margin-right: 20px;
+    padding: 0%;
+    margin-top: 20px;
+    width: 270px;
+}
 
+.justify input, .justify button{
+    width: 270px;
+    
+}
 
 
  
@@ -223,6 +233,24 @@ body{
          display: flex;
          flex-direction: column;
      }
+
+
+     
+.justify{
+    width: 240px;
+    margin: 0;
+    margin-top: 10px;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.justify .inputBox, .justify .inputBox input,  .justify button{
+    width: 240px;
+    
+}
+
 
 
 
@@ -245,5 +273,25 @@ body{
 
      .received{
         width: 300px;
+    }
+
+    .requestR{
+        width: 250px;
+        padding: 10px;
+        
      }
+
+     .requestR .request-content{
+        align-self: flex-start;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+     }
+
+     .requestR .the-content p{
+        font-size: 15px;
+        font-weight: 400;
+    }
+    
 }

@@ -3,14 +3,11 @@ import '../styles/navbar.css'
 import {db} from '../firebase'
 import { collection, onSnapshot} from 'firebase/firestore'
 import { UserAuth } from '../context/AuthContext'
-import avatar from '../assets/avatar.png'
-import logo from '../assets/logo.png'
+import avatar from '../assets/avatar.webp'
+import logo from '../assets/logo.webp'
 import { useNavigate} from 'react-router-dom'
-import { AiOutlineQuestion } from 'react-icons/ai'
-import { BiHomeAlt} from "react-icons/bi";
 import { MdOutlineNotifications } from "react-icons/md";
 import { CgLogOut } from "react-icons/cg";
-import { FiPhoneCall } from "react-icons/fi";
 import {VscSignIn } from 'react-icons/vsc'
 
 
@@ -26,6 +23,7 @@ function navbar() {
   const navigate = useNavigate()
   const [noti1, setNoti1] = useState(0)
   const [noti2, setNoti2] = useState(0)
+  const [drop, setDrop] = useState(0)
 
 useEffect(() => {
   user && setPhoto(user.photoURL)
@@ -62,20 +60,57 @@ useEffect(() => {
         <h2>Etudyo<span>net</span></h2>
       </div>
       <ul className='middle-section'>
-            <li id={window.location.pathname == '/' ? 'home' : 'undefined'} onClick={() => {navigate('/'), scrollTo(0, 0)}} >home</li>
-            <li id={window.location.pathname == '/about' ? 'about' : 'undefined'} onClick={() => {navigate('/about')}}>about</li>
-            <li id={window.location.pathname == '/contact' ? 'contact' : 'undefined'} onClick={() => {navigate('/#')}}>contact</li>
+            <li id={window.location.pathname == '/' ? 'home' : 'undefined'} onClick={() => {navigate('/'), scrollTo(0, 0)}} >Home</li>
+            <li id={window.location.pathname == '/about' ? 'about' : 'undefined'} onClick={() => {navigate('/about')}}>About</li>
+            <li id={window.location.pathname == '/contact' ? 'contact' : 'undefined'} onClick={() => {navigate('/#')}}>Contact</li>
       </ul>
-      <ul className='middle-section-icons'>
-            <li onClick={() => {navigate('/'), scrollTo(0, 0)}} title='home'><BiHomeAlt size='24px' color={window.location.pathname == '/' ? '#FF8C00' : '#333C41'}/></li>
-            <li onClick={() => {navigate('/about')}} title='about'><AiOutlineQuestion size='20px' color={window.location.pathname == '/about' ? '#FF8C00' : '#333C41'}/></li>
-            <li onClick={() => {navigate('/#')}} title='contact'><FiPhoneCall size='24px'/></li>
-      </ul>
+      {user &&
+        <div className='drop-down' >
+          <ul>
+          <li onClick={() => {navigate('/notifications')}} title='notifications'>
+                  {(noti2 + noti1) != '0' && <div id='hey'>{noti1 + noti2}</div>}
+                  <MdOutlineNotifications size='24px' color={window.location.pathname == '/notifications' ? '#FF8C00' : '#333C41'}/>
+            </li>
+          </ul>
+          <span class="material-symbols-outlined" onClick={() => {setDrop(1)}}>menu</span>
+
+          {drop == 1 &&
+            <div className='white-space'>
+              <span class="material-symbols-outlined"  onClick={() => {setDrop(2),setTimeout(() => {setDrop(0)}, 700)}}>close</span>
+              <ul className='links'>
+                <li onClick={() => {navigate('/profile'), scrollTo(0, 0)}} id={window.location.pathname == '/profile' ? 'profile' : 'undefined'} title='profile'>Profile</li>
+                
+                <li id={window.location.pathname == '/' ? 'home' : 'undefined'} onClick={() => {navigate('/'), scrollTo(0, 0)}} >Home</li>
+                <li id={window.location.pathname == '/about' ? 'about' : 'undefined'} onClick={() => {navigate('/about')}}>About</li>
+                <li id={window.location.pathname == '/contact' ? 'contact' : 'undefined'} onClick={() => {navigate('/#')}}>Contact</li>
+                <li onClick={logout}><button>Logout</button></li>
+              </ul>
+            </div>
+          }
+          {drop == 2 &&
+          <>
+              <div className='white-space2'>
+              <span class="material-symbols-outlined"  onClick={() => {setDrop(2)}}>close</span>
+              <ul className='links'>
+                <li onClick={() => {navigate('/profile'), scrollTo(0, 0)}} id={window.location.pathname == '/profile' ? 'profile' : 'undefined'} title='profile'>Profile</li>
+                
+                <li id={window.location.pathname == '/' ? 'home' : 'undefined'} onClick={() => {navigate('/'), scrollTo(0, 0)}} >Home</li>
+                <li id={window.location.pathname == '/about' ? 'about' : 'undefined'} onClick={() => {navigate('/about')}}>About</li>
+                <li id={window.location.pathname == '/contact' ? 'contact' : 'undefined'} onClick={() => {navigate('/#')}}>Contact</li>
+                <li onClick={() => {setDrop(0), logout}}><button>Logout</button></li>
+              </ul>
+            </div>
+
+          </>
+              
+          }
+        </div>
+      }
 
     
     {user?
       <ul className='user-section'>
-          <li onClick={() => {navigate('/notifications')}} title='notifications'>
+          <li onClick={() => {navigate('/notifications'),scrollTo(0, 0)}} title='notifications'>
             {
                 (noti2 + noti1) != '0' && <div id='hey'>{noti1 + noti2}</div>
                 
@@ -84,11 +119,10 @@ useEffect(() => {
             <MdOutlineNotifications size='24px' color={window.location.pathname == '/notifications' ? '#FF8C00' : '#333C41'}/>
             </li>
           <li onClick={() => {navigate('/profile'), scrollTo(0, 0)}} title='profile'>{photo ? <img src={photo} /> : <img src={avatar}/>}</li>
-          <li onClick={logout}><CgLogOut size='24px' id='logout'/></li>
+          <button id='logout' onClick={() => {logout()}}>Logout</button>
       </ul> : 
       <div id='sginin-section'>
         <button id='signin' onClick={() => {navigate('/signin')}}>Sign in</button>
-        <VscSignIn size='30px' title='sign in' id='signin-icon' onClick={() => {navigate('/signin')}}/>
       </div>
     }
     </header>

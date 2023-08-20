@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import {UserAuth} from '../context/AuthContext'
 import '../styles/auth.css'
-import avatar from '../assets/avatar.png'
+import avatar from '../assets/avatar.webp'
 import Navbar from '../components/Navbar'
 
 
@@ -39,8 +39,7 @@ function Signup() {
     }
   return (
     <div className='auth'>
-      <Navbar />
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className='form'>
       <div className='inputBox'>
             <input onChange={(e) => {setDisplayName(e.target.value)}} type="text" placeholder=' ' required/>
             <span>Username*</span>

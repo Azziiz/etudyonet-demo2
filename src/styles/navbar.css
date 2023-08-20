@@ -12,10 +12,10 @@ header{
     justify-content: space-around;
     align-items: center;
     transition: 0.5s;
+    padding-left: 20px;
+    padding-right: 20px;
     height: 70px;
     background-color: white;
-
-    
 }
 
 header ul {
@@ -112,7 +112,7 @@ header ul li:hover {
     display: none;
 }
 
-#home, #about, #contact{
+#home, #about, #contact, #profile{
     color: var(--orange);
     border-bottom: 1px solid var(--orange);
     padding: 0;
@@ -143,32 +143,183 @@ header ul li:hover {
 }
 
 #signin{
-   width: 150px;
+   width: 100px;
    color: white;
    box-shadow: none;
+   height: 45px;
+   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1); 
+   transition: 0.2s ease-in-out;
+   
 
 }
 
-#signin-icon{
-    display: none;
+#signin:hover{
+    color: var(--orange);
+    border: 1px solid var(--orange);
+    background-color: white;
+
 }
+
+
 
 #logout{
-    rotate: 180deg;
+    width: 100px;
+    color: white;
+    box-shadow: none;
+    height: 45px;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1); 
+    transition: 0.2s ease-in-out;
 }
+
+#logout:hover{
+    color: var(--orange);
+    border: 1px solid var(--orange);
+    background-color: white;
+ 
+}
+
 
 #sginin-section{
     width: 25vw;
     max-width: 200px;
 }
 
+.drop-down{
+    display: none;
+    
+}
+
+.white-space{
+    display: flex;
+    justify-self: end;
+    justify-content: center;
+    width: calc(100dvw - 50px);
+    height: 100vh;
+    min-width: 300px;
+    background-color: var(--grey);
+    opacity: 1;
+    position: absolute;
+    z-index: 100000;
+    top: -100%;
+    transition: 1s;
+    right: -40%;
+    animation-name: slide;
+    animation-duration: 0.7s;
+    
+}
+
+.white-space  span{
+    position: absolute;
+    color: white;
+    opacity: 1;
+    top: 2%;
+    left: 2%;
+}
+
+#close{
+    position: absolute;
+    opacity: 1;
+    top: 2%;
+    left: 2%;
+    width: 50px;
+    height: 50px;
+    z-index: 100000000000;
+}
+
+.drop-down > span{
+    color: var(--grey);
+}
+
+
+.white-space ul li {
+    color: white;
+}
+
+.drop-down h2{
+    color: white;
+}
+
+.links{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-self: center;
+}
+
+@keyframes slide {
+    from{
+        transform: translateX(100%);
+    }
+
+    to{
+        transform: translateX(0%);
+    }
+}
+
+
+.white-space2{
+    display: flex;
+    justify-self: end;
+    justify-content: center;
+    width: calc(100dvw - 50px);
+    height: 100vh;
+    min-width: 300px;
+    background-color: var(--grey);
+    opacity: 1;
+    position: absolute;
+    z-index: 100000;
+    top: -100%;
+    transition: 1s;
+    right: -40%;
+    animation-name: slide;
+    animation-duration: 0.7s;
+    animation-direction: reverse;
+    
+}
+
+.white-space2  span{
+    position: absolute;
+    color: white;
+    opacity: 1;
+    top: 2%;
+    left: 2%;
+}
+
+
+
+.white-space2 ul li {
+    color: white;
+}
+
+.white-space2 ul li button, .white-space ul li button{
+    width: 100px;
+    height: 45px;
+    box-shadow: none;
+}
+
 @media only screen and (max-width: 700px) {
+
+    header{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100dvw;
+        display: flex;
+        justify-content: space-between;
+        padding-left: 10px;
+        padding-right: 10px;
+        align-items: center;
+        transition: 0.5s;
+        height: 70px;
+        background-color: white;
+    }
+    
     .middle-section{
         display: none;
     }
 
     .middle-section-icons{
-        display: flex;
+        display: none;
         justify-content: space-around;
         align-items: center;
         width: 40vw;
@@ -178,11 +329,26 @@ header ul li:hover {
         height: 90%;
     }
 
-
-
-    #logo h2{
+    .user-section{
         display: none;
     }
+
+    .drop-down{
+        position: relative;
+        display: flex;
+        gap: 10px;
+        justify-self: flex-end;
+        width: 20vw;
+        align-items: center;
+        align-items: center;
+        
+    }
+
+
+
+
+
+
 
     #logo{
         width: 10vw;
@@ -197,18 +363,11 @@ header ul li:hover {
 
     #sginin-section{
         width: 40vw;
-        max-width: 40px;
+        max-width: 130px;
     }
 
-    #signin{
-        display: none;
-    }
 
-    #signin-icon{
-        display: block;
-        color: var(--grey);
-        transition: 0.2s;
-    }
+
 
     
     #signin-icon:hover{

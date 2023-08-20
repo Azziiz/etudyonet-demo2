@@ -4,18 +4,18 @@ import { doc, collection, query, where, onSnapshot} from 'firebase/firestore'
 import {auth, db} from '../firebase'
 import Navbar from '../components/Navbar'
 import { useEffect } from 'react';
-import tiket from '../assets/tiket.png'
+import tiket from '../assets/tiket.webp'
 import '../styles/main.css'
-import emailIcon from '../assets/email.png'
-import messangerIcon from '../assets/messanger.png'
-import instagramIcon from '../assets/instagram.png'
-import priceIcon from '../assets/price.png'
-import offerIcon from '../assets/offer.png'
-import Arrow from '../assets/arrow.png'
-import Cancel from '../assets/cancel.png'
+import emailIcon from '../assets/email.webp'
+import messangerIcon from '../assets/messanger.webp'
+import instagramIcon from '../assets/instagram.webp'
+import priceIcon from '../assets/price.webp'
+import offerIcon from '../assets/offer.webp'
+import Arrow from '../assets/arrow.webp'
+import Cancel from '../assets/cancel.webp'
 import { UserAuth } from '../context/AuthContext';
 import { FaStar } from 'react-icons/fa'
-import avatar from '../assets/avatar.png'
+import avatar from '../assets/avatar.webp'
 import Search from '../components/Search'
 
 function User() {
@@ -45,7 +45,12 @@ function User() {
   const [hover, setHover] = useState(null);
   const [stars, setStars] = useState()
   const [docId, setDocId] = useState()
+  const [tDeals, setTDeals] = useState()
   const navigate = useNavigate()
+  const [reviewAdded, setReviewAdded] = useState(false)
+  const [requestCancel, setRequestCancel] = useState(false)
+  const [requestSent, setRequestSent] = useState(false)
+
   
   
   useEffect(() => {
@@ -77,6 +82,7 @@ function User() {
       data.docs.forEach((doc) => {
         setUser(doc.data())
         setStars(doc.data().stars)
+        setTDeals(doc.data().deals)
         setDocId(doc.id)
     })})
 
@@ -106,9 +112,12 @@ function User() {
 
 const handleRequest = (e) => {
   e.preventDefault()
-  user?
-  createRequest(auth.currentUser?.uid, auth.currentUser?.displayName, id, User?.name, requestContent, requestPrice):
-  navigate('/signin')
+  !user?
+   navigate('/signin')
+   :
+  createRequest(auth.currentUser?.uid, auth.currentUser?.displayName, id, User?.name, requestContent, requestPrice),
+  setRequestSent(true),
+  setTimeout(() => {setRequestSent(false)}, 1500)
 }
 
 
@@ -117,9 +126,12 @@ const handleRequest = (e) => {
 
 
 const handleReview = (e) => {
+  e.preventDefault()
+  setRequestState(null)
   deleteRequest(doc(db, 'requests', `${requestId}`))
-  window.location.reload(false)
   createReview(auth.currentUser.uid, auth.currentUser.photoURL, auth.currentUser.displayName, User.id, User.name, reviewContent, reviewRate, reviewId, isFirstReview, deals, rri, rci, stars, docId)
+  setReviewAdded(true)
+  setTimeout(() => {setReviewAdded(false)}, 1500)
 }
 
 
@@ -127,9 +139,9 @@ const handleReview = (e) => {
 const firstName = User.name?.split(' ')[0]
 
 const renderOffers = offers?.map(offer => 
-  <div className='profile-offer'>
+  <div className='offer'>
       <div className='offer-top'>
-        <img src={User?.photoURL} alt="" />
+        <img src={User?.photoURL == '/assets/avatar-28c1f46a.png'? avatar : User.photoURL} alt="" />
         <div>
           <h3>{User?.name}</h3>
           <div className='phoneNumber'>
@@ -149,7 +161,7 @@ const renderOffers = offers?.map(offer =>
         <h3>{offer.data().content}</h3>
       </div>
       <div className="offer-footer">
-        <h4>Starting at <span>{offer.data().price}Dt</span></h4>
+        <h4>STARTING AT<span>{offer.data().price}DT</span></h4>
       </div>
   </div>
 )
@@ -191,10 +203,36 @@ const renderReviews = reviews?.map(review =>
   return (
     <div>
       <Search />
+      <div className='popups'>
+            {reviewAdded &&
+                <div className='pop'>
+                    <h3>review added</h3>
+                </div>
+            }
+            {requestCancel &&
+                <div className='pop'>
+                    <h3>you canceled something</h3>
+                </div>
+            }
+            {requestSent &&
+                <div className='pop'>
+                    <h3>you sent something</h3>
+                </div>
+            }                    
+        </div>
     <div className='profile'>
-      <Navbar/>
       <div className="fields">
-        <img src={User?.photoURL}/>
+      <div className='photo-section'>
+      <div className="profile-deals">
+            <i className="fa-regular fa-handshake fa-xl" ></i>
+            <h3>{User && tDeals? tDeals : "0"}</h3>
+          </div>
+          <div className="profile-rate">
+            <i className="fa-solid fa-star fa-xl"></i>
+            <h3>{User && (stars/tDeals)? (stars/tDeals).toFixed(1) : "0"}</h3>
+          </div>
+        <img src={User?.photoURL == '/assets/avatar-28c1f46a.png'? avatar : User.photoURL}/>
+      </div>
         <h5 className='name'>{User && User.name}</h5>
         <div className='phoneNumber'>
           {User?.phoneNumber == 'Not available' ?
@@ -234,9 +272,12 @@ const renderReviews = reviews?.map(review =>
         <span class="material-symbols-outlined">chat</span>
           <h2>Your Request Has Been Sent. Waiting For {firstName}’s Response</h2>
         </div>
-        <div className='cancel-request' onClick={() => {
-          deleteRequest(doc(db, 'requests', `${requestId}`))
-          window.location.reload(false)
+        <div className='cancel-request' onClick={(e) => {
+          e.preventDefault(),
+          deleteRequest(doc(db, 'requests', `${requestId}`)),          
+          setRequestState(null),
+          setRequestCancel(true),
+          setTimeout(() => {setRequestCancel(false)}, 1500)    
           }}>
           <span class="material-symbols-outlined">speaker_notes_off</span>
           <h2>Cancel request</h2>
@@ -311,22 +352,36 @@ const renderReviews = reviews?.map(review =>
             <h3>{User && User.email}</h3>
           </div>
           <div className='info'>
-          <a href={User && User.messanger} target='_blank'>
-              <img src={messangerIcon} alt="" />
-              <div>
-                <h3>{User && User.messanger}</h3>
-                <h3>...</h3>
+          {User?.messanger == 'Not available'?
+              <div className='not-avai'>
+                  <img src={messangerIcon} alt="" />                
+                  <h3>Not available</h3>
               </div>
-            </a>
+                :
+                <a href={User?.messanger} target='_blank'>
+                  <img src={messangerIcon} alt="" />
+                  <div>
+                    <h3>{User?.messanger}</h3>
+                    <h3>...</h3>
+                  </div>
+                </a>
+            }
           </div>
           <div className='info'>
-          <a href={User && User.instagram} target='_blank'>
+            {User?.instagram == 'Not available'?
+              <div className='not-avai'>
+                <img src={messangerIcon} alt="" />                
+                <h3>Not available</h3>
+              </div>
+              :
+              <a href={User?.instagram} target='_blank'>
               <img src={instagramIcon} alt="" />
               <div>
-                <h3>{User && User.instagram}</h3>
+                <h3>{User?.instagram}</h3>
                 <h3>...</h3>
               </div>
             </a>
+            }
           </div>   
         </div>
       </div>

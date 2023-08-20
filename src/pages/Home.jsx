@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import Navbar from '../components/Navbar'
-import avatar from '../assets/avatar.png'
+import avatar from '../assets/avatar.webp'
 import { UserAuth } from '../context/AuthContext'
 import { useNavigate} from 'react-router-dom'
 import Search from '../components/Search'
@@ -16,14 +16,19 @@ function Home() {
 
 
 const renderOffers = offers?.length? offers.map(offer => 
-  <div className='offer' key={offer.id}>
+  <div className='offer' key={offer.id} onClick={() => {navigate(`/users/${offer.data().authorId}`),scrollTo(0, 0)}}>
     <div className='offer-top'>
       <img src={offer.data().photoURl ? offer.data().photoURl : avatar} alt="" />
       <div>
-        <h3>{offer.data().name}</h3>
+        {
+          offer.data().name.length >= 15 ?
+          <h3>{offer.data().name.substr(0, 15)}...</h3>
+          :
+          <h3>{offer.data().name}</h3>
+        }
         <div className='phoneNumber'>
           {offer.data().phoneNumber == 'Not available'?
-            <h2>Not available</h2>:
+            <h2>   </h2>:
             <>
               <h2>+216</h2>
               <h2>{offer.data().phoneNumber.substr(0, 2)}</h2>
@@ -38,8 +43,7 @@ const renderOffers = offers?.length? offers.map(offer =>
       <h3>{offer.data().content}</h3> 
     </div>
     <div className='offer-footer'>
-        <button onClick={() => {navigate(`/users/${offer.data().authorId}`)}}>See profile</button>
-        <h4>Starting at <span>{offer.data().price}Dt</span></h4>
+        <h4>STARTING AT <span>{offer.data().price.trim()}DT</span></h4>
     </div>
   </div> 
 
@@ -66,8 +70,9 @@ const renderOffers = offers?.length? offers.map(offer =>
     <div>
       <Search />
     <div className='home'>
-      <Navbar/>
-      {renderOffers}
+      <div className='offers-section'>
+        {renderOffers}
+      </div>
     </div>
     </div>
     

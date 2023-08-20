@@ -27,8 +27,7 @@ function Signin() {
 
   return (
     <div className='auth'>
-      <Navbar />
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className='form'>
       {error && <p id='error'>Invalid Email or password.</p>}
         <div className='inputBox'>
             <input onChange={(e) => {setEmail(e.target.value)}}  id='email' pattern='/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g' placeholder=' ' required/>
