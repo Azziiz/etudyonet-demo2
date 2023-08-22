@@ -18,29 +18,10 @@
  margin-top: 120px;
  }
 
-.settings form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 20px; 
-
-.settings form .inputBox{
-    margin: 10px;
-}
-
-.settings form .inputBox textarea{
-       width: 380px;
-}
-
-.settings button{
-        width: 380px;
-    }
-
-
  @media only screen and (max-width: 500px) {
     .settings{
         height: 100dvh;
-        width: 90dvw;
+        width: 100dvw;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -51,7 +32,7 @@
             width: 280px;
         }
 
-        .settings .inputBox input{
+        .settings .inputBox input, .settings .inputBox textarea{
             width: 280px;
         }
 
@@ -61,5 +42,9 @@
 
         .settings form{
             width: 280px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-self: center;
         }
  }

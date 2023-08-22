@@ -28,7 +28,7 @@ function Signin() {
   return (
     <div className='auth'>
       <form onSubmit={handleSubmit} className='form'>
-      {error && <p id='error'>Invalid Email or password.</p>}
+      {error && <p id='error' hidden={!error}>Invalid Email or password.</p>}
         <div className='inputBox'>
             <input onChange={(e) => {setEmail(e.target.value)}}  id='email' pattern='/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g' placeholder=' ' required/>
             <span>Email</span>      
@@ -38,7 +38,7 @@ function Signin() {
             <span>Password</span>
         </div>
         <button>Sign In</button>
-        <p>Don't have an account? <Link to='/signup' className='link'>Sign Up</Link></p>
+        <p>Don't have an account? <span className='span' onClick={() => {navigate('/signup'), scrollTo(0, 0)}}>Sign Up</span></p>
       </form>
     </div>
   )

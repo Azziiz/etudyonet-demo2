@@ -38,38 +38,45 @@ function Signup() {
         }
     }
   return (
-    <div className='auth'>
-      <form onSubmit={handleSubmit} className='form'>
-      <div className='inputBox'>
-            <input onChange={(e) => {setDisplayName(e.target.value)}} type="text" placeholder=' ' required/>
-            <span>Username*</span>
+    <div className='auth' id='auth'>
+      <form onSubmit={handleSubmit} className='form' >
+        <div className="fill">
+            <div className='required'>
+                <div className='inputBox'>
+                    <input onChange={(e) => {setDisplayName(e.target.value)}} type="text" placeholder=' ' required/>
+                    <span>Username*</span>
+                </div>
+                <div className='inputBox'>
+                    <input onChange={(e) => {setEmail(e.target.value)}} pattern='/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g' placeholder=' ' required/>
+                    <span>Email*</span>
+                </div>
+                <div className='inputBox'>
+                    <input onChange={(e) => {setPassword(e.target.value)}} type="passowrd" placeholder=' ' required/>
+                    <span>Password*</span>
+                </div >
+                <div className='inputBox'>
+                    <input onChange={(e) => {setBio(e.target.value)}} type="text" placeholder=' ' required/>
+                    <span>Bio*</span>
+                </div>
+            </div>
+            <div className="not-required">
+                <div className='inputBox'>
+                    <input onChange={(e) => {setPhoneNumber(e.target.value)}} type="tel" placeholder=' '/>
+                    <span>Phone Number (optional)</span>
+                </div>
+                <div className='inputBox'>
+                    <input type='url' onChange={(e) => {setMessanger(e.target.value)}}  placeholder=' ' />
+                    <span>Facebook profile link (optional)</span>
+                </div>
+                <div className='inputBox'>
+                    <input type='url' onChange={(e) => {setInstagram(e.target.value)}}  placeholder=' '/>
+                    <span>Instagram profile link (optional)</span>
+                </div>
+            </div>
+
         </div>
-        <div className='inputBox'>
-            <input onChange={(e) => {setEmail(e.target.value)}} pattern='/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g' placeholder=' ' required/>
-            <span>Email*</span>
-        </div>
-        <div className='inputBox'>
-            <input onChange={(e) => {setPassword(e.target.value)}} type="passowrd" placeholder=' ' required/>
-            <span>Password*</span>
-        </div >
-        <div className='inputBox'>
-            <input onChange={(e) => {setBio(e.target.value)}} type="text" placeholder=' ' required/>
-            <span>Bio*</span>
-        </div>
-        <div className='inputBox'>
-            <input onChange={(e) => {setPhoneNumber(e.target.value)}} type="tel" placeholder=' '/>
-            <span>Phone Number (optional)</span>
-        </div>
-        <div className='inputBox'>
-            <input type='url' onChange={(e) => {setMessanger(e.target.value)}}  placeholder=' ' />
-            <span>Facebook profile link (optional)</span>
-        </div>
-        <div className='inputBox'>
-            <input type='url' onChange={(e) => {setInstagram(e.target.value)}}  placeholder=' '/>
-            <span>Instagram profile link (optional)</span>
-        </div>
-        <p>Already have an account? <Link to='/signin' className='link'>Sign In</Link></p>
         <button>Sign Up</button>
+        <p>Already have an account? <span className='span' onClick={() => {navigate('/signin'), scrollTo(0, 0)}}>Sign In</span></p>
       </form>
     </div>
   )

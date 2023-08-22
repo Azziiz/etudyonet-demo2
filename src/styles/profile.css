@@ -916,7 +916,6 @@ button:disabled{
    background-color: lightcoral;
    border: 1px solid red;
    max-width: 280px;
-   margin-top: 20px;
    text-align: center;
 
 }

@@ -47,6 +47,7 @@ useEffect(() => {
     })
   })
   
+
   
 }, [user])
 
@@ -122,7 +123,7 @@ useEffect(() => {
           <button id='logout' onClick={() => {logout()}}>Logout</button>
       </ul> : 
       <div id='sginin-section'>
-        <button id='signin' onClick={() => {navigate('/signin')}}>Sign in</button>
+        <button id='signin' onClick={() => {navigate('/signin'), scrollTo(0, 0)}}>Sign in</button>
       </div>
     }
     </header>

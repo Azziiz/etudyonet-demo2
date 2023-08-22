@@ -16,7 +16,10 @@ header{
     padding-right: 20px;
     height: 70px;
     background-color: white;
+    
 }
+
+
 
 header ul {
     position: relative;
@@ -185,8 +188,7 @@ header ul li:hover {
 }
 
 .drop-down{
-    display: none;
-    
+    display: none;  
 }
 
 .white-space{
