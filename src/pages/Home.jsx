@@ -5,6 +5,9 @@ import { UserAuth } from '../context/AuthContext'
 import { useNavigate} from 'react-router-dom'
 import Search from '../components/Search'
 import '../styles/main.css'
+import '../styles/offer.css'
+import Offer from '../components/Offer'
+
 
 
 
@@ -16,36 +19,7 @@ function Home() {
 
 
 const renderOffers = offers?.length? offers.map(offer => 
-  <div className='offer' key={offer.id} onClick={() => {navigate(`/users/${offer.data().authorId}`),scrollTo(0, 0)}}>
-    <div className='offer-top'>
-      <img src={offer.data().photoURl ? offer.data().photoURl : avatar} alt="" />
-      <div>
-        {
-          offer.data().name.length >= 15 ?
-          <h3>{offer.data().name.substr(0, 15)}...</h3>
-          :
-          <h3>{offer.data().name}</h3>
-        }
-        <div className='phoneNumber'>
-          {offer.data().phoneNumber == 'Not available'?
-            <h2>   </h2>:
-            <>
-              <h2>+216</h2>
-              <h2>{offer.data().phoneNumber.substr(0, 2)}</h2>
-              <h2>{offer.data().phoneNumber.substr(2, 3)}</h2>
-              <h2>{offer.data().phoneNumber.substr(5, 5)}</h2>
-            </>
-          }
-        </div>
-      </div>
-    </div>
-    <div className='offer-content'>
-      <h3>{offer.data().content}</h3> 
-    </div>
-    <div className='offer-footer'>
-        <h4>STARTING AT <span>{offer.data().price.trim()}DT</span></h4>
-    </div>
-  </div> 
+    <Offer offer={offer}/>
 
   )
   : 

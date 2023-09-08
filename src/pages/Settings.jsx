@@ -33,6 +33,9 @@ const [loading, setLoading] = useState(false)
     const [pName, setPName] = useState()
     const [name, setName] = useState()
 
+    const [pDis, setPDis] = useState()
+    const [dis, setDis] = useState()   
+
 
 useEffect(() => {
     onSnapshot(query(collection(db, 'users'), where('id', '==', `${auth?.currentUser?.uid}`)), (data) => {
@@ -43,6 +46,7 @@ useEffect(() => {
             setPMessenger(doc.data().messanger)
             setPInstagram(doc.data().instagram)
             setPPhone(doc.data().phoneNumber)
+            setPDis(doc.data().dis)
             setPassword(doc.data().passowrd)
             setDocId(doc.id)
         })
@@ -56,7 +60,7 @@ const handleSubmit = async(e) => {
     setError('')
     try{
 
-        await updateUser(email, pEmail, docId, bio, pBio, messenger, pMessenger, instagram, pInstagram, phone, pPhone, name, pName)
+        await updateUser(email, pEmail, docId, bio, pBio, messenger, pMessenger, instagram, pInstagram, phone, pPhone, name, pName, dis, pDis)
         setLoading(false)
     }catch (e) {
         setError(e.message)
@@ -79,8 +83,8 @@ const handleSubmit = async(e) => {
             <span>Email</span>
         </div>
         <div className='inputBox'>
-            <textarea  onChange={(e) => {setBio(e.target.value)}} defaultValue={pBio}  required maxLength={600}/>
-            <p className='letter-counter'>{bio? bio.length : pBio?.length}/600</p>
+            <textarea  onChange={(e) => {setBio(e.target.value)}} defaultValue={pBio}  required maxLength={100}/>
+            <p className='letter-counter'>{bio? bio.length : pBio?.length}/100</p>
             <span>Bio</span>
         </div>
         <div className='inputBox'>
@@ -94,6 +98,11 @@ const handleSubmit = async(e) => {
         <div className='inputBox'>
             <input type='text' onChange={(e) => {setPhone(e.target.value)}} defaultValue={pPhone == 'Not available'? '00000000' : pPhone} pattern='\d+' minLength={8} maxLength='8' required/>
             <span>Phone number</span>
+        </div>
+        <div className='inputBox'>
+            <textarea  onChange={(e) => {setDis(e.target.value)}} defaultValue={pDis}  required maxLength={600}/>
+            <p className='letter-counter'>{dis? dis.length : pDis?.length}/600</p>
+            <span>description</span>
         </div>
         {loading?
         <button><i className="fa fa-spinner fa-spin"></i></button> :

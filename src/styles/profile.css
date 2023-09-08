@@ -3,21 +3,25 @@
     height: 100dvh;
     margin-top: 20px;
     display: grid;
-    grid-template-columns: 6px 30% 60%;
-    column-gap: 40px;
-    margin-bottom: 100px;
+    grid-template-columns: 1fr 1fr 1fr; 
+    grid-template-rows: 1fr 1fr; 
+    gap: 0px 0px; 
+    grid-template-areas: 
+      "field offers offers"
+      "field reviews reviews"; 
     
 }
 
 .fields{
     display: flex;
-    align-items: center;
     flex-direction: column;
+    grid-area: field;
+    align-items: center;
     padding-left: 50px;
     padding: 0;
-    grid-column-start: 2;
-    grid-column-end: 3;
-    grid-row-start: 1;
+
+   
+
 }
 
 .profile .fields img{
@@ -48,6 +52,18 @@
     margin-bottom: 10px;
 }
 
+.fields .user-info-display{
+   width: 380px;
+   padding: 20px;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   background-color: white;
+   position: relative;
+   border-radius: 4px;
+   
+}
+
 .phoneNumber h2 {
     font-size: 14px;
     font-weight: 400;
@@ -58,12 +74,41 @@
     color: var(--grey);
     font-size: 14px;
     font-weight: 400;
-    width: 380px;
+    width: 300px;
     max-height: 250px;
     min-height: 30px;
-    overflow-y: scroll;
+    overflow-y:hidden;
     overflow-wrap: break-word;
     text-align: center;
+}
+
+.dis{
+   display: flex;
+   flex-direction: column;
+   margin-top: 40px;
+   width: 380px;
+   background-color: white;
+   border-radius: 4px;
+   padding: 20px;
+   gap: 15px;
+}
+
+.dis .title{
+   display: flex;
+   gap: 5px;
+   align-items: center;
+}
+
+.dis .title h2{
+   font-size: 24px;
+   font-weight: 500;
+   color: var(--grey);
+}
+
+.dis h3{
+   font-size: 16px;
+   font-weight: 400;
+   color: var(--grey);
 }
 
 
@@ -79,14 +124,17 @@
 
 .offer-form button{
     margin-top: 25px;
-    width: 360px;
+    width: 380px;
 }
 
 
 .offer-box{
     position: relative;
-    width: 380px;
-    
+    width:380px;  
+ }
+
+ .offer-box input,  .offer-box textarea{
+   width: 100%;
  }
 
  
@@ -176,14 +224,12 @@
  
  textarea:focus ~ p,
  textarea:valid ~ p{
-
     color: var(--orange);
  }
 
 
  .offers-display{
-    grid-column-start: 3;
-    grid-row-start: 1;
+   grid-area: offers;
 
  }
 
@@ -218,146 +264,19 @@
 
 
 
-.offer{
-    width: 380px;
-    height: 265px;
-    background-color: white;
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    justify-content: space-around;
-    align-items: center;
 
-}
-
-.home .offer{
-   transition: 0.2s;
-}
-
-.home .offer:hover{
-   border: 1px solid var(--orange);
-}
-
-
-
- .offer-top{
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    width: 100%;
-    margin-bottom: 15px;
- }
-
- .offer-top span{
-   color: var(--grey);
-   transition: 0.2s;
-   padding: 4px 4px 4px 4px;
-   border-radius: 50%;
-   position: relative;
-   left: 18%;
-   top: -20%;
-   justify-self: flex-end;
- }
-
- .offer-top:hover  span{
-   color: white;
-   background-color: var(--orange);
-   cursor: pointer;
-
-
- }
-
-.offer-user-info{
-   display: flex;
-   align-items: center;
-   gap: 15px;
-   width: 250px;
-   padding-left: 15px;
-}
-
-
- .offer-top img{
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
- }
-
- .offer-top h3{
-    color: var(--orange);
-    font-size: 1rem;
-    font-weight: 400;
- }
-
- .offer-top span{
-   user-select: none;
- }
-
-
- .offer-content{
-    display: flex;
-    flex-direction: column;
-    justify-items: space-between;
-    align-items: flex-start;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    margin-left: 35px;
-    margin-right: 35px;
-    height: 200px;
-    width: 320px;
-    text-align: start;
-
- }
- 
- .offer-content h3{
-    font-size: 15px;
-    font-weight: 500;
-    color: var(--grey);
-    width: 320px;
-    overflow-wrap: break-word;
-
- }
-
-
-
-.offer-footer span{
-   color: var(--orange);
-   font-weight: 400;
-   font-size: 16px;
-   overflow: hidden;
-   max-width: 80px;
-}
-
-.offer-footer h4{
-  display: flex;
-  font-size: 16px;
-  font-weight: 400;
-  color: var(--grey);
-  width: 100%;
-  gap: 2px;
-  flex-wrap: nowrap;
-}
-
-
-
-.offer-footer {
-   display: flex;
-   align-items: flex-end;
-   flex-wrap: nowrap;
-   justify-content: space-between;
-   padding: 5px;
-   align-self: flex-end;
-   gap: 5px;
-   max-width: 100%;
-   
-}
 
 .info-box{
    margin-top: 40px;
-   width: 360px;
+   width: 100%;
+   max-width: 380px;
+   min-width: 300px;
    display: flex;
    flex-direction: column;
    gap: 35px;
+   background-color: white;
+   padding: 20px;
+   border-radius: 4px;
 }
 .info{
    display: flex;
@@ -658,11 +577,21 @@
    padding: 0;
    margin: 0;
    width: auto;
-   margin-left: 20px;
+   margin-left: 10px;
 }
 
 
+.setting{
+   position:absolute;
+   right: 30px;
+   top: 30px;
+   transition: 0.2s;
+   color: var(--grey);
+}
 
+.setting:hover{
+   transform:  scale(1.02);
+}
 
 
 input[type=radio]{
@@ -682,8 +611,7 @@ input[type=radio]{
    flex-direction: column;
    align-items: center;
    gap: 100px;
-   grid-row-start: 2;
-   grid-column-start: 2;
+   grid-area: reviews;
 
 }
 
@@ -691,6 +619,7 @@ input[type=radio]{
    display: flex;
    gap: 50px;
    align-self: baseline;
+   width: 100%;
 }
 
 .review .stars{
@@ -699,11 +628,12 @@ input[type=radio]{
    width: auto;
    padding: 0;
    margin: 0;
-   gap: 10px;
+   gap: 0px;
    position: relative;
    align-self: baseline;   
-
 }
+
+
 
 .reviews-title{
    color: var(--grey);
@@ -726,11 +656,16 @@ input[type=radio]{
    flex-direction: column;
    background-color: white;
    align-items: center;
+   justify-content: space-between;
    height: 350px;
-   width: 380px;
+   max-width: 780px;
+   min-width: 450px;
+   position:relative;
+   width: 90%;
    padding: 20px;
-   padding-top: 0;
-   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+   gap: 30px;
+   border-radius: 4px;
+   margin: 20px;
 }
 
 .review .deals{
@@ -739,7 +674,6 @@ input[type=radio]{
    display: flex;
    align-items: center;
    position: relative;
-   top: -50px;
 }
 
 .review .deals h3{
@@ -754,11 +688,27 @@ input[type=radio]{
    
 }
 
+.review-bottom{
+   display: flex;
+   align-items: flex-start;
+   width: 100%;
+   justify-content: space-between;
+   padding: 20px;
+   align-self: flex-end;
+   justify-self: flex-end;
+   height: auto;
+}
+
+.sender-section{
+   display: flex;
+   gap: 10px;
+}
+
 .review img{
-   width: 100px;
+   width: 50px;
+   height: 55px;
    border-radius: 50%;
    position: relative;
-   top: -50px;
    padding: 0;
    margin: 0;
 }
@@ -767,9 +717,14 @@ input[type=radio]{
    align-self: flex-start;
    color: var(--orange);
    position: relative;
-   top: -50px;
    font-weight: 500;
-   font-size: 24px;
+   font-size: 16px;
+}
+
+.review .senderBio{
+   font-size: 11px;
+   font-weight: 400;
+   color: var(--grey);
 }
 
 .review .review-content{
@@ -777,43 +732,84 @@ input[type=radio]{
    font-weight: 400;
    font-size: 16px;
    position: relative;
-   top: -50px;
-   height: 250px;
+   min-height: 150px;
+   align-self: flex-start;
+   margin-left: 30px;
 }
 
 .photo-section{
-   display: flex;
-   
+   display: flex; 
    width: 180px;
-   height: 180px;
-   flex-direction: column-reverse;
+   flex-direction: column;
+
 }
 
-.photo-button{
-   background-color: transparent;
-   width: 50px;
-   height: 50px;
+
+
+#upload{
+   width: 160px;
+}
+
+#wait{
+   background-color: white;
+   border: 1px solid var(--orange);
+   color: var(--orange);
+   width: 160px;
+   font-size: 20px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.dots-5 {
+   width: 5px;
+   aspect-ratio: 1;
    border-radius: 50%;
-   box-shadow: none;
-   padding: 0;
-   position: absolute;
-   align-self: flex-end;
-   justify-self:  flex-end;
-   cursor: pointer;
+   animation: d5 1s infinite linear alternate;
+ }
+ @keyframes d5 {
+     0%  {box-shadow: 20px 0 #FF8C00, -20px 0 #0002;background: #FF8C00 }
+     33% {box-shadow: 20px 0 #FF8C00, -20px 0 #0002;background: #0002}
+     66% {box-shadow: 20px 0 #0002,-20px 0 #FF8C00; background: #0002}
+     100%{box-shadow: 20px 0 #0002,-20px 0 #FF8C00; background: #FF8C00 }
+ }
+
+ #offer-image{
+   width: 100%;
+   max-width: 380px;
+   min-width: 300px;
+ }
+ 
+
+.photo-section .container{
+   display: flex;
+   align-items: center;
+   flex-direction: column;
+   align-self: flex-start;
+   position: relative;
+   height: fit-content;
+   justify-self: start;
+   gap: 15px;
 }
 
-.photo-editor{
-   margin-top: 20px;
+.photo-section .img-container{
+   border-radius: 50%;
+   background-color: black;
+   height: 182px;
+   width: 182px;
+
+   
 }
 
-.photo-button input{
-   opacity: 0;
-   width: 50px;
-   height: 50px;
-   position: absolute;
-   top: 0;
-   left: 0;
-   cursor: pointer;
+.photo-section .img-container img:hover{
+   opacity: 0.5;
+}
+
+
+.offer-form .img-container img{
+   border-radius: 4px;
+   width: 380px;
+   height: 260px;
 }
 
 .photo-button span{
@@ -857,7 +853,7 @@ button:disabled{
    display: flex;
    align-items: center;
    gap: 10px;
-   top: -70%;
+   top: 25%;
    left: -40%;
    margin: 0;
    padding: 0;
@@ -880,8 +876,8 @@ button:disabled{
    display: flex;
    align-items: center;
    gap: 10px;
-   top: -90%;
-   left: -40%;
+   top: 10%;
+   left: 0%;
    margin: 0;
    padding: 0;
    height: 0;
@@ -895,9 +891,6 @@ button:disabled{
    font-weight: 400;
 }
 
-.profile-rate i{
-   color: var(--orange);
-}
 
 .letter-counter{
    width: 20px;
@@ -920,17 +913,14 @@ button:disabled{
 
 }
 
-@media only screen and (max-width: 1100px) {
+@media only screen and (max-width: 1150px) {
    .profile{
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 115px;
    }
-   .info-box{
-      width: auto;
-      max-width: 300px;
-   }
+
 
    .offers-display{
       display: flex;
@@ -968,30 +958,19 @@ button:disabled{
    flex-direction: column;
 }
 
-.review{
-   height: 280px;
-}
 
-.review .deals{
-   top: -60px;
-}
 
-.review .senderName{
-   top: -60px;
-}
+
 
 .review .review-content{
    color: var(--grey);
    font-weight: 400;
-   font-size: 16px;
+   font-size: 14px;
    position: relative;
-   top: -60px;
    
 }
 
-.stars{
-   top: -60px;
-}
+
 
 }
 
@@ -1000,10 +979,15 @@ button:disabled{
 }
 
 .profile-deals, .profile-rate{
-   left: -50%;
+   left: -35%;
    font-size: 14px;
 }
 
+
+.profile-deals  path, .profile-rate  path{
+   width: 20px;
+   height: 19px;
+}
 
 
 @media only screen and (max-width: 500px) {
@@ -1017,15 +1001,32 @@ button:disabled{
       gap: 115px;
       padding: 20px;
    }
-   .info-box{
-      width: auto;
-   }
+
 
    .offers-display{
       display: flex;
       flex-direction: column;
+      width: 310px;
       gap: 30px;
       margin-left: 0;
+ }
+
+ .user-info-display{
+   max-width: 310px;
+ }
+
+ .offers-section{
+   width: 310px;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+ }
+
+
+
+ .dis{
+   width: 300px;
  }
 
    .home{
@@ -1049,6 +1050,7 @@ button:disabled{
    flex-direction: column;
    align-items: center;
    gap: 100px;
+
 }
 
 .reviews-title{
@@ -1064,29 +1066,40 @@ button:disabled{
 
 .review{
    height: 280px;
+   min-width: 300px;
    width: 300px;
+   gap: 10px;
+   margin: 0%;
 }
 
-.review .deals{
-   top: -60px;
+.stars .star{
+   width: 17px;
 }
+
 
 .review .senderName{
-   top: -60px;
+   align-self: flex-start;
+   color: var(--orange);
+   position: relative;
+   font-weight: 500;
+   font-size: 16px;
+   max-width: 60px;
+   overflow: hidden;
+   text-overflow: ellipsis;
 }
+
 
 .review .review-content{
    color: var(--grey);
    font-weight: 400;
-   font-size: 14px;
+   font-size: 12px;
    position: relative;
-   top: -60px;
+   min-height: auto;
+
    
 }
 
-.stars{
-   top: -60px;
-}
+
 
 .fields {
    width: 300px;
@@ -1097,6 +1110,8 @@ button:disabled{
 .bio{
    width: 300px;
 }
+
+
 
 .offer-form{
    width: 300px;
@@ -1259,48 +1274,7 @@ textarea:valid ~ .offer-placeholder > h3{
    font-size: 14px;
 }
 
-.offer-top{
-   margin-bottom: 0;
-}
-
-.offer-top span{
-      align-self: flex-end;
-      justify-self: flex-end;
-      left:0%;
-   }
-
-.offer{
-   width: 300px;
-   height: 200px;
-   display: flex;
-   flex-direction: column;
-   justify-content: space-between;
-}
-
-
-
-.offer-content{
-   width: 260px;
-   margin: 20px;
-}
-
-.offer-content h3{
-   width: 280px;
-   font-size: 13px;
-}
-
 
 }
 
-.setting{
-   position:absolute;
-   right: 5%;
-   top: 105%;
-   transition: 0.2s;
-   color: var(--grey);
-}
 
-.setting:hover{
-   transform:  scale(1.02);
-   color: var(--orange);
-}

@@ -43,7 +43,8 @@ export const AuthContextProvider = ({children}) => {
     const [password, setPassword] = useState()
     const [offers, setOffers] = useState()
     const [value, setValue] = useState('')
-
+    const [photoChange, setPhotoChange] = useState(null)
+    const [offerPhoto, setOfferPhoto] = useState(null)
 
     useEffect(() => {
         const unsub = onAuthStateChanged(auth, (currentUser) => {
@@ -75,7 +76,7 @@ export const AuthContextProvider = ({children}) => {
     }
 
 
-    const createUserData =(displayName, email, bio, messanger, instagram, phoneNumber, photoURL, password) => {
+    const createUserData =(displayName, email, bio, messanger, instagram, phoneNumber, dis, photoURL, password) => {
         return addDoc(cr, {
             id: auth.currentUser.uid,
             name : displayName,
@@ -88,6 +89,7 @@ export const AuthContextProvider = ({children}) => {
             stars: 0,
             photoURL: photoURL,
             password: password,
+            dis: dis,
  
         })
         
@@ -100,7 +102,8 @@ export const AuthContextProvider = ({children}) => {
             phoneNumber: phoneNumber,
             content: content,
             price: price,
-            photoURl: user?.photoURL
+            photoURl: user?.photoURL,
+            offerImage: offerPhoto
         })
 
 
@@ -198,7 +201,7 @@ const deleteRequest = (docRef) => {
 
 
 
-const updateUser = async(email, pEmail, docId, bio, pBio, messenger, pMessenger, instagram, pInstagram, phone, pPhone, name, pName) => {
+const updateUser = async(email, pEmail, docId, bio, pBio, messenger, pMessenger, instagram, pInstagram, phone, pPhone, name, pName, dis, pDis) => {
     const credentials = EmailAuthProvider.credential(
         auth?.currentUser.email,
         password && password
@@ -213,6 +216,7 @@ const updateUser = async(email, pEmail, docId, bio, pBio, messenger, pMessenger,
         messanger: messenger? messenger : pMessenger,
         instagram: instagram? instagram : pInstagram,
         phoneNumber: phone? phone : pPhone == '00000000'? 'Not available' : pPhone,
+        dis: dis? dis : pDis,
     })
     navigate('/profile')
     
@@ -220,7 +224,7 @@ const updateUser = async(email, pEmail, docId, bio, pBio, messenger, pMessenger,
 }
 
 
-const createReview = (senderId, senderPhoto,senderName, resId, resName, content, rate, docId, isFirstReview, deals, rri, rci, stars, udid) => {
+const createReview = (senderId, senderPhoto,senderName, resId, resName, content, rate, docId, isFirstReview, deals, rri, rci, stars, udid, senderBio) => {
         
     
         if(isFirstReview){
@@ -234,6 +238,7 @@ const createReview = (senderId, senderPhoto,senderName, resId, resName, content,
                 content: content? content : null,
                 rate: rate,
                 deals: 1,
+                senderBio: senderBio
             })
         }
         else {
@@ -250,7 +255,9 @@ const createReview = (senderId, senderPhoto,senderName, resId, resName, content,
 
 
 
-const upload = async(file, currentUser, setLoading, docRef) => {
+const upload = async(currentUser, setLoading, docRef) => {
+
+    const file = photoChange
     const fileRef = ref(storage, currentUser.uid + ".png")
 
     setLoading(true)
@@ -274,7 +281,7 @@ const upload = async(file, currentUser, setLoading, docRef) => {
         }
             )
     })
-    
+    setPhotoChange(null)
     setLoading(false)
     
 
@@ -284,7 +291,7 @@ const upload = async(file, currentUser, setLoading, docRef) => {
 
 
     return(
-        <UserContext.Provider value={{CreateUser, user, logout, signIn, setUserName, createUserData, upload, createOffer, deleteOffer, createRequest, refuseRequest, acceptRequest, deleteRequest, createReview, updateUser, offers, search, cancelSearch, value, setValue}}>
+        <UserContext.Provider value={{CreateUser, user, logout, signIn, setUserName, createUserData, upload, createOffer, deleteOffer, createRequest, refuseRequest, acceptRequest, deleteRequest, createReview, updateUser, offers, search, cancelSearch, value, setValue, photoChange, setPhotoChange, offerPhoto, setOfferPhoto}}>
             {children}
         </UserContext.Provider>
     )

@@ -14,8 +14,8 @@ function Search() {
       if(window.location.pathname != '/'){
            scrollTo(0, 300)
             navigate('/')
-            search()
-      }
+          }
+          search()
     }
     
     const handleCancel= (e) => {
@@ -45,9 +45,7 @@ function Search() {
             <button>search</button>
         
           </form>
-        {window.location.pathname == '/profile' && 
-          <MdSettings className="setting" size='30px'  onClick={() => {navigate('/settings'), scrollTo(0, -50)}}/>
-        }
+
     </div>
   )
 }

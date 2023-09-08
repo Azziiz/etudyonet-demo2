@@ -6,6 +6,8 @@ import Navbar from '../components/Navbar'
 import { useEffect } from 'react';
 import tiket from '../assets/tiket.webp'
 import '../styles/main.css'
+import '../styles/offer.css'
+
 import emailIcon from '../assets/email.webp'
 import messangerIcon from '../assets/messanger.webp'
 import instagramIcon from '../assets/instagram.webp'
@@ -17,6 +19,7 @@ import { UserAuth } from '../context/AuthContext';
 import { FaStar } from 'react-icons/fa'
 import avatar from '../assets/avatar.webp'
 import Search from '../components/Search'
+import Offer from '../components/Offer'
 
 function User() {
   const {createRequest, deleteRequest, createReview, user} = UserAuth()
@@ -50,6 +53,7 @@ function User() {
   const [reviewAdded, setReviewAdded] = useState(false)
   const [requestCancel, setRequestCancel] = useState(false)
   const [requestSent, setRequestSent] = useState(false)
+  const [bio, setBio] = useState('')
 
   
   
@@ -101,6 +105,12 @@ function User() {
       })
   })
 
+  onSnapshot((query(cr, where('email', '==',`${user?.email}`))), (data) => {
+    data.docs.forEach(doc => {
+      setBio(doc.data().bio)
+    })
+  })
+
   },  [user])
 
 
@@ -129,7 +139,7 @@ const handleReview = (e) => {
   e.preventDefault()
   setRequestState(null)
   deleteRequest(doc(db, 'requests', `${requestId}`))
-  createReview(auth.currentUser.uid, auth.currentUser.photoURL, auth.currentUser.displayName, User.id, User.name, reviewContent, reviewRate, reviewId, isFirstReview, deals, rri, rci, stars, docId)
+  createReview(auth.currentUser.uid, auth.currentUser.photoURL, auth.currentUser.displayName, User.id, User.name, reviewContent, reviewRate, reviewId, isFirstReview, deals, rri, rci, stars, docId, bio)
   setReviewAdded(true)
   setTimeout(() => {setReviewAdded(false)}, 1500)
 }
@@ -139,61 +149,44 @@ const handleReview = (e) => {
 const firstName = User.name?.split(' ')[0]
 
 const renderOffers = offers?.map(offer => 
-  <div className='offer'>
-      <div className='offer-top'>
-        <img src={User?.photoURL == '/assets/avatar-28c1f46a.png'? avatar : User.photoURL} alt="" />
-        <div>
-          <h3>{User?.name}</h3>
-          <div className='phoneNumber'>
-            {User?.phoneNumber == 'Not available'?
-              <h2>Not available</h2>:
-              <>
-                <h2>+216</h2>
-                <h2>{User?.phoneNumber?.substr(0, 2)}</h2>
-                <h2>{User?.phoneNumber?.substr(2, 3)}</h2>
-                <h2>{User?.phoneNumber?.substr(5, 5)}</h2>
-              </>
-            }
-          </div>
-        </div>
-      </div>
-      <div className='offer-content'>
-        <h3>{offer.data().content}</h3>
-      </div>
-      <div className="offer-footer">
-        <h4>STARTING AT<span>{offer.data().price}DT</span></h4>
-      </div>
-  </div>
+  <Offer offer={offer}/>
 )
 
 
 const renderReviews = reviews?.map(review => 
   review.data().content != null &&
-    
-      <div className="review">
-        <img src={review.data().senderPhoto? review.data().senderPhoto : avatar} alt=""/>
-        <div className="deals">
-          <h3>{review.data().deals}x</h3>
-          <i className="fa-regular fa-handshake fa-xl" ></i>
-        </div>
-        <h2 className="senderName">{review.data().senderName}</h2>
-        <h2 className="review-content">{review.data().content}</h2>
-        <div className='stars'>
-            {[...Array(5)].map((star, index) => {    
-              const currentRating = index + 1;
-              return(
-                <label>
-                  <FaStar 
-                    className='star' 
-                    size={25} 
-                    color={currentRating <= review.data().rate ? "#ffc107" : "#e4e5e9"}
-                  />
-                </label>
-              );
-            })}
-          </div>
-  
+  <div className="review" key={review.id}>
+  <div className="deals">
+    <i className="fa-regular fa-handshake fa-xl" ></i>
+    <h3>{review.data().deals}</h3>
+  </div>
+
+  <h2 className="review-content">{review.data().content}</h2>
+
+  <div className="review-bottom"> 
+    <div className="sender-section">
+      <img src={review.data().senderPhoto? review.data().senderPhoto : avatar} alt=""/>
+      <div className="sender-info">
+        <h2 className="senderName">{review.data().senderName?.split(' ')[0]}</h2>
+        <h2 className='senderBio'>{review.data().senderBio}</h2>
       </div>
+    </div>
+    <div className='stars'>
+        {[...Array(5)].map((star, index) => {    
+          const currentRating = index + 1;
+          return(
+            <label>
+              <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 20 19" fill={currentRating <= review.data().rate ? "#ffc107" : "#e4e5e9"} className='star'>
+                <path transform='scale(0.6)' d="M17.5 0L23.1574 9.50482L34.1435 11.8328L26.6539 20.035L27.7862 30.9786L17.5 26.543L7.21376 30.9786L8.34608 20.035L0.85651 11.8328L11.8426 9.50482L17.5 0Z" fill="#FFB800"/>
+              </svg>
+            </label>
+          );
+        })}
+      </div>
+  </div>
+      
+</div>
+  
 
     
   
@@ -222,13 +215,17 @@ const renderReviews = reviews?.map(review =>
         </div>
     <div className='profile'>
       <div className="fields">
+      <div className='user-info-display'>
+
       <div className='photo-section'>
       <div className="profile-deals">
             <i className="fa-regular fa-handshake fa-xl" ></i>
             <h3>{User && tDeals? tDeals : "0"}</h3>
           </div>
           <div className="profile-rate">
-            <i className="fa-solid fa-star fa-xl"></i>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="19" viewBox="0 0 20 19" fill="#FFB800">
+              <path transform='scale(0.6)' d="M17.5 0L23.1574 9.50482L34.1435 11.8328L26.6539 20.035L27.7862 30.9786L17.5 26.543L7.21376 30.9786L8.34608 20.035L0.85651 11.8328L11.8426 9.50482L17.5 0Z" fill="#FFB800"/>
+            </svg>
             <h3>{User && (stars/tDeals)? (stars/tDeals).toFixed(1) : "0"}</h3>
           </div>
         <img src={User?.photoURL == '/assets/avatar-28c1f46a.png'? avatar : User.photoURL}/>
@@ -247,6 +244,7 @@ const renderReviews = reviews?.map(review =>
           }
         </div>
         <div className='bio'>{User && User.bio}</div>
+      </div>
         
         {requestState == null && <form className='offer-form' onSubmit={handleRequest}>
           <div className='offer-box'>
@@ -328,13 +326,9 @@ const renderReviews = reviews?.map(review =>
               value={currentRating}
               onClick={() => {setReviewRate(currentRating)}}
            />
-            <FaStar 
-              className='star' 
-              size={25} 
-              color={currentRating <= (hover || reviewRate || rri) ? "#ffc107" : "#e4e5e9"}
-              onMouseEnter={() => setHover(currentRating)}
-              onMouseLeave={() => setHover(null)}
-            />
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" onMouseEnter={() => setHover(currentRating)}  onMouseLeave={() => setHover(null)} fill={currentRating <= (hover || reviewRate || rri) ? "#ffc107" : "#e4e5e9"}  className='star'>
+              <path transform='scale(1)' d="M17.5 0L23.1574 9.50482L34.1435 11.8328L26.6539 20.035L27.7862 30.9786L17.5 26.543L7.21376 30.9786L8.34608 20.035L0.85651 11.8328L11.8426 9.50482L17.5 0Z" fill={currentRating <= (hover || reviewRate || rri) ? "#ffc107" : "#e4e5e9"}/>
+            </svg>
           </label>
         );
       })}
@@ -383,6 +377,17 @@ const renderReviews = reviews?.map(review =>
             </a>
             }
           </div>   
+        </div>
+        <div className="dis">
+            <div className="title">
+              <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26" fill="none">
+                <path d="M13 25C19.6274 25 25 19.6274 25 13C25 6.37258 19.6274 1 13 1C6.37258 1 1 6.37258 1 13C1 19.6274 6.37258 25 13 25Z" stroke="#333C41" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M9.3999 9.40001C9.3999 5.19998 15.9999 5.20001 15.9999 9.40001C15.9999 12.4 12.9999 11.7999 12.9999 15.3999" stroke="#333C41" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M13 20.2121L13.0119 20.1987" stroke="#333C41" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <h2>About {firstName} : </h2>
+            </div>
+            <h3>{User?.dis}</h3>
         </div>
       </div>
 

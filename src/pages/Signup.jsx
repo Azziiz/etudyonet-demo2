@@ -14,6 +14,7 @@ function Signup() {
     const [messanger, setMessanger] = useState('')
     const [instagram, setInstagram] = useState('')
     const [phoneNumber, setPhoneNumber] = useState('')
+    const [dis, setDis] = useState('')
     const [error, setError] = useState('')
     const [photo, setPhoto] = useState()
     const {CreateUser,  setUserName, user, createUserData} = UserAuth()
@@ -27,7 +28,7 @@ function Signup() {
         try{
              await CreateUser(email, password)
              await setUserName(displayName)
-             await createUserData(displayName, email, bio, messanger? messanger : 'Not available', instagram? instagram : 'Not available', phoneNumber? phoneNumber : 'Not available' , avatar, password)
+             await createUserData(displayName, email, bio, messanger? messanger : 'Not available', instagram? instagram : 'Not available', phoneNumber? phoneNumber : 'Not available', dis? dis : 'Not available', avatar, password)
              navigate('/profile')
 
 
@@ -55,8 +56,9 @@ function Signup() {
                     <span>Password*</span>
                 </div >
                 <div className='inputBox'>
-                    <input onChange={(e) => {setBio(e.target.value)}} type="text" placeholder=' ' required/>
+                    <textarea  onChange={(e) => {setBio(e.target.value)}}   placeholder=' ' required maxLength={100}/>
                     <span>Bio*</span>
+                    <p className='letter-counter'>{bio.length}/100</p>
                 </div>
             </div>
             <div className="not-required">
@@ -71,6 +73,11 @@ function Signup() {
                 <div className='inputBox'>
                     <input type='url' onChange={(e) => {setInstagram(e.target.value)}}  placeholder=' '/>
                     <span>Instagram profile link (optional)</span>
+                </div>
+                <div className='inputBox'>
+                    <textarea  onChange={(e) => {setDis(e.target.value)}}   placeholder=' '  maxLength={600}/>
+                    <span>Description (optional)</span>
+                    <p className='letter-counter'>{dis.length}/600</p>
                 </div>
             </div>
 

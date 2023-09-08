@@ -8,6 +8,7 @@
    padding: 0;
    box-sizing: border-box;
 }
+
 .auth {
 position: absolute;
 top: 10%;
@@ -37,7 +38,8 @@ flex-direction: column;
    display: flex;
    flex-direction: column;
    position: absolute;
-   top: 0%;
+   height: 100%;
+   top: -5%;
    gap: 1rem;
    width: 100%;
    min-width: 300px;
@@ -66,7 +68,14 @@ flex-direction: column;
 }
 
 
+.form .fill .inputBox textarea {
+   width: 100%;
+}
 
+.form .fill .inputBox .letter-counter{
+   position: absolute;
+   left: 85%;
+}
 
 
 #auth .form button{
@@ -179,6 +188,18 @@ flex-direction: column;
    background-color: white;
 }
 
+.inputBox textarea:placeholder-shown ~ p{
+   color: var(--grey);
+}
+
+
+.inputBox textarea:focus ~ p,
+.inputBox textarea:not(:placeholder-shown) ~ p
+{
+   color: orange;
+
+}
+
 
 #error{
    background-color: lightcoral;
@@ -200,7 +221,7 @@ flex-direction: column;
 @media only screen and (max-height: 650px) {
    #auth {
       position: absolute;
-      top: 30%;
+      top: 20%;
       height: 100dvh;
       width: 100dvw;
       display: flex;
@@ -230,7 +251,7 @@ flex-direction: column;
 @media only screen and (max-height: 500px) {
    #auth {
       position: absolute;
-      top: 45%;
+      top: 30%;
       height: 100dvh;
       width: 100dvw;
       display: flex;
