@@ -95,7 +95,7 @@ export const AuthContextProvider = ({children}) => {
         
     }
 
-    const createOffer = async(name, phoneNumber, content, price, photoURL) => {        
+    const createOffer = async(name, phoneNumber, content, price, photoURL, dis) => {        
         await addDoc(crOF, {
             authorId: auth.currentUser.uid,
             name: name,
@@ -103,7 +103,8 @@ export const AuthContextProvider = ({children}) => {
             content: content,
             price: price,
             photoURl: user?.photoURL,
-            offerImage: offerPhoto
+            offerImage: offerPhoto,
+            dis: dis
         })
 
 

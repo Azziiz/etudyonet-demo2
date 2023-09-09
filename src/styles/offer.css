@@ -9,30 +9,29 @@
 
 
  .offer{
-    width: 380px;
+    width: 260px;
     height: 400px;
     background-color: white;
     display: flex;
     flex-direction: column;
+    border-radius: 4px;
+    overflow: hidden;
 
 }
 
 .offer svg{
-   position: absolute;
-   margin: 10px;
    transition: 0.2s;
    
 }
 
-.offer svg:hover{
-   transform: scale(1.2);
-}
+
 
 
 .offer-image{
    width: 100%;
    height: 230px;
-   border-bottom: 0.5px solid var(--grey);
+
+
 
 }
 
@@ -45,6 +44,14 @@
 
 .offer-top{
    width: 100%;
+   display: flex;
+   gap: 5px;
+   height: 50px;
+   justify-content: space-between;
+   align-items: flex-start;
+}
+
+.maker-info{
    display: flex;
    gap: 5px;
    height: 50px;
@@ -69,11 +76,12 @@
 }
 
 .offer-content{
-   width: 100%;
+   width: 90%;
    height: 80px;
    color: var(--grey);
    font-size: 16px;
    font-weight: 500;
+   word-wrap: break-word;
 }
 
 .offer-footer{

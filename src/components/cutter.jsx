@@ -18,8 +18,8 @@ import logo from '../assets/logo.webp'
 
 // Styles
 const boxStyle = {
-  width: "500px",
-  height: "500px",
+  width: "300px",
+  height: "300px",
   display: "flex",
   flexFlow: "column",
   justifyContent: "center",
@@ -55,7 +55,7 @@ const CropperModal = ({ src, modalOpen, setModalOpen, setPreview}) => {
         <AvatarEditor
           ref={cropRef}
           image={src}
-          style={{ width: "100%", height: "68.5%" }}
+          style={{ width: "100%", height: "100%" }}
           border={30}
           borderRadius={0}
           color={[0, 0, 0, 0.72]}

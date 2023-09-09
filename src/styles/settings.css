@@ -18,7 +18,40 @@
  margin-top: 120px;
  }
 
- @media only screen and (max-width: 500px) {
+ .settings form{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 90%;
+    gap: 50px;
+    flex-wrap: wrap;
+ }
+
+ .req, .op{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+ }
+
+
+
+ .settings .inputBox{
+    width: 380px;
+}
+
+.settings .inputBox input, .settings .inputBox textarea{
+    width: 380px;
+}
+
+.settings .inputBox input{
+    height: 60px;
+}
+
+
+
+
+ @media only screen and (max-width: 800px) {
     .settings{
         height: 100dvh;
         width: 100dvw;
@@ -26,6 +59,7 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
+        margin-top: 200px;
         }
 
         .settings .inputBox{
@@ -42,9 +76,8 @@
 
         .settings form{
             width: 280px;
-            display: flex;
             flex-direction: column;
-            gap: 10px;
-            align-self: center;
+            align-items: center;
+           
         }
  }

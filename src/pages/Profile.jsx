@@ -136,7 +136,7 @@ useEffect(() => {
     document.getElementById('offer-image-input').value = ''
     document.getElementById('offer-image').disabled = false
     document.getElementById('price').blur()
-    createOffer(user.displayName, phoneNumber, offerContent, offerPrice, photoURL)
+    createOffer(user.displayName, phoneNumber, offerContent, offerPrice, photoURL, bio)
     setOfferContent('')
     setOfferDone(true)
     setTimeout(() => {setOfferDone(false)}, 1500)
@@ -298,7 +298,7 @@ const renderOffers = offers?.map(offer =>
           <div className='info'>
             {instagram == 'Not available'?
               <div className='not-avai'>
-                <img src={messangerIcon} alt="" />                
+                <img src={instagramIcon} alt="" />                
                 <h3>Not available</h3>
               </div>
               :
@@ -330,7 +330,7 @@ const renderOffers = offers?.map(offer =>
 
       <div className='offers-display' id='offers-display'>
         <div className='offers-section-title'>
-          <img src={tiket} alt="" />
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#333C41" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
           <h3>{firstName}'s offers</h3>
         </div>
         <div className='offers-section'>
@@ -339,7 +339,7 @@ const renderOffers = offers?.map(offer =>
       </div>
        <div className="reviews">
         <div className='reviews-title'>
-        <span className="material-symbols-outlined">history_edu</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#333C41" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
         <h2>Reviews: ({rNum})</h2>
         </div>
         <div className="reviews-content">

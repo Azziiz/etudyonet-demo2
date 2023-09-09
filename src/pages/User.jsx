@@ -364,7 +364,7 @@ const renderReviews = reviews?.map(review =>
           <div className='info'>
             {User?.instagram == 'Not available'?
               <div className='not-avai'>
-                <img src={messangerIcon} alt="" />                
+                <img src={instagramIcon} alt="" />                
                 <h3>Not available</h3>
               </div>
               :
