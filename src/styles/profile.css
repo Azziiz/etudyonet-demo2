@@ -943,6 +943,7 @@ button:disabled{
    align-self: center;
    display: flex;
    flex-direction: column;
+   align-items: center;
  }
  
  .reviews{
@@ -1022,7 +1023,7 @@ button:disabled{
  }
 
  .offers-section{
-   width: 310px;
+   width: 100%;
    display: flex;
    flex-direction: column;
    align-items: center;
