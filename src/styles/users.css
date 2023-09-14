@@ -1,0 +1,44 @@
+:root{
+    --orange: #FF8C00;
+    --grey: #333C41;
+}
+
+#user{
+    width: 340px;
+    height: 360px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: 0.2s;
+    border-radius: 4px;
+}
+
+#user:hover{
+    border: 1px solid var(--orange);
+}
+
+
+#user .photo-section{
+    display: flex;
+    width: 100%;
+}
+
+#user .photo-section img{
+    width: 180px;
+    border-radius: 50%;
+    align-self: center;
+    margin-top: 20px;
+}
+
+#user .profile-rate{
+    position: relative;
+    top: 30px;
+    left: 5%;
+}
+
+#user .profile-deals{
+    position: relative;
+    top: 60px;
+    left: 5%;
+}

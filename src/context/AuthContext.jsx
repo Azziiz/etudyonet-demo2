@@ -42,6 +42,7 @@ export const AuthContextProvider = ({children}) => {
     const Filtre = query(collection(db, 'offers'), where('authorId', '==',`${auth.currentUser?.uid}`))
     const [password, setPassword] = useState()
     const [offers, setOffers] = useState()
+    const [users, setUsers] = useState()
     const [value, setValue] = useState('')
     const [photoChange, setPhotoChange] = useState(null)
     const [offerPhoto, setOfferPhoto] = useState(null)
@@ -133,6 +134,11 @@ useEffect(() => {
         onSnapshot(crOF, (data) => {
             setOffers(data.docs)  
         })
+        onSnapshot(cr, (data) => {
+            setUsers(data.docs)
+        })
+            
+        
     }
 
     onSnapshot(query(collection(db, 'users'), where('id', '==', `${auth?.currentUser?.uid}`)), (data) => {
@@ -173,9 +179,17 @@ const search = () => {
                 }
               })
             )
+            setUsers(
+                data.docs.filter(doc => {
+                    if(doc.data().name?.toLowerCase().includes(value?.toLowerCase()) || doc.data().bio?.toLowerCase().includes(value?.toLowerCase()) ) {
+                      return doc
+                    }
+                  })
+            )
         }
         else{
                 setOffers(data.docs)
+                setUsers(data.docs)
             }
 
 
@@ -186,6 +200,9 @@ const search = () => {
 const cancelSearch = () => {
     onSnapshot(crOF, (data) => {
         setOffers(data.docs)
+    })
+    onSnapshot(cr, (data) => {
+        setUsers(data.docs)
     })
   
 }
@@ -292,7 +309,7 @@ const upload = async(currentUser, setLoading, docRef) => {
 
 
     return(
-        <UserContext.Provider value={{CreateUser, user, logout, signIn, setUserName, createUserData, upload, createOffer, deleteOffer, createRequest, refuseRequest, acceptRequest, deleteRequest, createReview, updateUser, offers, search, cancelSearch, value, setValue, photoChange, setPhotoChange, offerPhoto, setOfferPhoto}}>
+        <UserContext.Provider value={{CreateUser, user, logout, signIn, setUserName, createUserData, upload, createOffer, deleteOffer, createRequest, refuseRequest, acceptRequest, deleteRequest, createReview, updateUser, offers, search, cancelSearch, value, setValue, photoChange, setPhotoChange, offerPhoto, setOfferPhoto, users}}>
             {children}
         </UserContext.Provider>
     )

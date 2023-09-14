@@ -24,6 +24,8 @@ function navbar() {
   const [noti1, setNoti1] = useState(0)
   const [noti2, setNoti2] = useState(0)
   const [drop, setDrop] = useState(0)
+  const [drop2, setDrop2] = useState(0)
+  const [width, setWidth] = useState(window.innerWidth)
 
 useEffect(() => {
   user && setPhoto(user.photoURL)
@@ -56,31 +58,37 @@ useEffect(() => {
   return (
 
     <header className='navbar'>
+
       <div id='logo' onClick={() => {navigate('/'), scrollTo(0, 0)}}>
         <img src={logo} alt="" />
         <h2>Etudyo<span>net</span></h2>
       </div>
+
       <ul className='middle-section'>
             <li id={window.location.pathname == '/' ? 'home' : 'undefined'} onClick={() => {navigate('/'), scrollTo(0, 0)}} >Home</li>
             <li id={window.location.pathname == '/about' ? 'about' : 'undefined'} onClick={() => {navigate('/about')}}>About</li>
             <li id={window.location.pathname == '/contact' ? 'contact' : 'undefined'} onClick={() => {navigate('/#')}}>Contact</li>
       </ul>
-      {user &&
-        <div className='drop-down' >
-          <ul>
-          <li onClick={() => {navigate('/notifications')}} title='notifications'>
-                  {(noti2 + noti1) != '0' && <div id='hey'>{noti1 + noti2}</div>}
-                  <MdOutlineNotifications size='24px' color={window.location.pathname == '/notifications' ? '#FF8C00' : '#333C41'}/>
-            </li>
-          </ul>
-          <span class="material-symbols-outlined" onClick={() => {setDrop(1)}}>menu</span>
 
+      {user &&
+        <div className='drop-down'>
+          {drop2 == 1 &&
+            <div className="black-space">
+              <span class="material-symbols-outlined"  onClick={() => {setDrop2(2),setTimeout(() => {setDrop2(0)}, 700)}}>close</span>
+              <h1>hi</h1>
+            </div>
+          }
+          {drop2 == 2 && 
+            <div className="black-space2" >
+              <span class="material-symbols-outlined"  onClick={() => {setDrop(2)}}>close</span>
+              <h1>hi</h1>
+            </div>
+          }
           {drop == 1 &&
             <div className='white-space'>
               <span class="material-symbols-outlined"  onClick={() => {setDrop(2),setTimeout(() => {setDrop(0)}, 700)}}>close</span>
               <ul className='links'>
                 <li onClick={() => {navigate('/profile'), scrollTo(0, 0)}} id={window.location.pathname == '/profile' ? 'profile' : 'undefined'} title='profile'>Profile</li>
-                
                 <li id={window.location.pathname == '/' ? 'home' : 'undefined'} onClick={() => {navigate('/'), scrollTo(0, 0)}} >Home</li>
                 <li id={window.location.pathname == '/about' ? 'about' : 'undefined'} onClick={() => {navigate('/about')}}>About</li>
                 <li id={window.location.pathname == '/contact' ? 'contact' : 'undefined'} onClick={() => {navigate('/#')}}>Contact</li>
@@ -89,43 +97,36 @@ useEffect(() => {
             </div>
           }
           {drop == 2 &&
-          <>
-              <div className='white-space2'>
+            <div className='white-space2'>
               <span class="material-symbols-outlined"  onClick={() => {setDrop(2)}}>close</span>
               <ul className='links'>
                 <li onClick={() => {navigate('/profile'), scrollTo(0, 0)}} id={window.location.pathname == '/profile' ? 'profile' : 'undefined'} title='profile'>Profile</li>
-                
                 <li id={window.location.pathname == '/' ? 'home' : 'undefined'} onClick={() => {navigate('/'), scrollTo(0, 0)}} >Home</li>
                 <li id={window.location.pathname == '/about' ? 'about' : 'undefined'} onClick={() => {navigate('/about')}}>About</li>
                 <li id={window.location.pathname == '/contact' ? 'contact' : 'undefined'} onClick={() => {navigate('/#')}}>Contact</li>
                 <li onClick={() => {setDrop(0), logout}}><button>Logout</button></li>
               </ul>
             </div>
-
-          </>
-              
           }
         </div>
       }
 
-    
-    {user?
-      <ul className='user-section'>
-          <li onClick={() => {navigate('/notifications'),scrollTo(0, 0)}} title='notifications'>
-            {
-                (noti2 + noti1) != '0' && <div id='hey'>{noti1 + noti2}</div>
-                
-            }
-            
+      {user?
+        <ul className='user-section'>
+          <li onClick={() => {setDrop2(1)}} title='notifications' id='notifications'>
+            {(noti2 + noti1) != '0' && <div id='hey'>{noti1 + noti2}</div>}
             <MdOutlineNotifications size='24px' color={window.location.pathname == '/notifications' ? '#FF8C00' : '#333C41'}/>
-            </li>
-          <li onClick={() => {navigate('/profile'), scrollTo(0, 0)}} title='profile'>{photo ? <img src={photo} /> : <img src={avatar}/>}</li>
+          </li>
+          <li id='menu'><span class="material-symbols-outlined" onClick={() => {setDrop(1)}}>menu</span></li>
+          <li onClick={() => {navigate('/profile'), scrollTo(0, 0)}} title='profile' id="nav-img">{photo ? <img src={photo} /> : <img src={avatar}/>}</li>
           <button id='logout' onClick={() => {logout()}}>Logout</button>
-      </ul> : 
-      <div id='sginin-section'>
-        <button id='signin' onClick={() => {navigate('/signin'), scrollTo(0, 0)}}>Sign in</button>
-      </div>
-    }
+        </ul>
+        :
+        <div id='sginin-section'>
+          <button id='signin' onClick={() => {navigate('/signin'), scrollTo(0, 0)}}>Sign in</button>
+        </div>
+      }
+
     </header>
 
   )

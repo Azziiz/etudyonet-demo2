@@ -186,29 +186,66 @@ header ul li:hover {
 }
 
 .drop-down{
-    display: none;  
+    position: absolute;
+    display: flex;
+    gap: 10px;
+    justify-self: flex-end;
+    width: 100%;
+    max-width: 600px;
+    right: 0%;
+    height: 100%;
+    align-items: flex-start;
+
+    
 }
 
-.white-space{
+
+.black-space{
     display: flex;
-    justify-self: end;
+    justify-self: flex-end;
     justify-content: center;
-    width: calc(100dvw - 30px);
+    width: 100%;
     height: 100vh;
     min-width: 300px;
     background-color: var(--grey);
     opacity: 1;
-    position: absolute;
+    position: relative;
     z-index: 100000;
-    top: -100%;
     transition: 1s;
-    right: -40%;
+    top: 0%;
     animation-name: slide;
     animation-duration: 0.7s;
     
 }
 
-.white-space  span{
+.black-space2{
+    display: flex;
+    justify-self: flex-end;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    min-width: 300px;
+    background-color: var(--grey);
+    opacity: 1;
+    position: relative;
+    z-index: 100000;
+    transition: 1s;
+    top: 0%;
+    animation-name: slide;
+    animation-duration: 0.7s;
+    animation-direction: reverse;
+    
+}
+
+#menu{
+    display: none;
+}
+
+
+
+
+
+.white-space  span, .black-space span{
     position: absolute;
     color: white;
     opacity: 1;
@@ -231,7 +268,7 @@ header ul li:hover {
 }
 
 
-.white-space ul li {
+.white-space ul li, .black-space ul li {
     color: white;
 }
 
@@ -257,27 +294,9 @@ header ul li:hover {
 }
 
 
-.white-space2{
-    display: flex;
-    justify-self: end;
-    justify-content: center;
-    width: calc(100dvw - 50px);
-    height: 100vh;
-    min-width: 300px;
-    background-color: var(--grey);
-    opacity: 1;
-    position: absolute;
-    z-index: 100000;
-    top: -100%;
-    transition: 1s;
-    right: -40%;
-    animation-name: slide;
-    animation-duration: 0.7s;
-    animation-direction: reverse;
-    
-}
 
-.white-space2  span{
+
+.white-space2  span, .black-space2 span{
     position: absolute;
     color: white;
     opacity: 1;
@@ -287,17 +306,67 @@ header ul li:hover {
 
 
 
-.white-space2 ul li {
+.white-space2 ul li , .black-space2 ul li {
     color: white;
 }
 
-.white-space2 ul li button, .white-space ul li button{
+.white-space2 ul li button, .white-space ul li button, .black-space2 ul li button, .black-space ul li button{
     width: 100px;
     height: 45px;
     box-shadow: none;
 }
 
 @media only screen and (max-width: 700px) {
+
+    .white-space{
+        display: flex;
+        justify-self: flex-end;
+        justify-content: center;
+        width: 100%;
+        height: 100vh;
+        min-width: 300px;
+        background-color: var(--grey);
+        opacity: 1;
+        position: relative;
+        z-index: 100000;
+        transition: 1s;
+        top: 0%;
+        animation-name: slide;
+        animation-duration: 0.7s;
+        
+    }
+    
+    .white-space2{
+        display: flex;
+        justify-self: flex-end;
+        justify-content: center;
+        width: 100%;
+        height: 100vh;
+        min-width: 300px;
+        background-color: var(--grey);
+        opacity: 1;
+        position: relative;
+        z-index: 100000;
+        transition: 1s;
+        top: 0%;
+        animation-name: slide;
+        animation-duration: 0.7s;
+        animation-direction: reverse;
+        
+    }
+    
+    
+
+    .user-section{
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        width: 100px;
+    }
+
+    #menu{
+        display: flex;
+    }
 
     header{
         position: fixed;
@@ -329,20 +398,11 @@ header ul li:hover {
         height: 90%;
     }
 
-    .user-section{
+    #nav-img, #logout{
         display: none;
     }
 
-    .drop-down{
-        position: relative;
-        display: flex;
-        gap: 10px;
-        justify-self: flex-end;
-        width: 20vw;
-        align-items: center;
-        align-items: center;
-        
-    }
+
 
 
 
