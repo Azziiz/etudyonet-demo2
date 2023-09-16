@@ -3,66 +3,313 @@
     --grey: #333C41;
 }
 
-body{
-    background-color: #F1F1F1;
-    font-family: 'Dancing Script', cursive;
-    font-family: 'Poppins', sans-serif;
-    overflow-x: hidden;
-}
-
-
 .notification{
-    width: 100%;
-    height: 100dvh;
-    margin-top: 20px;
-    margin-bottom: 100px;
-    padding-left: 50px;
-    padding-right: 50px;
+   display: flex;
+   flex-direction: column;
 }
 
-
-.noti-content{
-    width: 100%;
-    margin-top: 130px;
+.state-section{
     display: flex;
-    align-items: baseline;
-    justify-content: center;
-    gap: 10px;
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    width: 90%;
+    max-width: 380px;
+    min-width: 300px;
+    margin: 10px;
+    align-self: center;
+ }
+ 
+ .refused-state-section{
+    display: flex;
+    flex-direction: column;
+    border-radius: 4px;
+    width: 90%;
+    max-width: 380px;
+    min-width: 300px;
+    margin: 10px;
+    align-self: center;
+ }
+
+ .RequestR-all{
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    max-width: 380px;
+    min-width: 300px;
+    margin: 10px;
+    align-self: center;
 }
 
-
-.sent{
-    padding-top: 0;
-    background-color: white;
+.accept-state-section{
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 500px;
+    width: 90%;
+    max-width: 380px;
     min-width: 300px;
+    margin: 10px;
+    align-self: center;
+ }
 
-}
 
 
-.sent .sent-content{
-    margin-top: 50px;
-    padding: 30px;
-}
 
-.sent .sent-content .state-section .waiting{
-    padding-top: 0;
-    margin-top: 0;
-}
 
-.sent h5 {
-    color: var(--orange);
-    padding-top: 20px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid var(--orange);
+.waiting{
+    display: flex;
+    align-items: center;
+    position: relative;
     width: 100%;
-    text-align: center;
+    height: 65px;
+    margin-top: 20px;
+    background: rgba(255, 140, 0, 0.40);
+    justify-content: center;
+    gap: 20px;
+    padding-left: 40px;
+    padding-right: 40px;
+    border-radius: 4px;
+ }
+ 
+ .waiting span{
+    width: 25px;
+    height: 25px;
+    border-radius: 0%;
+    color: white;
+ 
+ }
+ 
+ .waiting h2{
+    font-size: 14px;
+    font-weight: 400;
+    color: white;
+ }
+ 
+ .cancel-request{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    height: 65px;
+    background: transparent;
+    border: 1px solid var(--orange);
+    padding-left: 45px;
+    padding-right: 45px;
+    gap: 20px;
+    border-radius: 4px;
+    transition: 0.2s;
+ }
+ 
+ 
+ .cancel-request:hover{
+    scale: 1.02;
+    cursor: pointer;
+ }
+ 
+ 
+ .cancel-request h2{
+    font-size: 16px;
     font-weight: 500;
-    font-size: 20px;
+    color: var(--orange);
+ }
+ 
+ .cancel-request span{
+    border-radius: 0;
+    width: 25px;
+    height: 25px;
+    color: var(--orange);
+ }
+ 
+
+ 
+ .refused{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 65px;
+    margin-top: 10px;
+    background: var(--grey);
+    justify-content: center;
+    gap: 20px;
+    padding-left: 40px;
+    padding-right: 40px;
+    border: 1px solid white;
+    border-radius: 4px;
+    margin-bottom: 10px;
+ 
+ }
+
+ .profile-button{
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+ }
+ 
+ 
+ 
+ .refused span{
+    width: 25px;
+    height: 25px;
+    border-radius: 0%;
+    color: white;
+ 
+ }
+ 
+ .refused h2{
+    font-size: 16px;
+    font-weight: 400;
+    color: white;
+ }
+ 
+ .message-title{
+    display: flex;
+    align-items: center;
+    justify-content: baseline;
+    width: 100%;
+    height: 65px;
+    background: white;
+    padding: 10px;
+    gap: 20px;
+    transition: 0.2s;
+ }
+ 
+ .message-title span{
+    color: var(--orange);
+ }
+ 
+ .message-title h2{
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--orange);
+ }
+ .message{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 4px;
+    overflow: hidden;
+ }
+ 
+ .message > h2{
+    margin: 10px 20px 30px 20px;
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--grey);
+ }
+ 
+
+ 
+ 
+ 
+ .accept{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 65px;
+    margin-top: 60px;
+    background: var(--orange);
+    justify-content: center;
+    gap: 20px;
+    border-radius: 4px;
+ 
+ }
+ 
+ .accept span{
+    width: 25px;
+    height: 25px;
+    border-radius: 0%;
+    color: white;
+ }
+ 
+ .accept h2{
+    font-size: 16px;
+    font-weight: 400;
+    color: white;
+ }
+ 
+ .feedback-section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-left: 10;
+    width: 100%;
+    padding: 0;
+    gap: 5px;
+ 
+ 
+ }
+ .feedback-section div{
+    background-color: white;
+    position: relative;
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+ }
+ 
+ .feedback-section input{
+    width: 100%;
+ 
+ }
+ 
+ .feedback-section label{
+    display: flex;
+    align-items: center;
+    justify-content: baseline;
+    width: 100%;
+    height: 65px;
+    gap: 20px;
+    transition: 0.2s;
+ }
+ 
+ .feedback-section label h2{
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--orange);
+ }
+ 
+ .feedback-section label span{
+    color: var(--orange);
+ }
+ 
+ .feedback-section div{
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+ 
+ }
+ 
+ .feedback-section .stars{
+    display: flex;
+    flex-direction: row;
+    width: auto;
+    padding: 0;
+    margin: 0;
+    gap: 0;
+ }
+ 
+ 
+ .ck-section .stars > label{
+    padding: 0;
+    margin: 0;
+    width: auto;
+    margin-left: 20px;
+ }
+ 
+ .stars > label{
+    padding: 0;
+    margin: 0;
+    width: auto;
+    margin-left: 10px;
+ }
+
+ .feedback-section button{
+   width: 100%;
 }
 
 
@@ -75,13 +322,13 @@ body{
     justify-content: center;
     width: 380px;
     height: 65px;
-    background: #F1F1F1;
+    background: transparent;
     border: 1px solid var(--orange);
     padding-left: 45px;
     padding-right: 45px;
     gap: 20px;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     transition: 0.2s;
+    border-radius: 4px;
 }
 
 
@@ -133,12 +380,14 @@ body{
 }
 
  .requestR{
-    width: 400px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     border: 1px solid var(--grey);
     padding: 30px;
-    margin: 20px;
+    margin: 20px 0px 20px 0px;
+    background-color: white;
+    border-radius: 4px;
  }
 
 
@@ -173,7 +422,8 @@ body{
 
 
 .requestR .the-content img{
-    width: 20px;
+    width: 30px;
+    height: 30px;
 }
 
 
@@ -208,97 +458,43 @@ body{
 }
 
 
+
+
 .justify{
-    align-self: flex-start;
-    margin-right: 20px;
-    padding: 0%;
-    margin-top: 20px;
-    width: 270px;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
     
 }
 
 .justify .inputBox, .justify .inputBox input,  .justify button{
-    width: 340px;
+    width: 100%;
     margin-bottom: 5px;
     align-self: center;
-
 }
 
+#thanks{
+    background-color: transparent;
+    color: var(--orange);
+    border: 1px solid var(--orange);
+}
 
 
  
 @media only screen and (max-width: 500px) {
-    .notification{
-        padding: 2%;
-         width: 100%;
-         height: 100dvh;
-         margin-top: 20px;
-         margin-bottom: 100px;
-         display: flex;
-         flex-direction: column;
+
+    .notification .state-section, .notification .refused-state-section, .notification .RequestR-all, .notification .accept-state-section{
+        scale: 0.8;
+
      }
 
+     .state-section, .notification .refused-state-section, .notification .RequestR-all, .notification .accept-state-section{
+      scale: 0.8;
 
-     
-.justify{
-    width: 240px;
-    margin: 0;
-    margin-top: 10px;
-    align-self: center;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
+   }
 
 
-
-.justify .inputBox, .justify .inputBox input,  .justify button{
-    width: 220px;
-    align-self: center;
-
-}
-
-
-
-
-     .notification h5 {
-        width: 300px;
-     }
-
-     .noti-content{
-        width: 300px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 0;
-        align-self: center;
-     }
-
-     .sent{
-        width: 300px;
-     }
-
-     .received{
-        width: 300px;
-    }
-
-    .requestR{
-        width: 250px;
-        padding: 10px;
-        
-     }
-
-     .requestR .request-content{
-        align-self: flex-start;
-        margin: 0;
-        display: flex;
-        flex-direction: column;
-        gap: 25px;
-     }
-
-     .requestR .the-content p{
-        font-size: 15px;
-        font-weight: 400;
-    }
-    
 }

@@ -170,30 +170,33 @@ input:focus{
 #searchbar{
     width: 67%;
     height: 100%;
+    padding: 0 10px 0 10px;
     font-size: 100%;
     outline: transparent;
     border-radius: 4px;
     border: none;
 }
 
-.search-area button{
-    width: 11%;
+#search{
+    width: 15%;
+    max-width: 120px;
     height: 100%;
-    padding: 5px;
     font-size: 100%;
     min-height: 34px;
+    margin: 10px;
+    padding: 0%;
 }
 
 #cancel{
     position: relative;
-    background-color: white;
     height: 100%;
-    left: -2px;
+    right: 24px;
+    width: 0;
+    border-radius: 4px;
+    background-color: white;
     display: flex;
     align-items: center;
-    margin-right: 2%;
     outline: transparent;
-    border-radius: 0;
     min-height: 34px;
     
 
@@ -218,6 +221,7 @@ input:focus{
     display: flex;
     gap: 20px;
     flex-wrap: wrap;
+    align-items: center;
 }
 
 
@@ -333,6 +337,17 @@ input:focus{
     top: -20%;
    }
 
+   @media only screen and (max-width: 800px) {
+    .users-section{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+    }
+
+   }
 
 
    @media only screen and (max-width: 500px) {
@@ -348,6 +363,8 @@ input:focus{
 
     }
 
+
+
     .search-area button{
         width: 20%;
         height: 65px;
@@ -358,12 +375,14 @@ input:focus{
 
     #searchbar{
         font-size: 14px;
+        overflow: hidden;
         
     }
 
     .cancel{
         font-size: 10px;
         height: 100%;
+
     }
 
 

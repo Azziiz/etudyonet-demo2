@@ -10,13 +10,9 @@ import UntiProtectedRoute from './pages/UntiProtectedRoute'
 import User from './pages/User'
 
 import NotFound from './pages/NotFound'
-import Notification from './pages/Notification'
 import About from './pages/About'
 import Settings from './pages/Settings'
 import Navbar from './components/Navbar'
-
-
-
 import './styles/main.css'
 import { useState } from 'react'
 
@@ -35,7 +31,6 @@ function App() {
           <Route path='/settings' element={<ProtectedRoute><Settings/></ProtectedRoute>}/>
           <Route path='/profile' element={<ProtectedRoute><Profile/></ProtectedRoute>}/>
           <Route path='/users/:id' element={<User/>}/>
-          <Route path='/notifications' element={<ProtectedRoute><Notification/></ProtectedRoute>}/>
           <Route path='/signin' element={<UntiProtectedRoute><Signin/></UntiProtectedRoute>}/>
           <Route path='/signup' element={<UntiProtectedRoute><Signup/></UntiProtectedRoute>}/>
           <Route path="*" element={<NotFound/>} />   

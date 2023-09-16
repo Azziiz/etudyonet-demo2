@@ -9,6 +9,7 @@ import { useNavigate} from 'react-router-dom'
 import { MdOutlineNotifications } from "react-icons/md";
 import { CgLogOut } from "react-icons/cg";
 import {VscSignIn } from 'react-icons/vsc'
+import Noti from './Noti'
 
 
 
@@ -58,12 +59,10 @@ useEffect(() => {
   return (
 
     <header className='navbar'>
-
       <div id='logo' onClick={() => {navigate('/'), scrollTo(0, 0)}}>
         <img src={logo} alt="" />
         <h2>Etudyo<span>net</span></h2>
       </div>
-
       <ul className='middle-section'>
             <li id={window.location.pathname == '/' ? 'home' : 'undefined'} onClick={() => {navigate('/'), scrollTo(0, 0)}} >Home</li>
             <li id={window.location.pathname == '/about' ? 'about' : 'undefined'} onClick={() => {navigate('/about')}}>About</li>
@@ -74,19 +73,19 @@ useEffect(() => {
         <div className='drop-down'>
           {drop2 == 1 &&
             <div className="black-space">
-              <span class="material-symbols-outlined"  onClick={() => {setDrop2(2),setTimeout(() => {setDrop2(0)}, 700)}}>close</span>
-              <h1>hi</h1>
+              <span className="material-symbols-outlined close"  onClick={() => {setDrop2(2),setTimeout(() => {setDrop2(0)}, 700)}}>close</span>
+              <Noti />
             </div>
           }
           {drop2 == 2 && 
             <div className="black-space2" >
-              <span class="material-symbols-outlined"  onClick={() => {setDrop(2)}}>close</span>
-              <h1>hi</h1>
+              <span className="material-symbols-outlined close"  onClick={() => {setDrop(2)}}>close</span>
+              <Noti />
             </div>
           }
           {drop == 1 &&
             <div className='white-space'>
-              <span class="material-symbols-outlined"  onClick={() => {setDrop(2),setTimeout(() => {setDrop(0)}, 700)}}>close</span>
+              <span className="material-symbols-outlined close"  onClick={() => {setDrop(2),setTimeout(() => {setDrop(0)}, 700)}}>close</span>
               <ul className='links'>
                 <li onClick={() => {navigate('/profile'), scrollTo(0, 0)}} id={window.location.pathname == '/profile' ? 'profile' : 'undefined'} title='profile'>Profile</li>
                 <li id={window.location.pathname == '/' ? 'home' : 'undefined'} onClick={() => {navigate('/'), scrollTo(0, 0)}} >Home</li>
@@ -98,7 +97,7 @@ useEffect(() => {
           }
           {drop == 2 &&
             <div className='white-space2'>
-              <span class="material-symbols-outlined"  onClick={() => {setDrop(2)}}>close</span>
+              <span className="material-symbols-outlined close"  onClick={() => {setDrop(2)}}>close</span>
               <ul className='links'>
                 <li onClick={() => {navigate('/profile'), scrollTo(0, 0)}} id={window.location.pathname == '/profile' ? 'profile' : 'undefined'} title='profile'>Profile</li>
                 <li id={window.location.pathname == '/' ? 'home' : 'undefined'} onClick={() => {navigate('/'), scrollTo(0, 0)}} >Home</li>

@@ -42,7 +42,7 @@ function Search() {
             <div id='cancel' >
                 {value && <span className="material-symbols-outlined"onClick={handleCancel} >close</span>}    
             </div>
-            <button>search</button>
+            <button id='search'>search</button>
         
           </form>
 

@@ -16,7 +16,7 @@ header{
     padding-right: 20px;
     height: 70px;
     background-color: white;
-    
+    z-index: 10000;
 }
 
 
@@ -26,6 +26,7 @@ header ul {
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 10000;
 }
 
 header ul li {
@@ -196,6 +197,7 @@ header ul li:hover {
     height: 100%;
     align-items: flex-start;
 
+
     
 }
 
@@ -205,17 +207,18 @@ header ul li:hover {
     justify-self: flex-end;
     justify-content: center;
     width: 100%;
-    height: 100vh;
+    height: 101vh;
     min-width: 300px;
     background-color: var(--grey);
     opacity: 1;
-    position: relative;
+    position: absolute;
     z-index: 100000;
     transition: 1s;
     top: 0%;
     animation-name: slide;
     animation-duration: 0.7s;
-    
+    overflow-y: scroll;
+
 }
 
 .black-space2{
@@ -223,7 +226,7 @@ header ul li:hover {
     justify-self: flex-end;
     justify-content: center;
     width: 100%;
-    height: 100vh;
+    height: 120vh;
     min-width: 300px;
     background-color: var(--grey);
     opacity: 1;
@@ -234,6 +237,8 @@ header ul li:hover {
     animation-name: slide;
     animation-duration: 0.7s;
     animation-direction: reverse;
+    overflow-y: scroll;
+
     
 }
 
@@ -245,7 +250,7 @@ header ul li:hover {
 
 
 
-.white-space  span, .black-space span{
+.close{
     position: absolute;
     color: white;
     opacity: 1;
@@ -296,7 +301,7 @@ header ul li:hover {
 
 
 
-.white-space2  span, .black-space2 span{
+.close{
     position: absolute;
     color: white;
     opacity: 1;
@@ -323,7 +328,7 @@ header ul li:hover {
         justify-self: flex-end;
         justify-content: center;
         width: 100%;
-        height: 100vh;
+        height: 120dvh;
         min-width: 300px;
         background-color: var(--grey);
         opacity: 1;
@@ -333,6 +338,8 @@ header ul li:hover {
         top: 0%;
         animation-name: slide;
         animation-duration: 0.7s;
+        overflow-y: scroll;
+        padding: 20px;
         
     }
     
@@ -341,7 +348,7 @@ header ul li:hover {
         justify-self: flex-end;
         justify-content: center;
         width: 100%;
-        height: 100vh;
+        height: 120dvh;
         min-width: 300px;
         background-color: var(--grey);
         opacity: 1;
@@ -352,6 +359,8 @@ header ul li:hover {
         animation-name: slide;
         animation-duration: 0.7s;
         animation-direction: reverse;
+        overflow-y: scroll;
+        padding: 20px;
         
     }
     
@@ -381,6 +390,7 @@ header ul li:hover {
         transition: 0.5s;
         height: 70px;
         background-color: white;
+        z-index: 100000;
     }
     
     .middle-section{
@@ -408,10 +418,9 @@ header ul li:hover {
 
 
 
-
-
     #logo{
         width: 10vw;
+        z-index: 10000;
     }
 
     .navbar img{
