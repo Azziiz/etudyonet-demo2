@@ -52,7 +52,7 @@ function Signup() {
                     <span>Email*</span>
                 </div>
                 <div className='inputBox'>
-                    <input onChange={(e) => {setPassword(e.target.value)}} type="passowrd" placeholder=' ' required/>
+                    <input onChange={(e) => {setPassword(e.target.value)}} type="password" placeholder=' ' required/>
                     <span>Password*</span>
                 </div >
                 <div className='inputBox'>
