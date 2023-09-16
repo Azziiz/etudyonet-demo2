@@ -34,7 +34,7 @@ function Signin() {
             <span>Email</span>      
         </div>
         <div className='inputBox'>
-            <input onChange={(e) => {setPassword(e.target.value)}} type="passowrd"  id='password' placeholder=' ' required/>
+            <input onChange={(e) => {setPassword(e.target.value)}} type="password"  id='password' placeholder=' ' required/>
             <span>Password</span>
         </div>
         <button>Sign In</button>
